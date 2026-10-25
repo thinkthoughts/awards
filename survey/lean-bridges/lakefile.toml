@@ -20,3 +20,15 @@ rev = "89b43fa019337645b4c2c66ae917bcb1fe76450f"
 
 [[lean_lib]]
 name = "SurveyBridges"
+
+# Comparator pairs, run by survey/scripts/compare_bridges.sh with configs in Comparator/.
+# Not default targets: Challenge modules carry `sorry` by design, and Comparator builds both
+# sides itself. Challenges import only lean-bgp212; Solutions import SurveyBridges modules.
+
+[[lean_lib]]
+name = "SurveyChallenge"
+globs = ["SurveyChallenge.+"]
+
+[[lean_lib]]
+name = "SurveySolution"
+globs = ["SurveySolution.+"]

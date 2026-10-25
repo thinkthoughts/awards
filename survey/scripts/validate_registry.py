@@ -28,8 +28,12 @@ SURVEY = ROOT / "survey"
 SCHEMAS = SURVEY / "schemas"
 REGISTRY = SURVEY / "registry"
 LAYERS = ["sources", "objects", "specs", "readings", "edges", "evidence"]
-LOCAL_VERIFIED = {"kernel-checked", "comparator-accepted"}   # checks run for the survey
-VERIFIED = {"comparator-accepted"}   # architecture v2: kernel proof plus Comparator acceptance
+# Verification policy:
+#   kernel-checked          kernel acceptance and axiom audit                    -> Compiled
+#   comparator-nonisolated  Comparator acceptance without sandbox isolation      -> Compiled
+#   comparator-accepted     Comparator acceptance under Linux landrun isolation  -> Verified
+LOCAL_VERIFIED = {"kernel-checked", "comparator-nonisolated", "comparator-accepted"}   # checks run for the survey
+VERIFIED = {"comparator-accepted"}
 LIFT_RELATIONS = {"reading-of", "equivalent", "implies", "special-case", "supplies-hypothesis"}
 
 
@@ -90,8 +94,9 @@ def load_records(path: Path = SURVEY / "data" / "records.json") -> dict:
 def lift_state(edge: dict) -> str:
     """The four-state summary of an edge: Proposed, Specified, Compiled, Verified.
 
-    Verified means Comparator accepted the proof against an independently written Challenge
-    (architecture v2). A kernel check alone leaves the edge at Compiled."""
+    Verified means Comparator accepted the proof against an independently written Challenge with
+    its commands sandboxed by landrun on Linux. A kernel check, or Comparator acceptance without
+    sandbox isolation, leaves the edge at Compiled."""
     s = edge["state"]
     if s["verification"] in VERIFIED:
         return "Verified"
@@ -146,7 +151,7 @@ def validate(reg: dict, records: dict) -> list[str]:
         ev_ids = rec.get("evidence", [])
         if st["verification"] != "unverified" and not ev_ids:
             errors.append(f"{owner}: verification {st['verification']} needs evidence")
-        kinds = set()
+        kinds, isolations = set(), set()
         for ev_id in ev_ids:
             ev = evidence.get(ev_id)
             if ev is None:
@@ -155,10 +160,15 @@ def validate(reg: dict, records: dict) -> list[str]:
             if owner not in ev["subjects"]:
                 errors.append(f"{owner}: evidence {ev_id} does not list it as a subject")
             kinds.add(ev["kind"])
-        wanted = {"kernel-checked": {"kernel-check", "comparator"}, "comparator-accepted": {"comparator"},
-                  "upstream-reported": {"upstream-record"}}.get(st["verification"])
+            if ev["kind"] == "comparator":
+                isolations.add(ev.get("isolation"))
+        wanted = {"kernel-checked": {"kernel-check", "comparator"}, "comparator-nonisolated": {"comparator"},
+                  "comparator-accepted": {"comparator"}, "upstream-reported": {"upstream-record"}}.get(st["verification"])
         if wanted and not kinds & wanted:
             errors.append(f"{owner}: verification {st['verification']} needs evidence of kind {sorted(wanted)}")
+        if st["verification"] == "comparator-accepted" and "landrun-linux" not in isolations:
+            errors.append(f"{owner}: comparator-accepted (Verified) needs Comparator evidence run under "
+                          f"Linux landrun isolation; a non-isolated run is comparator-nonisolated")
 
     for oid, o in objects.items():
         check_lean_refs(oid, o["lean"])
@@ -238,6 +248,10 @@ def validate(reg: dict, records: dict) -> list[str]:
         for dep in ev.get("dependencies", []):
             if dep not in sources:
                 errors.append(f"{vid}: dependency {dep} is absent from sources.json")
+        if ev["kind"] == "comparator" and ev.get("isolation") not in {"landrun-linux", "non-isolating"}:
+            errors.append(f"{vid}: Comparator evidence states its isolation (landrun-linux or non-isolating)")
+        if ev["kind"] != "comparator" and "isolation" in ev:
+            errors.append(f"{vid}: isolation applies to Comparator evidence only")
         if ev["kind"] == "upstream-record":
             if ev.get("source") not in sources:
                 errors.append(f"{vid}: upstream evidence names a source from sources.json")

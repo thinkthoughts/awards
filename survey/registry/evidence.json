@@ -324,6 +324,88 @@
     "Classical.choice"
    ],
    "sorry_free": null
+  },
+  {
+   "id": "EV-0006",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-041-2"
+   ],
+   "kind": "comparator",
+   "isolation": "non-isolating",
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/H1LeMono.lean",
+     "sha256": "a94992d6f4e7115309a7f27999e8cc351620dd756c6a2f1c10ad025c371f3176"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/H1LeMono.lean",
+     "sha256": "fd7e963e2fce1bd486905b3f51447c9ea1d4f6b5053883c9ef921e7dbede2c0c"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/H1LeMono.lean",
+     "sha256": "3be3ce313a06fcbb4438ff43bae0afeb42f7a737c7761f9e5c78f60e1dca4ded"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/h1le_mono.json",
+     "sha256": "a7c668c88e56554f800c8efe7f84529afc812ccd214a02cb8a3586c65291780f"
+    },
+    {
+     "path": "survey/scripts/landrun-noisolate.sh",
+     "sha256": "3ed80c9de685eb7565dc8db993ff7098027ac237bf2296ec74fdcc27f6da3253"
+    },
+    {
+     "path": "survey/evidence/comparator/h1le_mono-macos-nonisolated.log",
+     "sha256": "c1791de6bc93bf95e8b2900a2bf2230db4f417a59fc67557f35b60ee96df650b"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.h1Le_mono"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "COMPARATOR_LANDRUN=\"$HOME/awards/survey/scripts/landrun-noisolate.sh\" survey/scripts/compare_bridges.sh ~/lean-bgp212 ~/comparator-v4.34.0-rc2 survey/lean-bridges/Comparator/h1le_mono.json 2>&1 | tee ~/comparator-runs/h1le_mono-macos-nonisolated.log",
+   "tool": "Lean Comparator 19e111e2141cf333c7daff0f64c5f24acc91dd2e with lean4export cacf989bd75f608700820f6afc595f32e7a99a4d; Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+   "result": "Lean default kernel accepts the solution / Your solution is okay! / comparator: all configs accepted (isolation: non-isolating). Challenge and Solution both exported Survey.PrimeBridges.h1Le_mono; the Challenge's sorry is the expected challenge warning. Full output: survey/evidence/comparator/h1le_mono-macos-nonisolated.log.",
+   "axioms": {
+    "Survey.PrimeBridges.h1Le_mono": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-25",
+   "machine": "Dan Hawkley's Mac (host Darwin 25.2.0 arm64); run by the user; Claude inspected the complete 30-line log",
+   "comparator": {
+    "comparator_commit": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+    "comparator_tree": "clean",
+    "comparator_binary_sha256": "5337a210c48cc4f008aa3f6725cc93100c1370de8ece20d3244f9e3ff1199d1c",
+    "lean4export_commit": "cacf989bd75f608700820f6afc595f32e7a99a4d",
+    "lean4export_tree": "clean",
+    "lean4export_binary_sha256": "86ac903a8d040bc79a3a59ee4816e0a0a961f7f864100f1a8e154820297e756a",
+    "toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "lean_commit": "6a10ac8c22beadecabdbb0919c2b50214762f91d",
+    "lean_bgp212": "89b43fa019337645b4c2c66ae917bcb1fe76450f (clean)",
+    "host": "Darwin 25.2.0 arm64",
+    "runner": "/Users/danhawkley/awards/survey/scripts/landrun-noisolate.sh",
+    "runner_sha256": "3ed80c9de685eb7565dc8db993ff7098027ac237bf2296ec74fdcc27f6da3253",
+    "runner_description": "survey non-isolating runner (no sandbox)",
+    "systemd_unit": "none",
+    "config": "survey/lean-bridges/Comparator/h1le_mono.json",
+    "config_sha256": "a7c668c88e56554f800c8efe7f84529afc812ccd214a02cb8a3586c65291780f",
+    "compare_script_sha256": "eca223c2339aa77cf7106fb61f5c4ddfe1c9809500cabcb530a2dc839dabd892",
+    "log": "survey/evidence/comparator/h1le_mono-macos-nonisolated.log",
+    "log_sha256": "c1791de6bc93bf95e8b2900a2bf2230db4f417a59fc67557f35b60ee96df650b",
+    "exit_status": "0 (user-reported; echoed after tee, outside the log)"
+   },
+   "notes": "Non-isolated Comparator acceptance: the runner provided no sandbox, so this records comparator-nonisolated and LIFT-041-2 stays Compiled with its obligation open. compare_script_sha256 is the committed script (last modified before the run; the log itself prints no hash for it). Verified needs a Comparator run under landrun on Linux (survey/docs/COMPARATOR_RUNS.md)."
   }
  ]
 }

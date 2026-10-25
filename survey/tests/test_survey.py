@@ -201,6 +201,90 @@ class RegistryTests(unittest.TestCase):
         for f in bridges:
             self.assertIn(f"import SurveyBridges.{f.stem}", audit)
 
+    def test_comparator_pairs_are_independent_and_exact(self):
+        import re
+
+        def statement(text, short):
+            m = re.search(rf"theorem {re.escape(short)}\b(.*?):=", text, re.S)
+            return " ".join(m.group(1).split()) if m else None
+
+        bridges = SURVEY / "lean-bridges"
+        lakefile = (bridges / "lakefile.toml").read_text(encoding="utf-8")
+        self.assertIn('name = "SurveyChallenge"', lakefile)
+        self.assertIn('name = "SurveySolution"', lakefile)
+        self.assertIn('defaultTargets = ["SurveyBridges"]', lakefile)
+        edges = {e["id"]: e for e in self.reg["edges"]["edges"]}
+        configs = sorted((bridges / "Comparator").glob("*.json"))
+        self.assertTrue(configs)
+        for cfg_path in configs:
+            cfg = json.loads(cfg_path.read_text(encoding="utf-8"))
+            self.assertEqual(sorted(cfg["permitted_axioms"]), sorted(["propext", "Quot.sound", "Classical.choice"]))
+            self.assertFalse(cfg.get("definition_names"), "definition holes would weaken the comparison")
+            chal = bridges / (cfg["challenge_module"].replace(".", "/") + ".lean")
+            sol = bridges / (cfg["solution_module"].replace(".", "/") + ".lean")
+            chal_text, sol_text = chal.read_text(encoding="utf-8"), sol.read_text(encoding="utf-8")
+            chal_imports = re.findall(r"^import\s+(\S+)", chal_text, re.M)
+            self.assertTrue(chal_imports and all(i.startswith("BGP212.") for i in chal_imports), chal)
+            sol_imports = re.findall(r"^import\s+(\S+)", sol_text, re.M)
+            self.assertIsNone(re.search(r"\b(sorry|admit|native_decide)\b", sol_text), sol)
+            for name in cfg["theorem_names"]:
+                short = name.rsplit(".", 1)[-1]
+                chal_stmt = statement(chal_text, short)
+                self.assertIsNotNone(chal_stmt, f"{name} missing from {chal}")
+                proof_files = [bridges / (i.replace(".", "/") + ".lean") for i in sol_imports
+                               if i.startswith("SurveyBridges.")]
+                proof_stmts = [statement(f.read_text(encoding="utf-8"), short) for f in proof_files]
+                self.assertIn(chal_stmt, proof_stmts, f"{name}: Challenge and Solution statements differ")
+                edge = next(e for e in edges.values() if e["statement"].get("lean_name") == name)
+                self.assertIn(short, edge["statement"]["lean"])
+                for ev_id in edge.get("evidence", []):
+                    ev = next(e for e in self.reg["evidence"]["evidence"] if e["id"] == ev_id)
+                    for f in ev.get("files", []):
+                        if any(str(pf).endswith(f["path"].split("survey/", 1)[1]) for pf in proof_files):
+                            self.assertEqual(sha256(ROOT / f["path"]), f["sha256"])
+
+    def test_only_isolated_comparator_acceptance_verifies(self):
+        cmp_ev = {"id": "EV-TEST-CMP", "layer": "L4", "subjects": ["LIFT-041-2"], "kind": "comparator",
+                  "isolation": "non-isolating", "declarations": ["Survey.PrimeBridges.h1Le_mono"],
+                  "result": "Your solution is okay!", "axioms": {"Survey.PrimeBridges.h1Le_mono":
+                  ["propext", "Classical.choice", "Quot.sound"]},
+                  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"], "sorry_free": True}
+
+        def with_run(isolation, verification, obligation):
+            def mutate(r):
+                ev = dict(cmp_ev, isolation=isolation)
+                r["evidence"]["evidence"].append(ev)
+                e = self.edge(r, "LIFT-041-2")
+                e["state"]["verification"] = verification
+                e["evidence"] = e["evidence"] + ["EV-TEST-CMP"]
+                e["obligation"] = obligation
+            return mutate
+
+        # non-isolated acceptance is recorded, stays Compiled, keeps the obligation open
+        self.assertEqual(self.errors_after(with_run("non-isolating", "comparator-nonisolated", "open")), [])
+        self.assertRejected(with_run("non-isolating", "comparator-nonisolated", "discharged"),
+                            "discharged exactly when it is Verified")
+        # a non-isolated run cannot be recorded as Verified
+        self.assertRejected(with_run("non-isolating", "comparator-accepted", "discharged"),
+                            "needs Comparator evidence run under Linux landrun isolation")
+        # isolated acceptance verifies and discharges
+        self.assertEqual(self.errors_after(with_run("landrun-linux", "comparator-accepted", "discharged")), [])
+        # Comparator evidence must state its isolation
+        def no_isolation(r):
+            ev = dict(cmp_ev); ev.pop("isolation")
+            r["evidence"]["evidence"].append(ev)
+        self.assertRejected(no_isolation, "states its isolation")
+
+    def test_nonisolating_runner_is_marked_and_detected(self):
+        runner = (SURVEY / "scripts" / "landrun-noisolate.sh").read_text(encoding="utf-8")
+        script = (SURVEY / "scripts" / "compare_bridges.sh").read_text(encoding="utf-8")
+        self.assertEqual(runner.splitlines()[1], "# SURVEY-NONISOLATING-RUNNER")
+        self.assertIn("grep -q 'SURVEY-NONISOLATING-RUNNER'", script)
+        self.assertIn('echo "isolation: $ISOLATION"', script)
+        out = subprocess.run([str(SURVEY / "scripts" / "landrun-noisolate.sh"), "--ro", "/", "--rwx", ".",
+                              "--", sys.executable, "-c", "print('ran')"], capture_output=True, text=True, check=True)
+        self.assertEqual(out.stdout.strip(), "ran")
+
     def test_foundation_package_stays_core_only(self):
         lakefile = (SURVEY / "lean" / "lakefile.toml").read_text(encoding="utf-8")
         manifest = json.loads((SURVEY / "lean" / "lake-manifest.json").read_text(encoding="utf-8"))

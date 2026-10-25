@@ -1,0 +1,12 @@
+{
+    "challenge_module": "SurveyChallenge.H1LeMono",
+    "solution_module": "SurveySolution.H1LeMono",
+    "theorem_names": [
+        "Survey.PrimeBridges.h1Le_mono"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

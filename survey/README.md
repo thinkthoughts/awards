@@ -25,6 +25,8 @@ Leading specifications first. Admissible generalizations trail leading specifica
 | `lean/` | Core-only Lean project: `SurveyFoundation/OnePlusOne.lean` and its axiom audit |
 | `lean-bridges/` | Lean project requiring lean-bgp212 at `89b43fa`: `SurveyBridges/H1LeMono.lean`, `SurveyBridges/AdmissibleTwin.lean`, `SurveyBridges/TwinPrimeEquiv.lean`, `SurveyBridges/TwinPrimeTo186.lean` and their audit |
 | `scripts/` | Parser, classifier, provenance, registry validator, Lean check |
+| `docs/COMPARATOR_RUNS.md` | Verification policy and the pinned macOS and Linux Comparator procedures |
+| `evidence/comparator/` | Complete Comparator run logs cited by evidence records |
 | `tests/test_survey.py` | Regression tests (standard library only) |
 
 ## Commands
@@ -40,7 +42,16 @@ python3 survey/scripts/validate_registry.py --sources-dir DIR   # also look up c
 python3 -m unittest discover -s survey/tests -v
 survey/scripts/check_lean.sh <path-to-lean-4.34.0-rc2>          # kernel check + axiom audit
 survey/scripts/check_bridges.sh ~/lean-bgp212                    # bridge modules, against a built checkout
+survey/scripts/compare_bridges.sh ~/lean-bgp212 ~/comparator-v4.34.0-rc2   # Comparator on the pairs
 ```
+
+`compare_bridges.sh` runs Lean Comparator on each config in `lean-bridges/Comparator/`: the Challenge
+(`lean-bridges/SurveyChallenge/`, statement only, importing only lean-bgp212) against the Solution
+(`lean-bridges/SurveySolution/`, importing the kernel-checked bridge module unchanged). It needs a
+Comparator checkout built for Lean 4.34.0-rc2 (commit `19e111e`, lean4export `cacf989`), assembles a
+temporary workspace from copies of the existing lean-bgp212 build, and prints `isolation:
+landrun-linux` or `isolation: non-isolating`. Only acceptance under landrun on Linux moves a lift to
+Verified; procedures for both cases are in [`docs/COMPARATOR_RUNS.md`](docs/COMPARATOR_RUNS.md).
 
 `check_bridges.sh` requires the lean-bgp212 checkout to sit at the pinned commit with a clean tree
 and existing builds; it downloads and rebuilds nothing. `lake build` inside `survey/lean-bridges`
@@ -69,11 +80,19 @@ Every object, specification, reading and edge carries three independent states:
 | --- | --- | --- |
 | mathematical | objects: defined · specs: parametric, proved, open · readings: proved, open, refuted, independent · edges: established, candidate | Status of the mathematics itself |
 | formalization | prose, specified, compiled | How far the Lean statement exists |
-| verification | unverified, upstream-reported, kernel-checked, comparator-accepted | What checking stands behind it, with evidence |
+| verification | unverified, upstream-reported, kernel-checked, comparator-nonisolated, comparator-accepted | What checking stands behind it, with evidence |
 
-An edge's lift state summarizes these: Proposed (prose), Specified, Compiled, and Verified, which
-means Comparator accepted the proof against an independently written Challenge. A kernel check with
-an axiom audit (`kernel-checked`) keeps the edge at Compiled. Every lift is an open proof
+An edge's lift state summarizes these: Proposed (prose), Specified, Compiled, and Verified.
+
+| Check | Verification value | Lift state |
+| --- | --- | --- |
+| Kernel acceptance and axiom audit | `kernel-checked` | Compiled |
+| Comparator acceptance without sandbox isolation (e.g. macOS, `landrun-noisolate.sh`) | `comparator-nonisolated` | Compiled |
+| Comparator acceptance under landrun on Linux | `comparator-accepted` | Verified |
+
+Comparator evidence records `isolation` (`landrun-linux` or `non-isolating`), the Comparator and
+lean4export commits and binary hashes, the runner and its hash, and the exact Comparator output;
+the validator admits `comparator-accepted` only with `landrun-linux` evidence. Every lift is an open proof
 obligation until it is Verified;
 `upstream-reported` records a source repository's own verification and keeps the obligation open
 until the check is re-run for the survey. Analogy and scope-boundary edges carry obligation
@@ -89,8 +108,10 @@ general distinction, shared reading, and boundary.
   `Survey.Foundation.one_add_one`, proof term `rfl`, kernel check EV-0001 (no axioms), and its
   generalization SPEC-nat-add-one through LIFT-0001 (Compiled; Comparator pending).
 - First prime-gap bridge: `Survey.PrimeBridges.h1Le_mono` (LIFT-041-2), kernel-checked against
-  lean-bgp212 `89b43fa` with axioms propext, Classical.choice, Quot.sound (EV-0002; Compiled,
-  Comparator pending). Earlier evidence keeps the `14ec5e0` pin (source `lean-bgp212`).
+  lean-bgp212 `89b43fa` with axioms propext, Classical.choice, Quot.sound (EV-0002), and accepted
+  by Comparator `19e111e` against the independent Challenge on macOS without sandbox isolation
+  (EV-0006, `comparator-nonisolated`; log in `evidence/comparator/`). Compiled; the landrun run on
+  Linux remains. Earlier evidence keeps the `14ec5e0` pin (source `lean-bgp212`).
 - Second bridge: `Survey.PrimeBridges.admissible_twin : AdmissibleZ ({0, 2} : Finset ℤ)`
   (LIFT-009-5, a general distinction: membership of {0, 2} in the admissible shift sets).
   Kernel-checked on the user's MBP against lean-bgp212 `89b43fa` (EV-0003, axioms propext,

@@ -133,6 +133,17 @@
        "minLength": 1
       },
       "description": "Source ids (sources.json) whose pinned commits the run used."
+     },
+     "isolation": {
+      "enum": [
+       "landrun-linux",
+       "non-isolating"
+      ],
+      "description": "Comparator runs only: landrun-linux when Comparator's commands ran under landrun (Linux Landlock); non-isolating when a runner without sandboxing stood in for it."
+     },
+     "comparator": {
+      "type": "object",
+      "description": "Comparator runs only: Comparator and lean4export commits and binary hashes, sandbox runner and its hash, config hash."
      }
     }
    }

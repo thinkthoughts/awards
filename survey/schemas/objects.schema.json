@@ -80,6 +80,7 @@
          "unverified",
          "upstream-reported",
          "kernel-checked",
+         "comparator-nonisolated",
          "comparator-accepted"
         ]
        }
