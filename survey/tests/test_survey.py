@@ -187,6 +187,20 @@ class RegistryTests(unittest.TestCase):
         toolchains = {(SURVEY / d / "lean-toolchain").read_text(encoding="utf-8").strip() for d in ("lean", "lean-bridges")}
         self.assertEqual(toolchains, {sources["lean-bgp212-89b43fa"]["toolchain"]})
 
+    def test_bridge_sources_are_sorry_free_and_all_audited(self):
+        import re
+        bridges = sorted((SURVEY / "lean-bridges" / "SurveyBridges").glob("*.lean"))
+        script = (SURVEY / "scripts" / "check_bridges.sh").read_text(encoding="utf-8")
+        audit = (SURVEY / "lean-bridges" / "Audit.lean").read_text(encoding="utf-8")
+        listed = re.search(r"^MODULES=\((.*)\)$", script, re.M).group(1).split()
+        self.assertEqual(sorted(listed), [f.stem for f in bridges])
+        for f in bridges + sorted((SURVEY / "lean").rglob("*.lean")):
+            if ".lake" in f.parts:
+                continue
+            self.assertIsNone(re.search(r"\b(sorry|admit|native_decide)\b", f.read_text(encoding="utf-8")), f)
+        for f in bridges:
+            self.assertIn(f"import SurveyBridges.{f.stem}", audit)
+
     def test_foundation_package_stays_core_only(self):
         lakefile = (SURVEY / "lean" / "lakefile.toml").read_text(encoding="utf-8")
         manifest = json.loads((SURVEY / "lean" / "lake-manifest.json").read_text(encoding="utf-8"))

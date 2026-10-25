@@ -23,7 +23,7 @@ Leading specifications first. Admissible generalizations trail leading specifica
 | `registry/edges.json` | Typed PiπΠ lifts and other dependency edges |
 | `registry/evidence.json` | L4 verification evidence |
 | `lean/` | Core-only Lean project: `SurveyFoundation/OnePlusOne.lean` and its axiom audit |
-| `lean-bridges/` | Lean project requiring lean-bgp212 at `89b43fa`: `SurveyBridges/H1LeMono.lean` and its audit |
+| `lean-bridges/` | Lean project requiring lean-bgp212 at `89b43fa`: `SurveyBridges/H1LeMono.lean`, `SurveyBridges/AdmissibleTwin.lean` and their audit |
 | `scripts/` | Parser, classifier, provenance, registry validator, Lean check |
 | `tests/test_survey.py` | Regression tests (standard library only) |
 
@@ -91,5 +91,8 @@ general distinction, shared reading, and boundary.
 - First prime-gap bridge: `Survey.PrimeBridges.h1Le_mono` (LIFT-041-2), kernel-checked against
   lean-bgp212 `89b43fa` with axioms propext, Classical.choice, Quot.sound (EV-0002; Compiled,
   Comparator pending). Earlier evidence keeps the `14ec5e0` pin (source `lean-bgp212`).
-- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 21 edges in total.
-  Lift states: Compiled 3, Specified 15, Proposed 3; Verified 0.
+- Second bridge: `Survey.PrimeBridges.admissible_twin : AdmissibleZ ({0, 2} : Finset ℤ)`
+  (LIFT-009-5, a general distinction: membership of {0, 2} in the admissible shift sets).
+  Source committed; kernel check pending (`check_bridges.sh` on a machine with the lean-bgp212 build).
+- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 22 edges in total.
+  Lift states: Compiled 3, Specified 16, Proposed 3; Verified 0.

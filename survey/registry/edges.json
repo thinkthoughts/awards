@@ -259,7 +259,7 @@
     },
     {
      "id": "adm",
-     "statement": "BGP212.Gap.AdmissibleZ {0, 2}",
+     "statement": "BGP212.Gap.AdmissibleZ {0, 2}: stated as Survey.PrimeBridges.admissible_twin (LIFT-009-5), kernel check pending",
      "role": "side-condition",
      "status": "open"
     },
@@ -284,6 +284,42 @@
    },
    "obligation": "open",
    "notes": "The assumption is stronger than the conclusion: DHL[2, 2] is Polignac's conjecture for every admissible pair."
+  },
+  {
+   "id": "LIFT-009-5",
+   "from": "OBJ-admissible-z",
+   "to": "RP-JSP-000009",
+   "relation": "membership",
+   "strength": "general-distinction",
+   "statement": {
+    "math": "The twin-prime shift set {0, 2} is admissible: the residue 1 avoids both shifts modulo every prime, since 0 − 1 and 2 − 1 are ±1.",
+    "lean_name": "Survey.PrimeBridges.admissible_twin",
+    "lean": "theorem admissible_twin : AdmissibleZ ({0, 2} : Finset ℤ)",
+    "proof_term": "by intro p hp; refine ⟨1, ?_⟩; … (tactic proof in survey/lean-bridges/SurveyBridges/AdmissibleTwin.lean)"
+   },
+   "uses": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissible_twin",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissibleTwin.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [],
+   "source": "Survey.PrimeBridges.admissible_twin (survey/prime-bridges 5044386, sha256 8a89082d81ee646c62a6118392fa645e67ec40e0c1c321e66ba3f3b59d1ab5c8) over BGP212.Gap.AdmissibleZ at lean-bgp212 89b43fa",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open",
+   "notes": "Lean source committed; compilation against lean-bgp212 89b43fa (Lean v4.34.0-rc2) is pending: survey/scripts/check_bridges.sh ~/lean-bgp212 on the MBP. A clean kernel check moves this lift to Compiled, kernel-checked, and discharges side condition 'adm' of LIFT-009-4 and the {0, 2} instance needed by LIFT-029-5; Comparator acceptance is a further step."
   },
   {
    "id": "LIFT-029-1",
