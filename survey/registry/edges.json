@@ -192,13 +192,45 @@
    "relation": "equivalent",
    "strength": "direct-application",
    "statement": {
-    "math": "JSP-000009 holds exactly when H1Le 2 holds.",
-    "lean": "theorem L9_3 : JSP_000009 ↔ BGP212.Gap.H1Le 2"
+    "math": "Infinitely many twin primes exactly when infinitely many consecutive primes differ by at most 2, with InfinitelyManyTwinPrimes := {p : ℕ | p.Prime ∧ (p + 2).Prime}.Infinite (the body of the JSP_000009 reading statement).",
+    "lean_name": "Survey.PrimeBridges.twin_primes_iff_h1Le_two",
+    "lean": "theorem twin_primes_iff_h1Le_two : InfinitelyManyTwinPrimes ↔ BGP212.Gap.H1Le 2",
+    "proof_term": "⟨h1Le_two_of_twin_primes, twin_primes_of_h1Le_two⟩"
    },
    "uses": [
     {
-     "source": "lean-bgp212",
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.twin_primes_iff_h1Le_two",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/TwinPrimeEquiv.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.InfinitelyManyTwinPrimes",
+     "kind": "def",
+     "file": "lean-bridges/SurveyBridges/TwinPrimeEquiv.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.h1Le_two_of_twin_primes",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/TwinPrimeEquiv.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.twin_primes_of_h1Le_two",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/TwinPrimeEquiv.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
      "name": "BGP212.Gap.H1Le",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.primeGap",
      "kind": "def",
      "file": "BGP212/Gap.lean"
     }
@@ -206,24 +238,30 @@
    "hypotheses": [
     {
      "id": "gap-one",
-     "statement": "primeGap n = 1 only at n = 0 (the primes 2, 3)",
+     "statement": "From index 1 on, a consecutive gap of at most 2 is exactly 2; the gap of 1 is (2, 3) at index 0 (proved in TwinPrimeEquiv.lean, kernel-checked in EV-0004)",
      "role": "side-condition",
-     "status": "open"
+     "status": "discharged",
+     "lean": "theorem nth_succ_eq_add_two {b : ℕ} (hb : 1 ≤ b) (hgap : primeGap b ≤ 2) : Nat.nth Nat.Prime (b + 1) = Nat.nth Nat.Prime b + 2"
     },
     {
      "id": "consecutive",
-     "statement": "For p ≥ 3, p + 1 is even, so a twin pair is a consecutive pair",
+     "statement": "Primes p < q bound the gap at index count p by q - p (twin pairs need no consecutiveness argument) (proved in TwinPrimeEquiv.lean, kernel-checked in EV-0004)",
      "role": "side-condition",
-     "status": "open"
+     "status": "discharged",
+     "lean": "theorem primeGap_count_le {p q : ℕ} (hp : p.Prime) (hq : q.Prime) (hpq : p < q) : primeGap (Nat.count Nat.Prime p) ≤ q - p"
     }
    ],
-   "source": "Parity of odd primes",
+   "source": "survey/lean-bridges/SurveyBridges/TwinPrimeEquiv.lean (sha256 4c269741a5de637d43d26a015aedbb0f2f892db2085095c60c6163f9e0cf72e9) over BGP212.Gap.H1Le at lean-bgp212 89b43fa; Mathlib 85e3a25 lemmas listed in the module header",
    "state": {
     "mathematical": "established",
-    "formalization": "specified",
-    "verification": "unverified"
+    "formalization": "compiled",
+    "verification": "kernel-checked"
    },
-   "obligation": "open"
+   "obligation": "open",
+   "notes": "Kernel-checked on the user's MBP (EV-0004, axioms propext, Classical.choice, Quot.sound). Compiled, not Verified: the obligation stays open until Comparator accepts it against an independent Challenge.",
+   "evidence": [
+    "EV-0004"
+   ]
   },
   {
    "id": "LIFT-009-4",
@@ -271,9 +309,9 @@
     },
     {
      "id": "bridge",
-     "statement": "LIFT-009-3",
+     "statement": "LIFT-009-3: Survey.PrimeBridges.twin_primes_iff_h1Le_two, kernel-checked in EV-0004",
      "role": "side-condition",
-     "status": "open"
+     "status": "discharged"
     }
    ],
    "source": "lean-bgp212 dhl_implies_gap (Verified upstream, EV-UP-B3); the instance is open",
@@ -606,9 +644,9 @@
    "hypotheses": [
     {
      "id": "bridge",
-     "statement": "LIFT-009-3",
+     "statement": "LIFT-009-3: Survey.PrimeBridges.twin_primes_iff_h1Le_two, kernel-checked in EV-0004",
      "role": "side-condition",
-     "status": "open"
+     "status": "discharged"
     },
     {
      "id": "mono",

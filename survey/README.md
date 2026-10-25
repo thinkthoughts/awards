@@ -23,7 +23,7 @@ Leading specifications first. Admissible generalizations trail leading specifica
 | `registry/edges.json` | Typed PiπΠ lifts and other dependency edges |
 | `registry/evidence.json` | L4 verification evidence |
 | `lean/` | Core-only Lean project: `SurveyFoundation/OnePlusOne.lean` and its axiom audit |
-| `lean-bridges/` | Lean project requiring lean-bgp212 at `89b43fa`: `SurveyBridges/H1LeMono.lean`, `SurveyBridges/AdmissibleTwin.lean` and their audit |
+| `lean-bridges/` | Lean project requiring lean-bgp212 at `89b43fa`: `SurveyBridges/H1LeMono.lean`, `SurveyBridges/AdmissibleTwin.lean`, `SurveyBridges/TwinPrimeEquiv.lean` and their audit |
 | `scripts/` | Parser, classifier, provenance, registry validator, Lean check |
 | `tests/test_survey.py` | Regression tests (standard library only) |
 
@@ -95,5 +95,8 @@ general distinction, shared reading, and boundary.
   (LIFT-009-5, a general distinction: membership of {0, 2} in the admissible shift sets).
   Kernel-checked on the user's MBP against lean-bgp212 `89b43fa` (EV-0003, axioms propext,
   Classical.choice, Quot.sound; Compiled, Comparator pending). The same run reproduces EV-0002.
+- Third bridge: `Survey.PrimeBridges.twin_primes_iff_h1Le_two : InfinitelyManyTwinPrimes ↔
+  BGP212.Gap.H1Le 2` (LIFT-009-3, `SurveyBridges/TwinPrimeEquiv.lean`), kernel-checked on the user's
+  MBP (EV-0004, axioms propext, Classical.choice, Quot.sound; Compiled, Comparator pending).
 - Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 22 edges in total.
-  Lift states: Compiled 4, Specified 15, Proposed 3; Verified 0.
+  Lift states: Compiled 5, Specified 14, Proposed 3; Verified 0.

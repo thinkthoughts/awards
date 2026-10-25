@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Kernel-check the survey/lean-bridges modules (AdmissibleTwin, H1LeMono) and audit their axioms.
+# Kernel-check the survey/lean-bridges modules (AdmissibleTwin, H1LeMono, TwinPrimeEquiv) and audit
+# their axioms.
 #
 # Uses an existing lean-bgp212 checkout as the build environment, so nothing is downloaded or
 # rebuilt: the checkout must sit at the commit pinned in survey/lean-bridges/lakefile.toml, have
@@ -36,7 +37,7 @@ cd "$BGP"
 echo "lean-bgp212 $head (clean)"
 lake env lean --version
 # Bridge modules, in dependency order. Each imports only lean-bgp212 (BGP212.Gap).
-MODULES=(AdmissibleTwin H1LeMono)
+MODULES=(AdmissibleTwin H1LeMono TwinPrimeEquiv)
 for m in "${MODULES[@]}"; do
   f="$HERE/SurveyBridges/$m.lean"
   if grep -nwE 'sorry|admit|native_decide' "$f"; then

@@ -130,6 +130,57 @@
    "notes": "User-reported kernel check. Reproduces EV-0002 for h1Le_mono from the committed file. Comparator against an independent Challenge has not run, so no Comparator acceptance is claimed."
   },
   {
+   "id": "EV-0004",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-009-3"
+   ],
+   "kind": "kernel-check",
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyBridges/TwinPrimeEquiv.lean",
+     "sha256": "4c269741a5de637d43d26a015aedbb0f2f892db2085095c60c6163f9e0cf72e9"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.twin_primes_iff_h1Le_two",
+    "Survey.PrimeBridges.h1Le_two_of_twin_primes",
+    "Survey.PrimeBridges.twin_primes_of_h1Le_two"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "survey/scripts/check_bridges.sh ~/lean-bgp212, on survey/prime-bridges at 7de10c0 plus the uncommitted TwinPrimeEquiv change; lean-bgp212 89b43fa019337645b4c2c66ae917bcb1fe76450f, clean",
+   "tool": "Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+   "result": "All three bridge modules compiled (AdmissibleTwin and H1LeMono unchanged from EV-0003). twin_primes_iff_h1Le_two, h1Le_two_of_twin_primes and twin_primes_of_h1Le_two each depend on axioms: [propext, Classical.choice, Quot.sound]. Script ended: 'axiom audit: only propext, Classical.choice, Quot.sound'.",
+   "axioms": {
+    "Survey.PrimeBridges.twin_primes_iff_h1Le_two": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.h1Le_two_of_twin_primes": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.twin_primes_of_h1Le_two": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-25",
+   "machine": "Dan Hawkley's MacBook Pro (arm64-apple-darwin24.6.0); user-reported run, summarized in the session; not re-run by Claude",
+   "notes": "User-reported kernel check, after replacing one omega step in h1Le_two_of_twin_primes with an explicit Nat.nth_strictMono contradiction. Comparator against an independent Challenge has not run, so no Comparator acceptance is claimed."
+  },
+  {
    "id": "EV-UP-B3",
    "layer": "L4",
    "subjects": [

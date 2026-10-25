@@ -69,6 +69,13 @@
      "name": "TwinPrimes.twin_primes",
      "kind": "statement",
      "file": "FormalConjectures/Wikipedia/TwinPrimes.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.InfinitelyManyTwinPrimes",
+     "kind": "def",
+     "file": "lean-bridges/SurveyBridges/TwinPrimeEquiv.lean",
+     "note": "Same body as statement.lean; compiled in EV-0004"
     }
    ],
    "leading_constraints": [
@@ -84,7 +91,8 @@
     "mathematical": "open",
     "formalization": "specified",
     "verification": "unverified"
-   }
+   },
+   "notes": "The reading's statement is compiled as Survey.PrimeBridges.InfinitelyManyTwinPrimes, and LIFT-009-3 (kernel-checked) shows it equivalent to BGP212.Gap.H1Le 2. The conjecture itself stays open."
   },
   {
    "id": "RP-JSP-000029",
