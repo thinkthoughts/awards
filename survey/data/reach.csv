@@ -1,0 +1,429 @@
+family,id,matched,status,lean_proof,area,title
+prime_tuples_gaps,JSP-000009,\btwin primes?\b,Open,False,Analytic number theory,Twin prime conjecture
+prime_tuples_gaps,JSP-000027,\badmissib,Solved,False,Algebraic number theory / Analytic number theory,Artin primitive root conjecture
+prime_tuples_gaps,JSP-000029,\bdickson\b,Open,False,Analytic number theory,Dickson conjecture
+prime_tuples_gaps,JSP-000041,\bprime gaps?\b,Open,False,Analytic number theory,Consecutive prime gap bound of 186
+prime_tuples_gaps,JSP-000045,\bconsecutive primes?\b,Solved,False,Number theory / Primes,How large can gaps between consecutive primes be? Are infinitely many gaps larger than the proposed lower bound?
+prime_tuples_gaps,JSP-000046,\bprime gaps?\b,Open,False,Number theory / Primes,"Can consecutive prime gaps, divided by the logarithm of the prime index, approach every prescribed nonnegative real number along a subsequence?"
+prime_tuples_gaps,JSP-000143,\bconsecutive primes?\b,Open,False,Additive combinatorics / Primes / Arithmetic progressions,Are there arbitrarily long arithmetic progressions whose terms are consecutive primes in the full prime sequence?
+prime_tuples_gaps,JSP-000200,\bprime gaps?\b,Open,False,Number theory / Primes,"Determine how consecutive prime gaps increase, decrease, or remain equal, and how frequently each pattern occurs."
+prime_tuples_gaps,JSP-000206,\bprime gaps?\b,Open,False,Number theory / Primes,What is the smallest upper bound for the sum of squared consecutive prime gaps in a prescribed range?
+prime_tuples_gaps,JSP-000207,\bprime gaps?\b,Open,False,Number theory / Primes,"Do prime gaps, normalized by their average scale, have a limiting distribution?"
+prime_tuples_gaps,JSP-000210,\bprime gaps?\b,Open,False,Number theory / Primes,How long a run of unusually large consecutive prime gaps can occur?
+prime_tuples_gaps,JSP-000276,\bbounded gaps?\b,Open,False,Number theory,What conditions ensure uniformly bounded gaps between differences occurring repeatedly in an integer set?
+prime_tuples_gaps,JSP-000319,\bconsecutive primes?\b,Open,False,Number theory / Binomial coefficients,Are infinitely many binomial coefficients products of consecutive primes?
+prime_tuples_gaps,JSP-000554,\bconsecutive primes?\b,Solved,False,Number theory / Primes,"Between consecutive primes, is there an integer whose least prime factor is at least their gap?"
+prime_tuples_gaps,JSP-000705,\bprime gaps?\b,Open,False,Number theory / Primes,How long a run of pairwise distinct consecutive prime gaps can occur?
+prime_tuples_gaps,JSP-000706,\bprime gaps?\b,Open,False,Number theory / Primes,How large is the smallest positive even number not yet seen among the prime gaps up to a given point?
+prime_tuples_gaps,JSP-000708,\bhardy.?littlewood\b,Open,False,Number theory / Primes,second Hardy-Littlewood conjecture
+prime_tuples_gaps,JSP-000731,\bbounded gaps?\b,Solved,False,Number theory / Additive bases,Must the distinct-element sumset of an additive basis have bounded gaps?
+prime_tuples_gaps,JSP-000774,\bconsecutive primes?\b,Open,False,Number theory,How often do consecutive primes enclose at least two integers having only sufficiently small prime factors?
+prime_tuples_gaps,JSP-000914,\bsmall gaps?\b,Open,False,Number theory,Can a pairwise coprime integer sequence leave relatively small gaps after all its multiples are excluded?
+prime_tuples_gaps,JSP-000923,\bbounded gaps?\b,Open,False,Additive combinatorics,Can an integer sequence with bounded gaps have an iterated sumset entirely avoiding the prescribed sparse integer set?
+prime_tuples_gaps,JSP-000942,\bprime gaps?\b,Open,False,Number theory / Primes,What is the limiting ratio of the product of consecutive prime gaps to the square of the specified maximum gap?
+prime_tuples_gaps,JSP-000943,\bprime gaps?\b,Solved,True,Number theory / Primes,How are prime counts and local distributions governed in intervals comparable in length to the largest prime gap?
+prime_tuples_gaps,JSP-001009,\bprime tuples?\b,Open,False,Number theory,How small can the span and average position of admissible prime tuples be?
+prime_tuples_gaps,JSP-001018,\bbounded gaps?\b,Solved,False,Additive combinatorics,Must every sufficiently long integer sequence with bounded gaps have two distinct consecutive blocks with equal sums?
+prime_tuples_gaps,JSP-001023,\badmissib,Open,False,Number theory / Automorphic representations,Global Langlands functoriality conjecture
+prime_tuples_gaps,JSP-001072,\badmissib,Solved,True,Partial differential equations / Mathematical physics,Global classical solvability of the three-dimensional relativistic Vlasov-Maxwell system
+residue_coprime_sieve,JSP-000010,\bcoprime\b,Open,False,Diophantine analysis / Arithmetic geometry,abc conjecture
+residue_coprime_sieve,JSP-000031,\bcoprime\b,Open,False,Diophantine equations,Fermat–Catalan conjecture
+residue_coprime_sieve,JSP-000047,\bcongruence class,Open,False,Number theory / Covering systems,Can finitely many congruence classes with distinct odd moduli cover all integers?
+residue_coprime_sieve,JSP-000059,\bcongruence class,Open,False,Number theory,Do the integers remaining after successively avoiding the prescribed congruence classes necessarily have logarithmic density?
+residue_coprime_sieve,JSP-000060,\bcongruence class,Solved,False,Number theory / Covering systems,Can congruence classes cover almost all integers when their moduli are restricted to a prescribed range?
+residue_coprime_sieve,JSP-000073,\btotient\b,Open,False,Number theory,"Where is the distribution function of the ratio of Euler's totient to its argument differentiable, and what properties do its derivatives have?"
+residue_coprime_sieve,JSP-000074,\btotient\b,Open,False,Number theory,"For each value attained by Euler's totient, study the ratio of its smallest preimage to that value."
+residue_coprime_sieve,JSP-000130,\bcoprime\b,Solved,True,Number theory,"Can integers be represented using products of powers of three pairwise coprime bases, with no chosen term dividing another?"
+residue_coprime_sieve,JSP-000189,\bresidue class,Solved,True,Covering systems,How many pairwise disjoint residue classes with distinct moduli can be selected?
+residue_coprime_sieve,JSP-000208,\bcoprime\b,Solved,False,Number theory,Determine the gap distribution among consecutive integers coprime to a product of the first several primes.
+residue_coprime_sieve,JSP-000218,\btotient\b,Open,False,Number theory / Irrationality,Is the series with Euler totient values as numerators and powers of two as denominators irrational?
+residue_coprime_sieve,JSP-000234,\bresidue class,Open,False,Number theory / Covering systems,Can the integers be covered by residue classes whose moduli are all one less than a prime?
+residue_coprime_sieve,JSP-000237,\bresidue class,Open,False,Number theory / Covering systems,"For prescribed moduli, what are the largest and smallest proportions of integers covered by a choice of corresponding residue classes?"
+residue_coprime_sieve,JSP-000238,\bresidue class,Open,False,Number theory / Covering systems / Primes,Can residue classes with prime moduli cover every sufficiently large integer?
+residue_coprime_sieve,JSP-000239,\bresidue class,Solved,True,Number theory / Covering systems,Can an infinite covering by residue classes be uniformly approximated in density by finite subfamilies?
+residue_coprime_sieve,JSP-000311,\bcoprime\b,Open,False,Number theory / Binomial coefficients / Numeral representations,"Are infinitely many central binomial coefficients coprime to 105, hence divisible by none of 3, 5, and 7?"
+residue_coprime_sieve,JSP-000335,\btotient\b,Open,False,Number theory / Function iteration,What is the distribution of the number of totient iterations needed to reach one?
+residue_coprime_sieve,JSP-000336,\btotient\b,Open,False,Number theory / Function iteration,"When does iterating the map sending an integer to its totient plus one reach a prime, and what is its long-term behavior?"
+residue_coprime_sieve,JSP-000338,\btotient\b,Open,False,Number theory / Function iteration,When does iteration of the map sending an integer to itself plus its totient eventually follow a doubling pattern?
+residue_coprime_sieve,JSP-000342,\btotient\b,Open,False,Number theory,"Which orderings of totient values at consecutive integers occur, and with what frequencies?"
+residue_coprime_sieve,JSP-000343,\btotient\b,Solved,True,Number theory,What is the precise asymptotic number of distinct totient values in a prescribed range?
+residue_coprime_sieve,JSP-000344,\btotient\b,Open,False,Number theory,How much does the number of distinct totient values differ when bounding the input versus bounding the output by the same limit?
+residue_coprime_sieve,JSP-000354,\bcoprime\b,Open,False,Number theory,How dense can the sumset of two infinite integer sets be if all its distinct elements are pairwise coprime?
+residue_coprime_sieve,JSP-000370,\btotient\b,Open,False,Number theory,How large can the smallest integer whose totient is divisible by a prescribed positive integer be?
+residue_coprime_sieve,JSP-000373,\bcoprime\b,Open,False,Number theory,ambiguous statement
+residue_coprime_sieve,JSP-000379,\bresidue class,Open,False,Number theory,ambiguous statement
+residue_coprime_sieve,JSP-000394,\bresidue class,Open,False,Number theory / Primitive sets,Must the integers remaining after removal of the specified residue classes have logarithmic density?
+residue_coprime_sieve,JSP-000475,\bresidue class,Solved,False,Number theory / Covering systems,Can finitely many residue classes cover all integers with no modulus dividing another?
+residue_coprime_sieve,JSP-000546,\bcoprime\b,Open,False,Number theory,Can a product of consecutive terms of an arithmetic progression with coprime initial term and common difference be a perfect power?
+residue_coprime_sieve,JSP-000559,\bresidue class,Open,False,Number theory,How long a consecutive-integer interval can be covered by choosing one residue class for each small prime?
+residue_coprime_sieve,JSP-000561,\bresidue class,Open,False,Number theory,Can one residue class per prescribed prime be chosen to cover each integer in a given interval at least twice?
+residue_coprime_sieve,JSP-000565,\btotient\b,Solved,True,Number theory,How large can the ratio of the largest to smallest positive integer with a common totient value be?
+residue_coprime_sieve,JSP-000568,\bresidue class,Solved,False,Number theory / Divisors,Does the density of integers having a divisor in a prescribed residue class exhibit a phase transition as parameters vary?
+residue_coprime_sieve,JSP-000643,\bcoprime\b,Solved,False,Number theory,"Among pairwise coprime integer sets with bounded reciprocal sum, which have multiples covering the largest proportion of integers?"
+residue_coprime_sieve,JSP-000677,\btotient\b,Open,False,Number theory,Which numbers of positive-integer preimages can a totient value have?
+residue_coprime_sieve,JSP-000678,\btotient\b,Solved,False,Number theory,Does the set of values of an integer plus its totient have positive density?
+residue_coprime_sieve,JSP-000680,\bcoprime\b,Open,False,Number theory,"How many coprime pairs of positive integers have equal divisor sums, and how does their count grow?"
+residue_coprime_sieve,JSP-000684,\btotient\b,Open,False,Number theory,"For a fixed constant, are there infinitely many integers whose totient divides the integer plus that constant?"
+residue_coprime_sieve,JSP-000707,\bcoprime\b,Open,False,Number theory,Which gaps occur among consecutive integers coprime to a primorial?
+residue_coprime_sieve,JSP-000729,\bcoprime\b,Open,False,Number theory,How does the sum of an integer's prime-power factors compare with the maximum sum of pairwise coprime divisors?
+residue_coprime_sieve,JSP-000730,\bcoprime\b,Open,False,Number theory,"What is the largest sum of pairwise coprime integers in a finite interval, and what are the extremizing sets?"
+residue_coprime_sieve,JSP-000742,\bprimorial\b,Open,False,Number theory,Must every interval of primorial length contain an integer with more distinct prime factors than that primorial?
+residue_coprime_sieve,JSP-000804,\bcoprime\b,Open,False,Number theory,Jacobsthal's function
+residue_coprime_sieve,JSP-000805,\bcoprime\b,Open,False,Number theory,"For a fixed modulus, how many coprime residue classes have an unusually large least prime?"
+residue_coprime_sieve,JSP-000832,\btotient\b,Solved,False,Number theory / Diophantine approximation,Duffin-Schaeffer conjecture
+residue_coprime_sieve,JSP-000836,\btotient\b,Open,False,Number theory,How long a consecutive-integer interval can have pairwise distinct totient values?
+residue_coprime_sieve,JSP-000872,\bcoprime\b,Open,False,Number theory,unitary perfect numbers
+residue_coprime_sieve,JSP-000884,\btotient\b,Solved,False,Number theory,How does an integer's totient compare with the totient of the integer minus its totient?
+residue_coprime_sieve,JSP-000913,\bcoprime\b,Open,False,Number theory / Divisors,"How many consecutive ordered divisor pairs are coprime, and how does this count grow?"
+residue_coprime_sieve,JSP-000914,\bcoprime\b,Open,False,Number theory,Can a pairwise coprime integer sequence leave relatively small gaps after all its multiples are excluded?
+residue_coprime_sieve,JSP-000946,\bcoprime\b,Solved,True,Number theory / Primes,Is there an integer whose differences from every sufficiently small square coprime to it are all prime?
+residue_coprime_sieve,JSP-000954,\bcoprime\b,Solved,False,Number theory,What is the density of integers coprime to the floor of a fixed nonintegral power of themselves?
+residue_coprime_sieve,JSP-000995,\bresidue class,Solved,True,Number theory / Covering systems,How large can the reciprocal sum of large moduli be when their residue classes are pairwise disjoint?
+residue_coprime_sieve,JSP-001005,\bresidue class,Open,False,Number theory / Primes,Can prime residue classes with bounded reciprocal sum of moduli still cover a long initial integer interval?
+residue_coprime_sieve,JSP-001007,\bresidue class,Solved,False,Number theory / Primes,How many integers can simultaneously avoid about half the residue classes modulo each of several primes?
+residue_coprime_sieve,JSP-001010,\bresidue class,Solved,False,Number theory,"Choosing one residue class for each permitted modulus, what minimum coverage multiplicity can be achieved throughout the specified integer interval?"
+residue_coprime_sieve,JSP-001015,\bcoprime\b,Open,False,Number theory,"For pairwise coprime integers in an interval, how large can the reciprocal sum of their distances to the endpoint be?"
+residue_coprime_sieve,JSP-001017,\bcoprime\b,Open,False,Number theory / Primes,"In the lattice graph of coprime coordinate pairs, is there an infinite path avoiding every point with both coordinates prime?"
+covering_systems,JSP-000047,\bcover(s|ed)? (all|almost all) integers\b,Open,False,Number theory / Covering systems,Can finitely many congruence classes with distinct odd moduli cover all integers?
+covering_systems,JSP-000060,\bcover(s|ed)? (all|almost all) integers\b,Solved,False,Number theory / Covering systems,Can congruence classes cover almost all integers when their moduli are restricted to a prescribed range?
+covering_systems,JSP-000189,\bdistinct (odd )?moduli\b,Solved,True,Covering systems,How many pairwise disjoint residue classes with distinct moduli can be selected?
+covering_systems,JSP-000190,area:covering systems,Open,False,Primes / Covering systems,Which integers remain composite after multiplication by arbitrary powers of two and three followed by addition of one?
+covering_systems,JSP-000234,area:covering systems,Open,False,Number theory / Covering systems,Can the integers be covered by residue classes whose moduli are all one less than a prime?
+covering_systems,JSP-000235,area:covering systems,Open,False,Group theory / Covering systems,Herzog-Schönheim conjecture
+covering_systems,JSP-000236,area:covering systems,Open,False,Number theory / Covering systems,Is there a Lucas sequence consisting entirely of composite terms but with no fixed nontrivial divisor common to all terms?
+covering_systems,JSP-000237,area:covering systems,Open,False,Number theory / Covering systems,"For prescribed moduli, what are the largest and smallest proportions of integers covered by a choice of corresponding residue classes?"
+covering_systems,JSP-000238,area:covering systems,Open,False,Number theory / Covering systems / Primes,Can residue classes with prime moduli cover every sufficiently large integer?
+covering_systems,JSP-000239,area:covering systems,Solved,True,Number theory / Covering systems,Can an infinite covering by residue classes be uniformly approximated in density by finite subfamilies?
+covering_systems,JSP-000475,\bcover(s|ed)? (all|almost all) integers\b,Solved,False,Number theory / Covering systems,Can finitely many residue classes cover all integers with no modulus dividing another?
+covering_systems,JSP-000924,area:covering systems,Open,False,Number theory / Covering systems,Sierpinski numbers
+covering_systems,JSP-000993,\bcovering system,Open,False,Number theory / Covering systems,"With bounded moduli, how many irredundant distinct covering systems exist?"
+covering_systems,JSP-000994,area:covering systems,Open,False,Number theory / Covering systems,"How many modulus sets support irreducible coverings, and what size restrictions must they satisfy?"
+covering_systems,JSP-000995,area:covering systems,Solved,True,Number theory / Covering systems,How large can the reciprocal sum of large moduli be when their residue classes are pairwise disjoint?
+lp_density_certificates,JSP-000039,\bfractional\b,Solved,True,Combinatorial optimization / Network flows,DGG cost-preserving conjecture
+lp_density_certificates,JSP-000048,\bupper density\b,Open,False,Number theory / Additive bases / Primes,Do the positive odd integers not expressible as a prime plus two nonnegative powers of 2 have positive upper density?
+lp_density_certificates,JSP-000165,\bmaximum density\b,Open,False,Additive combinatorics,What is the maximum density of an integer set containing no number together with both its double and its triple?
+lp_density_certificates,JSP-000205,\bmaximum density\b,Solved,False,Geometry / Distance geometry,What is the maximum density of a measurable planar set containing no pair at distance one?
+lp_density_certificates,JSP-000281,\blower density\b,Solved,False,Number theory / Additive bases,Must the set of sums of distinct elements of an additive basis have positive lower density?
+lp_density_certificates,JSP-000611,\bpacking\b,Open,False,Graph theory,tree packing conjecture
+lp_density_certificates,JSP-000825,\bfractional\b,Solved,False,Discrepancy theory,"For typical irrational scale factors, what is the discrepancy of fractional parts of a scaled integer sequence?"
+lp_density_certificates,JSP-000830,\bfractional\b,Solved,True,Analysis / Discrepancy theory / Primes,Can the fractional parts of primes multiplied by an irrational number satisfy the specified stronger uniform-distribution property?
+lp_density_certificates,JSP-000834,\bfractional\b,Open,False,Analysis / Diophantine approximation,What limiting distribution arises from normalized cumulative centered fractional parts of an irrational rotation?
+simplex_integration,JSP-001054,\bsimplices\b,Solved,True,Convex geometry,Geometric Mahler conjectures
+unit_distance_geometry,JSP-000105,\bdistinct distances?\b,Open,False,Geometry / Distance geometry,Distinct distances determined by planar point sets
+unit_distance_geometry,JSP-000106,\bunit[- ]distances?\b,Solved,True,Geometry / Distance geometry,unit distance problem
+unit_distance_geometry,JSP-000107,\bdistinct distances?\b,Open,False,Geometry / Distance geometry,Are there essentially different geometric configurations minimizing the number of distinct distances among planar points?
+unit_distance_geometry,JSP-000108,area:distance geometry,Solved,False,Geometry / Distance geometry,"If every point has many neighbors at one common distance from it, how large a count can be guaranteed at every point? Is it smaller than every fixed positive power of the number of points?"
+unit_distance_geometry,JSP-000109,\bunit[- ]distances?\b,Open,False,Geometry / Distance geometry / Convexity,What is the maximum number of unit-distance pairs among the vertices of a convex polygon?
+unit_distance_geometry,JSP-000110,area:distance geometry,Open,False,Geometry / Distance geometry / Convexity,Does every convex polygon have a vertex from which no distance to the other vertices repeats too often?
+unit_distance_geometry,JSP-000111,\bdistinct distances?\b,Open,False,Geometry / Distance geometry,How many distinct distances must a planar point set in general position determine?
+unit_distance_geometry,JSP-000112,area:distance geometry,Open,False,Geometry / Distance geometry,Must a minimum-diameter point set satisfying the prescribed distance constraints contain an equilateral triangle of side length one?
+unit_distance_geometry,JSP-000113,\bdistinct distances?\b,Open,False,Geometry / Distance geometry,How large must a planar point set's diameter be if its distinct distances have the prescribed separation?
+unit_distance_geometry,JSP-000116,area:distance geometry,Open,False,Geometry / Distance geometry,"For a given number of points and distance constraints, how many noncongruent configurations attain the minimum diameter?"
+unit_distance_geometry,JSP-000138,area:distance geometry,Open,False,Distance geometry,How many distances determined by a finite planar point set must occur relatively infrequently?
+unit_distance_geometry,JSP-000181,\bunit[- ]distances?\b,Open,False,Geometry / Ramsey theory,Can the plane be colored red and blue while avoiding both a red unit-distance pair and a blue equally spaced collinear configuration?
+unit_distance_geometry,JSP-000196,area:distance geometry,Open,False,Geometry / Distance geometry,Is there a dense subset of the plane in which every pairwise distance is rational?
+unit_distance_geometry,JSP-000197,area:distance geometry,Open,False,Geometry / Distance geometry,How many planar points in general position can have all pairwise distances integral?
+unit_distance_geometry,JSP-000199,\bdistinct distances?\b,Open,False,Geometry / Distance geometry,For which n do planar crescent configurations exist?
+unit_distance_geometry,JSP-000202,area:distance geometry,Solved,False,Geometry / Distance geometry,"For a finite point set of fixed diameter in higher-dimensional space, how many pairs can attain that diameter?"
+unit_distance_geometry,JSP-000205,area:distance geometry,Solved,False,Geometry / Distance geometry,What is the maximum density of a measurable planar set containing no pair at distance one?
+unit_distance_geometry,JSP-000403,area:distance geometry,Open,False,Geometry / Distance geometry,How large can a point set in higher dimensions be if every three points form an isosceles triangle?
+unit_distance_geometry,JSP-000491,\bdistinct distances?\b,Open,False,Geometry / Distance geometry,pinned distance problem
+unit_distance_geometry,JSP-000492,area:distance geometry,Solved,False,Geometry / Distance geometry,Can the number of pairs at one distance in a finite spherical point set grow superlinearly?
+unit_distance_geometry,JSP-000528,area:distance geometry,Solved,False,Geometry / Distance geometry,How many points of a planar set can each determine only a small number of distances to the other points?
+unit_distance_geometry,JSP-000529,\bdistinct distances?\b,Open,False,Geometry / Distance geometry,How many distinct values can the per-point counts of distinct distances have in a planar point set?
+unit_distance_geometry,JSP-000530,\bdistinct distances?\b,Open,False,Geometry / Distance geometry,"If no four planar points are concyclic, must some point determine sufficiently many distinct distances?"
+unit_distance_geometry,JSP-000531,area:distance geometry,Open,False,Geometry / Distance geometry,ambiguous statement
+unit_distance_geometry,JSP-000533,\bdistinct distances?\b,Open,False,Geometry / Distance geometry,Must a planar point set with no isosceles triangle determine superlinearly many distinct distances?
+unit_distance_geometry,JSP-000534,\bdistinct distances?\b,Solved,True,Geometry / Distance geometry,"If every four points determine at least three distances, how many distinct distances must the whole set determine?"
+unit_distance_geometry,JSP-000535,\bdistinct distances?\b,Open,False,Geometry / Distance geometry / Convexity,ambiguous statement
+unit_distance_geometry,JSP-000536,area:distance geometry,Open,False,Geometry / Distance geometry,Can two equal-size planar sets determine between them asymptotically fewer distances than their size divided by the square root of its logarithm?
+unit_distance_geometry,JSP-000537,area:distance geometry,Open,False,Geometry / Distance geometry,ambiguous statement
+unit_distance_geometry,JSP-000542,\bunit[- ]distances?\b,Open,False,Geometry / Distance geometry,Does the number of distinct planar configurations maximizing unit-distance pairs tend to infinity with the number of points?
+unit_distance_geometry,JSP-000544,area:distance geometry,Open,False,Geometry / Distance geometry,How large a diameter is forced in higher dimensions when all pairwise distances are distinct and separated by a prescribed amount?
+unit_distance_geometry,JSP-000574,\bunit[- ]distances?\b,Open,False,Graph theory / Geometry / Chromatic number,How fast does the chromatic number of Euclidean space grow with dimension when unit-distance pairs must receive different colors?
+unit_distance_geometry,JSP-000575,\bunit[- ]distances?\b,Solved,False,Graph theory / Chromatic number,Is every planar unit-distance graph of sufficiently large girth three-colorable?
+unit_distance_geometry,JSP-000620,\bsame distance\b,Solved,False,Geometry / Distance geometry,"In a finite four-dimensional point set, how many other points can be at the same distance from one point?"
+unit_distance_geometry,JSP-000621,area:distance geometry,Open,False,Geometry / Distance geometry / Sidon sets,"If all local parts of a real set have many differences, must it contain a Sidon subset of fixed positive proportion?"
+unit_distance_geometry,JSP-000793,area:distance geometry,Open,False,Geometry / Distance geometry,What is the largest area of a measurable subset of a given disk containing no pair at a positive integer distance?
+unit_distance_geometry,JSP-000796,\bunit[- ]distances?\b,Open,False,Geometry / Distance geometry / Convexity,How many unit-distance pairs can occur between disjoint translated copies of a convex set?
+unit_distance_geometry,JSP-000797,area:distance geometry,Solved,False,Geometry / Distance geometry,What uniform upper bound holds for the product of the multiplicities of the shortest and longest distances in a finite point set?
+unit_distance_geometry,JSP-000798,area:distance geometry,Open,False,Geometry / Distance geometry,How large can the difference between the two largest distance multiplicities of a planar point set be?
+unit_distance_geometry,JSP-000815,\bdistinct distances?\b,Open,False,Geometry / Convexity / Distance geometry,Must every convex polygon have a vertex determining about half as many distinct distances as the total number of vertices?
+unit_distance_geometry,JSP-000886,\bunit[- ]distances?\b,Open,False,Graph theory / Planar graphs,"For a planar point set of minimum separation one, how large an independent set must its unit-distance graph have?"
+unit_distance_geometry,JSP-000889,\bunit[- ]distances?\b,Open,False,Geometry,What proportion of every finite planar point set can be selected with no pair at unit distance?
+unit_distance_geometry,JSP-000899,\bdistinct distances?\b,Open,False,Geometry / Distance geometry,Must a planar set with no three collinear points determine at least half as many distinct distances as points?
+unit_distance_geometry,JSP-000900,\bdistinct distances?\b,Solved,False,Geometry / Distance geometry,What is the minimum distinct-distance count for a prescribed number of points in fixed higher dimension?
+unit_distance_geometry,JSP-000901,area:distance geometry,Open,False,Geometry / Distance geometry,contact number problem
+unit_distance_geometry,JSP-000902,\bunit[- ]distances?\b,Open,False,Geometry / Distance geometry,How many unit-distance pairs can a finite point set in the specified higher-dimensional space have?
+unit_distance_geometry,JSP-000903,area:distance geometry,Open,False,Geometry / Distance geometry,How many triangles of the same area can a finite planar point set determine?
+unit_distance_geometry,JSP-000904,\brepeated distance,Open,False,Geometry / Distance geometry,How many four-point subsets of a finite point set can have a repeated distance?
+unit_distance_geometry,JSP-000906,\bdistinct distances?\b,Solved,False,Geometry / Distance geometry,"In fixed dimension, how many points force a prescribed number of distinct distances?"
+unit_distance_geometry,JSP-000935,area:distance geometry,Solved,False,Geometry / Distance geometry / Set theory,Can Euclidean space be partitioned into countably many sets each having all pairwise distances distinct?
+unit_distance_geometry,JSP-001012,area:distance geometry,Open,False,Geometry / Distance geometry,How large a subset with no isosceles triangle must every finite higher-dimensional point set contain?
+unit_distance_geometry,JSP-001013,area:distance geometry,Open,False,Geometry / Distance geometry,"In fixed dimension, how large a subset with all pairwise distances distinct must every finite point set contain?"
+unit_distance_geometry,JSP-001060,\bunit[- ]distances?\b,Solved,True,Discrete geometry / Graph coloring,Five-colorability of the Euclidean plane
+unit_distance_geometry,JSP-001061,\bunit[- ]distances?\b,Solved,True,Discrete geometry,Weak pinned planar distance problem
+graph_ramsey_chromatic,JSP-000056,area:^graph theory,Open,False,Graph theory / Chromatic number,"Is the union of n edge-disjoint complete graphs, each on n vertices, always properly colorable with n colors?"
+graph_ramsey_chromatic,JSP-000058,area:^graph theory,Open,False,Graph theory,Can every triangle-free graph on 5k vertices be made bipartite by deleting at most k² edges?
+graph_ramsey_chromatic,JSP-000076,area:ramsey theory,Solved,False,Number theory / Ramsey theory,How sparse can a set be if every two-coloring represents every sufficiently large integer as a sum of distinct same-colored elements? Improve the growth bounds.
+graph_ramsey_chromatic,JSP-000077,area:ramsey theory,Solved,False,Number theory / Ramsey theory,How fast must a set grow if every coloring with more than two colors represents all sufficiently large integers as sums of distinct same-colored elements?
+graph_ramsey_chromatic,JSP-000078,\bchromatic\b,Solved,False,Graph theory / Chromatic number/ Cycles,How does the number of distinct odd cycle lengths constrain a graph's chromatic number?
+graph_ramsey_chromatic,JSP-000079,area:^graph theory,Open,False,Graph theory/ Cycles,How many quadrilaterals are forced when a graph's edge count exceeds the threshold for containing one?
+graph_ramsey_chromatic,JSP-000080,area:^graph theory,Open,False,Graph theory,Must a graph excluding a prescribed induced subgraph contain a sufficiently large clique or independent set?
+graph_ramsey_chromatic,JSP-000081,\bchromatic\b,Open,False,Graph theory,Must two graphs of uncountable chromatic number have a common subgraph of large chromatic number?
+graph_ramsey_chromatic,JSP-000082,area:^graph theory,Open,False,Graph theory/ Cycles,Does every graph of minimum degree at least three contain a cycle whose length is a power of 2?
+graph_ramsey_chromatic,JSP-000083,area:^graph theory,Open,False,Graph theory/ Cycles,"What lower bounds hold for the sum of reciprocals of a graph's distinct cycle lengths, and how does this sum reflect its structure?"
+graph_ramsey_chromatic,JSP-000088,area:^graph theory,Open,False,Graph theory / Ramsey theory / Set theory,Does every two-coloring of triples from a set of continuum cardinality contain a monochromatic subset of the prescribed order type?
+graph_ramsey_chromatic,JSP-000089,area:^graph theory,Solved,False,Graph theory/ Cycles,Is there a density-zero set of positive integers such that every sufficiently dense graph has a cycle with length in that set?
+graph_ramsey_chromatic,JSP-000090,area:^graph theory,Solved,False,Graph theory,"If local subgraphs have large independent sets, must the whole graph be close to bipartite after few modifications?"
+graph_ramsey_chromatic,JSP-000091,\bchromatic\b,Solved,True,Graph theory / Chromatic number/ Cycles,Can a graph have infinite chromatic number while its finite local subgraphs satisfy the prescribed property after very few edge deletions?
+graph_ramsey_chromatic,JSP-000092,\bchromatic\b,Open,False,Graph theory / Chromatic number,Can a graph have uncountable chromatic number while all its finite subgraphs have relatively large independent sets?
+graph_ramsey_chromatic,JSP-000093,area:^graph theory,Solved,False,Graph theory / Ramsey theory,How many edge-disjoint monochromatic triangles are guaranteed in a two-coloring of the edges of a complete graph?
+graph_ramsey_chromatic,JSP-000094,area:^graph theory,Open,False,Graph theory / Ramsey theory,What is the exact exponential growth constant for the number of vertices forcing a monochromatic clique of prescribed size in every two-coloring?
+graph_ramsey_chromatic,JSP-000095,\bramsey\b,Open,False,Graph theory / Ramsey theory,Can explicit graphs or colorings attain the predicted exponential lower bounds for diagonal Ramsey numbers?
+graph_ramsey_chromatic,JSP-000096,\bramsey\b,Solved,False,Graph theory / Ramsey theory,Which minimal graphs prevent Ramsey numbers from growing linearly with the number of edges? Characterize these obstructions.
+graph_ramsey_chromatic,JSP-000097,area:^graph theory,Open,False,Graph theory / Ramsey theory,How many triangles sharing one edge must a sufficiently dense graph contain?
+graph_ramsey_chromatic,JSP-000098,area:^graph theory,Open,False,Graph theory,What is the minimum number of cliques whose edge sets partition all edges of a chordal graph?
+graph_ramsey_chromatic,JSP-000099,area:^graph theory,Open,False,Graph theory,How large a regular induced subgraph is guaranteed in an arbitrary graph of given size?
+graph_ramsey_chromatic,JSP-000100,area:^graph theory,Open,False,Graph theory/ Cycles,How many different sets of cycle lengths occur among graphs with a given number of vertices?
+graph_ramsey_chromatic,JSP-000101,area:^graph theory,Open,False,Graph theory / Ramsey theory,Is the minimum-degree threshold forcing a quadrilateral monotone in the relevant size parameter?
+graph_ramsey_chromatic,JSP-000102,area:^graph theory,Open,False,Graph theory,What proportion of the edges of a high-dimensional hypercube can be retained without creating a quadrilateral?
+graph_ramsey_chromatic,JSP-000103,\bramsey\b,Open,False,Graph theory / Ramsey theory,How strong a lower bound on a graph's Ramsey number follows from its chromatic number?
+graph_ramsey_chromatic,JSP-000104,area:^graph theory,Solved,False,Graph theory / Ramsey theory,"If a graph has neither a large clique nor a large independent set, how many distinct edge counts do its induced subgraphs attain?"
+graph_ramsey_chromatic,JSP-000120,\bchromatic\b,Open,False,Graph theory / Chromatic number/ Cycles,Must a graph of sufficiently large chromatic number contain a subgraph with both large girth and large chromatic number?
+graph_ramsey_chromatic,JSP-000121,\bchromatic\b,Solved,False,Graph theory / Chromatic number/ Cycles,How many vertices are needed to find a finite subgraph of a prescribed chromatic number in a graph of uncountable chromatic number?
+graph_ramsey_chromatic,JSP-000122,\bchromatic\b,Open,False,Graph theory / Chromatic number / Set theory,Can every finite subgraph of a graph with uncountable chromatic number be made bipartite by deleting very few edges?
+graph_ramsey_chromatic,JSP-000123,area:^graph theory,Open,False,Graph theory / Ramsey theory,How large must a directed graph be to force an independent set or a transitive tournament of a prescribed size?
+graph_ramsey_chromatic,JSP-000126,area:ramsey theory,Solved,False,Set theory / Ramsey theory,"If every two-coloring of an infinite graph's edges gives a monochromatic triangle, does the analogous property hold for every finite clique?"
+graph_ramsey_chromatic,JSP-000134,area:^graph theory,Open,False,Graph theory,Must a graph contain a triangle if every induced subgraph on roughly half its vertices is sufficiently dense?
+graph_ramsey_chromatic,JSP-000135,area:^graph theory,Open,False,Graph theory / Ramsey theory,ambiguous statement
+graph_ramsey_chromatic,JSP-000136,area:^graph theory,Open,False,Graph theory / Chromatic number,How many colors are needed for the graph joining integer-distance pairs of planar points in general position?
+graph_ramsey_chromatic,JSP-000139,area:^graph theory,Solved,False,Graph theory,How large must the maximum degree of a triangle-free graph of diameter at most two be?
+graph_ramsey_chromatic,JSP-000140,area:^graph theory,Solved,False,Graph theory,How many edge colors are necessary if every four-vertex clique must contain at least five colors?
+graph_ramsey_chromatic,JSP-000147,area:^graph theory,Solved,True,Graph theory / Turán numbers,How many edges can a graph have while excluding a given bipartite graph of bounded degeneracy?
+graph_ramsey_chromatic,JSP-000149,area:^graph theory,Open,False,Graph theory,How does the minimum number of colors needed to give nearby edges different colors depend on the maximum degree?
+graph_ramsey_chromatic,JSP-000150,area:^graph theory,Open,False,Graph theory,What is the smallest vertex set meeting every maximal clique of a graph?
+graph_ramsey_chromatic,JSP-000157,area:^graph theory,Open,False,Graph theory / Ramsey theory,How many vertices force a four-cycle in one color or a clique of prescribed size in the other color in every two-coloring of a complete graph?
+graph_ramsey_chromatic,JSP-000159,area:ramsey theory,Open,False,Combinatorics / Ramsey theory / Discrepancy theory / Hypergraphs,How does density affect the threshold for finding the specified color-balanced structure in a two-colored hypergraph?
+graph_ramsey_chromatic,JSP-000160,area:^graph theory,Open,False,Graph theory / Combinatorics / Ramsey theory / Discrepancy theory,Locally balanced two-colorings of complete graphs
+graph_ramsey_chromatic,JSP-000161,\bramsey\b,Solved,False,Graph theory / Ramsey theory,Linear Ramsey bounds for graphs of bounded degeneracy
+graph_ramsey_chromatic,JSP-000162,\bramsey\b,Open,False,Graph theory / Ramsey theory,What is the precise asymptotic growth of the Ramsey number for a triangle versus a large clique?
+graph_ramsey_chromatic,JSP-000163,area:^graph theory,Solved,False,Graph theory / Ramsey theory,How many vertices can a two-colored complete graph have while avoiding a four-vertex clique in one color and a prescribed large clique in the other?
+graph_ramsey_chromatic,JSP-000164,area:^graph theory,Open,False,Graph theory,How does the minimum number of edges needed to make a graph triangle-free compare with its maximum number of edge-disjoint triangles?
+graph_ramsey_chromatic,JSP-000168,area:ramsey theory,Solved,False,Additive combinatorics / Ramsey theory,Does every finite coloring of the positive integers contain a large set whose specified sums and products all have the same color?
+graph_ramsey_chromatic,JSP-000169,area:ramsey theory,Open,False,Geometry / Ramsey theory,Does every two-coloring of the plane contain a monochromatic congruent copy of a prescribed triangle?
+graph_ramsey_chromatic,JSP-000170,\bramsey\b,Solved,True,Geometry / Ramsey theory,Which finite point configurations have a monochromatic congruent copy under every finite coloring in sufficiently high dimension?
+graph_ramsey_chromatic,JSP-000174,area:^graph theory,Solved,True,Graph theory / Turán numbers,How much can forbidding several subgraphs reduce the extremal edge count compared with forbidding just one of them?
+graph_ramsey_chromatic,JSP-000175,\bramsey\b,Solved,False,Graph theory / Ramsey theory,Is the Ramsey number of a high-dimensional hypercube bounded by a constant times its number of vertices?
+graph_ramsey_chromatic,JSP-000176,area:^graph theory,Solved,False,Graph theory,How many edges can a graph have if it contains no regular subgraph of a prescribed degree?
+graph_ramsey_chromatic,JSP-000177,area:^graph theory,Solved,True,Graph theory / Ramsey theory,What is the exponential growth rate of the number of vertices needed to force a monochromatic triangle as the number of edge colors increases?
+graph_ramsey_chromatic,JSP-000178,area:^graph theory,Solved,True,Graph theory/ Cycles,"Can the edges of every finite graph be partitioned into linearly many cycles and single edges, in terms of its number of vertices?"
+graph_ramsey_chromatic,JSP-000180,area:ramsey theory,Open,False,Additive combinatorics / Ramsey theory / Arithmetic progressions,"In every two-coloring of the positive integers, what relationship between length and common difference can be guaranteed for a monochromatic arithmetic progression?"
+graph_ramsey_chromatic,JSP-000181,area:ramsey theory,Open,False,Geometry / Ramsey theory,Can the plane be colored red and blue while avoiding both a red unit-distance pair and a blue equally spaced collinear configuration?
+graph_ramsey_chromatic,JSP-000358,area:ramsey theory,Solved,False,Number theory / Ramsey theory,Must every finite coloring of the positive integers contain two same-colored integers whose sum is a perfect power?
+graph_ramsey_chromatic,JSP-000386,area:ramsey theory,Open,False,Set theory / Ramsey theory,Can pairs of real numbers be colored so that every uncountable subset realizes all prescribed colors?
+graph_ramsey_chromatic,JSP-000392,area:ramsey theory,Open,False,Number theory / Additive combinatorics / Ramsey theory,How long an integer interval forces monochromatic integers satisfying the specified additive equation under every coloring with a given number of colors?
+graph_ramsey_chromatic,JSP-000401,area:^graph theory,Open,False,Graph theory / Hypergraphs / Turán numbers,How many edges can a three-uniform hypergraph have while excluding the complete three-uniform hypergraph on four vertices?
+graph_ramsey_chromatic,JSP-000407,area:ramsey theory,Open,False,Geometry / Ramsey theory,What is the minimum number of colors needed to color the plane so that points at distance one have different colors?
+graph_ramsey_chromatic,JSP-000415,area:^graph theory,Solved,False,Graph theory / Ramsey theory,Can every edge-colored complete graph have its vertices covered by few paths whose edges all share one color?
+graph_ramsey_chromatic,JSP-000427,area:ramsey theory,Open,False,Number theory / Ramsey theory,"How long an integer interval forces, under every two-coloring, a prescribed-size set whose nonempty subset sums are all the same color?"
+graph_ramsey_chromatic,JSP-000435,\bramsey\b,Open,False,Graph theory / Ramsey theory,How much must the triangle-versus-clique Ramsey number increase when the clique gains one vertex?
+graph_ramsey_chromatic,JSP-000436,\bramsey\b,Open,False,Graph theory / Ramsey theory,Which graph with a prescribed number of edges has the largest Ramsey number?
+graph_ramsey_chromatic,JSP-000437,\bramsey\b,Solved,False,Graph theory / Ramsey theory,Can every graph's Ramsey number be bounded exponentially in the square root of its edge count?
+graph_ramsey_chromatic,JSP-000438,\bramsey\b,Open,False,Graph theory / Ramsey theory,What is the optimal upper bound for the two-color Ramsey number of an arbitrary tree?
+graph_ramsey_chromatic,JSP-000439,area:^graph theory,Solved,True,Graph theory,Does sufficiently large average degree force a graph to contain every tree of a prescribed order?
+graph_ramsey_chromatic,JSP-000440,\bramsey\b,Solved,False,Graph theory / Ramsey theory,What is the two-color Ramsey number of a tree whose bipartition sizes have ratio one to two?
+graph_ramsey_chromatic,JSP-000441,\bramsey\b,Open,False,Graph theory / Ramsey theory,What is the Ramsey number of a prescribed tree versus a complete multipartite graph?
+graph_ramsey_chromatic,JSP-000442,\bramsey\b,Solved,True,Graph theory / Ramsey theory,What is the exact Ramsey number of a prescribed cycle versus a clique?
+graph_ramsey_chromatic,JSP-000443,\bramsey\b,Open,False,Graph theory / Ramsey theory,What is the Ramsey number of a four-cycle versus a prescribed star?
+graph_ramsey_chromatic,JSP-000444,\bramsey\b,Solved,False,Graph theory / Ramsey theory,How fast does the three-color Ramsey number grow for a triangle in either of the first two colors versus a large clique in the third?
+graph_ramsey_chromatic,JSP-000445,area:^graph theory,Open,False,Graph theory / Ramsey theory,Compare the multicolor thresholds forcing a monochromatic odd cycle and a monochromatic triangle.
+graph_ramsey_chromatic,JSP-000446,\bramsey\b,Open,False,Graph theory / Ramsey theory,What is the multicolor Ramsey number of an even cycle of prescribed length?
+graph_ramsey_chromatic,JSP-000447,\bramsey\b,Open,False,Graph theory / Ramsey theory,What is the optimal upper bound for the three-color Ramsey number of a prescribed cycle?
+graph_ramsey_chromatic,JSP-000448,\bramsey\b,Solved,False,Graph theory / Ramsey theory,Does the multicolor Ramsey number of a tree grow linearly with its order?
+graph_ramsey_chromatic,JSP-000449,\bramsey\b,Open,False,Graph theory / Ramsey theory,What is the multicolor Ramsey number of a prescribed complete bipartite graph?
+graph_ramsey_chromatic,JSP-000450,\bramsey\b,Solved,False,Graph theory / Ramsey theory,Do graphs of bounded maximum degree have two-color size Ramsey numbers linear in their order?
+graph_ramsey_chromatic,JSP-000451,area:^graph theory,Open,False,Graph theory / Ramsey theory,What is the minimum host edge count forcing a monochromatic prescribed balanced complete bipartite graph under every two-coloring?
+graph_ramsey_chromatic,JSP-000452,area:^graph theory,Open,False,Graph theory / Ramsey theory,What is the minimum host edge count forcing the corresponding monochromatic copy of one of two prescribed star forests?
+graph_ramsey_chromatic,JSP-000453,\bramsey\b,Open,False,Graph theory / Ramsey theory / Hypergraphs,How many levels in an exponential tower are needed to describe the growth of uniform-hypergraph Ramsey numbers?
+graph_ramsey_chromatic,JSP-000454,\bramsey\b,Open,False,Graph theory / Ramsey theory / Hypergraphs,Do two-color Ramsey numbers of three-uniform hypergraphs satisfy the predicted double-exponential lower bound?
+graph_ramsey_chromatic,JSP-000455,\bramsey\b,Solved,False,Graph theory / Ramsey theory,Is the two-color induced Ramsey number at most exponential in the order of the target graph?
+graph_ramsey_chromatic,JSP-000456,\bramsey\b,Open,False,Graph theory / Ramsey theory,"Under the specified local edge restrictions on one graph, is its Ramsey number against another graph linear in the latter's edge count?"
+graph_ramsey_chromatic,JSP-000457,\bramsey\b,Open,False,Graph theory / Ramsey theory,"For specified graphs such as the cube, is the Ramsey number against an arbitrary graph bounded by a fixed multiple of the latter's edge count?"
+graph_ramsey_chromatic,JSP-000458,\bramsey\b,Open,False,Graph theory / Ramsey theory,Can Ramsey bounds against trees and cliques yield a bound linear in edge count against general graphs?
+graph_ramsey_chromatic,JSP-000459,\bramsey\b,Open,False,Graph theory / Ramsey theory,"What is the optimal linear coefficient for the Ramsey number of a fixed odd cycle against an arbitrary graph, measured by the latter's edge count?"
+graph_ramsey_chromatic,JSP-000460,\bramsey\b,Solved,False,Graph theory / Ramsey theory,Is the Ramsey number of the prescribed cycle against any graph at most twice the latter's edge count plus the allowed correction?
+graph_ramsey_chromatic,JSP-000461,area:^graph theory,Solved,True,Graph theory / Turán numbers,Which rational numbers occur as extremal exponents of bipartite graphs?
+graph_ramsey_chromatic,JSP-000462,area:^graph theory,Open,False,Graph theory / Turán numbers/ Cycles,How many edges can a graph excluding a prescribed even cycle have? Seek constructions attaining the predicted order of growth.
+graph_ramsey_chromatic,JSP-000463,area:^graph theory,Open,False,Graph theory / Turán numbers,What is the maximum edge count of a graph containing neither triangles nor four-cycles?
+graph_ramsey_chromatic,JSP-000464,area:^graph theory,Solved,False,Graph theory / Turán numbers,How many edges can a graph have while excluding an odd cycle and an even cycle of adjacent lengths?
+graph_ramsey_chromatic,JSP-000465,area:^graph theory,Solved,False,Graph theory / Turán numbers,"For a forbidden family containing a bipartite graph, can the asymptotic extremal problem be reduced to forbidding a single graph?"
+graph_ramsey_chromatic,JSP-000466,area:^graph theory,Open,False,Graph theory / Turán numbers,How many edges can a graph have while excluding a hypercube of prescribed dimension?
+graph_ramsey_chromatic,JSP-000467,area:^graph theory,Solved,False,Graph theory,What minimum degree forces a spanning collection of vertex-disjoint four-cycles?
+graph_ramsey_chromatic,JSP-000468,area:^graph theory,Solved,False,Graph theory,"Under suitable parameters, does a random graph contain a spanning hypercube with probability tending to one?"
+graph_ramsey_chromatic,JSP-000469,area:^graph theory,Open,False,Graph theory / Turán numbers,Must a dense graph excluding a prescribed complete tripartite graph contain a sufficiently large independent set?
+graph_ramsey_chromatic,JSP-000470,area:^graph theory,Open,False,Graph theory,"If at least half the vertices have sufficiently large degree, must a graph contain every tree of a prescribed order?"
+graph_ramsey_chromatic,JSP-000471,area:^graph theory,Solved,False,Graph theory,How many edges can always be retained in a bipartite subgraph of a triangle-free graph?
+graph_ramsey_chromatic,JSP-000472,area:^graph theory,Open,False,Graph theory,Can the edges of every connected graph be decomposed into at most about half its number of vertices many paths?
+graph_ramsey_chromatic,JSP-000473,area:^graph theory,Open,False,Graph theory/ Cycles,Must a dense graph contain a large subgraph in which every two edges lie on a common short cycle?
+graph_ramsey_chromatic,JSP-000474,area:^graph theory,Open,False,Graph theory/ Cycles,How many edges can a graph have if no two edge-disjoint cycles have the same vertex set?
+graph_ramsey_chromatic,JSP-000479,area:ramsey theory,Solved,False,Set theory / Ramsey theory,Does every red-blue coloring of pairs from the prescribed countable ordinal contain a red clique of the same order type or a blue triangle?
+graph_ramsey_chromatic,JSP-000480,area:ramsey theory,Open,False,Set theory / Ramsey theory,Which ordinal powers have the partition property forcing a clique of the same order type in one color or a triangle in the other?
+graph_ramsey_chromatic,JSP-000481,\bchromatic\b,Open,False,Set theory / Graph theory / Hypergraphs / Chromatic number,Which finite hypergraphs must occur in every three-uniform hypergraph of uncountable chromatic number?
+graph_ramsey_chromatic,JSP-000482,area:^graph theory,Open,False,Graph theory / Set theory,Is there an infinite graph with no four-vertex clique that cannot be partitioned into countably many triangle-free parts?
+graph_ramsey_chromatic,JSP-000483,\bramsey\b,Open,False,Graph theory / Ramsey theory / Set theory,Where does the specified Ramsey property differ between finitely many and countably infinitely many colors?
+graph_ramsey_chromatic,JSP-000484,area:^graph theory,Open,False,Graph theory / Ramsey theory / Set theory,Which order-isomorphic structures are forced in two-color partitions of uncountable ordinals after excluding the specified cliques?
+graph_ramsey_chromatic,JSP-000485,area:ramsey theory,Open,False,Set theory / Ramsey theory,Can countable subsets be colored so that the countable subsets of every sufficiently large set realize all colors?
+graph_ramsey_chromatic,JSP-000486,area:^graph theory,Solved,False,Graph theory / Set theory,Disjoint paths and separating sets in infinite graphs
+graph_ramsey_chromatic,JSP-000487,area:^graph theory,Open,False,Graph theory,How does the edge threshold forcing many triangles sharing one edge depend on the parameters?
+graph_ramsey_chromatic,JSP-000488,area:^graph theory,Open,False,Graph theory / Set theory,For which ordinals does every graph on the ordinal have an infinite path or an independent set of the full order type?
+graph_ramsey_chromatic,JSP-000495,area:^graph theory,Open,False,Graph theory / Ramsey theory,How long can the shortest guaranteed monochromatic odd cycle be in a multicolored complete graph?
+graph_ramsey_chromatic,JSP-000496,area:^graph theory,Open,False,Graph theory,"If every maximal clique is large, how many vertices suffice to meet them all?"
+graph_ramsey_chromatic,JSP-000497,area:^graph theory,Open,False,Graph theory,Can minimum degree bound the diameter of a graph excluding a clique of prescribed size?
+graph_ramsey_chromatic,JSP-000498,area:^graph theory,Open,False,Graph theory,How many edges are needed to make every local subgraph of prescribed size satisfy the specified maximum-degree condition?
+graph_ramsey_chromatic,JSP-000499,area:^graph theory,Open,False,Graph theory,"If every prescribed-size local edge family in a uniform hypergraph has a common vertex, how many vertices suffice to cover all edges?"
+graph_ramsey_chromatic,JSP-000500,area:^graph theory,Open,False,Graph theory,Must a multicolored complete graph contain a vertex subset of the required size missing at least one color?
+graph_ramsey_chromatic,JSP-000501,area:^graph theory,Solved,True,Graph theory,How many edges must be added to a triangle-free graph to reduce its diameter to at most four while keeping it triangle-free?
+graph_ramsey_chromatic,JSP-000502,area:^graph theory,Open,False,Graph theory,Large triangle-free induced subgraphs in K4-free graphs
+graph_ramsey_chromatic,JSP-000503,area:^graph theory,Solved,False,Graph theory,How many vertex subsets of a high-degree regular graph are exactly the vertex sets of cycles?
+graph_ramsey_chromatic,JSP-000506,\bchromatic\b,Solved,False,Graph theory / Chromatic number,"In a random graph, how much smaller than the chromatic number is the minimum number of parts in a partition into cliques and independent sets?"
+graph_ramsey_chromatic,JSP-000507,\bchromatic\b,Open,False,Graph theory / Chromatic number/ Cycles,"What is the largest girth of a graph with prescribed order and chromatic number, including its asymptotic constant?"
+graph_ramsey_chromatic,JSP-000508,\bchromatic\b,Open,False,Graph theory / Chromatic number,What is the largest asymptotic ratio of chromatic number to clique number at the prescribed graph size?
+graph_ramsey_chromatic,JSP-000509,\bchromatic\b,Open,False,Graph theory / Chromatic number,Partitioning graphs with prescribed chromatic bounds
+graph_ramsey_chromatic,JSP-000510,area:^graph theory,Open,False,Graph theory / Chromatic number,How few vertices can a bipartite graph have if it is not colorable from lists of the prescribed size?
+graph_ramsey_chromatic,JSP-000511,area:^graph theory,Solved,False,Graph theory / Chromatic number,Is every planar bipartite graph colorable from arbitrary lists of three colors per vertex?
+graph_ramsey_chromatic,JSP-000512,area:^graph theory,Solved,False,Graph theory / Chromatic number,What list size guarantees proper list coloring of every planar graph?
+graph_ramsey_chromatic,JSP-000513,area:^graph theory,Solved,False,Graph theory / Chromatic number,Does list multicolorability persist when both the available-list size and the required number of colors per vertex are doubled?
+graph_ramsey_chromatic,JSP-000517,area:^graph theory,Solved,False,Graph theory / Ramsey theory,"If a graph has no clique or independent set larger than logarithmic size, must it have many induced subgraphs with distinct pairs of vertex and edge counts?"
+graph_ramsey_chromatic,JSP-000518,area:^graph theory,Solved,False,Graph theory / Ramsey theory,"If a graph has neither large cliques nor large independent sets, must a large induced subgraph have many distinct vertex degrees?"
+graph_ramsey_chromatic,JSP-000519,area:^graph theory,Open,False,Graph theory / Ramsey theory,Can the property of forcing a monochromatic triangle under every finite edge coloring be extended to infinite cardinal sizes?
+graph_ramsey_chromatic,JSP-000520,\bchromatic\b,Open,False,Graph theory / Chromatic number,Must a graph of high chromatic number contain an odd cycle whose vertex-induced subgraph also has high chromatic number?
+graph_ramsey_chromatic,JSP-000521,\bchromatic\b,Solved,False,Graph theory,Does sufficiently high chromatic number force several edge-disjoint cycles on the same vertex set?
+graph_ramsey_chromatic,JSP-000522,area:^graph theory,Open,False,Graph theory/ Cycles,How many edges can a graph have if every cycle has fewer chords than vertices?
+graph_ramsey_chromatic,JSP-000523,area:^graph theory,Open,False,Graph theory / Hypergraphs,How many edges force a uniform hypergraph to contain two distinct pairs of disjoint edges with the same union?
+graph_ramsey_chromatic,JSP-000541,area:^graph theory,Open,False,Graph theory / Ramsey theory,"As local edge lower bounds strengthen, does the growth exponent of the guaranteed clique size strictly increase?"
+graph_ramsey_chromatic,JSP-000574,\bchromatic\b,Open,False,Graph theory / Geometry / Chromatic number,How fast does the chromatic number of Euclidean space grow with dimension when unit-distance pairs must receive different colors?
+graph_ramsey_chromatic,JSP-000575,area:^graph theory,Solved,False,Graph theory / Chromatic number,Is every planar unit-distance graph of sufficiently large girth three-colorable?
+graph_ramsey_chromatic,JSP-000576,\bchromatic\b,Open,False,Graph theory / Chromatic number,What uniform chromatic bound holds for planar graphs joining pairs whose distances lie in a prescribed finite set?
+graph_ramsey_chromatic,JSP-000581,area:^graph theory,Open,False,Graph theory / Turán numbers / Hypergraphs,What is the maximum edge density of a uniform hypergraph excluding a prescribed complete uniform hypergraph?
+graph_ramsey_chromatic,JSP-000582,area:^graph theory,Open,False,Graph theory / Turán numbers,Does every fixed bipartite graph have an extremal function asymptotic to a constant times a rational power?
+graph_ramsey_chromatic,JSP-000583,area:^graph theory,Open,False,Graph theory / Turán numbers,Can graphs excluding a prescribed balanced complete bipartite graph attain the predicted extremal lower bound?
+graph_ramsey_chromatic,JSP-000584,area:^graph theory,Solved,False,Graph theory,Must every regular graph of the specified degree contain a three-regular subgraph?
+graph_ramsey_chromatic,JSP-000585,\bchromatic\b,Solved,False,Graph theory,How does a graph's chromatic number relate to the order of its largest complete-graph subdivision?
+graph_ramsey_chromatic,JSP-000586,area:^graph theory,Solved,False,Graph theory,What average degree forces a subdivision of a complete graph of prescribed order?
+graph_ramsey_chromatic,JSP-000587,area:^graph theory,Open,False,Graph theory / Hypergraphs,How many complete uniform hypergraphs suffice to partition the edges of an arbitrary uniform hypergraph?
+graph_ramsey_chromatic,JSP-000588,\bramsey\b,Solved,False,Graph theory / Ramsey theory,How fast do the two-color size Ramsey numbers of prescribed paths and cycles grow?
+graph_ramsey_chromatic,JSP-000589,area:ramsey theory,Solved,False,Number theory / Additive combinatorics / Ramsey theory,How long an interval forces a three-term arithmetic progression in one color or a prescribed longer progression in the other?
+graph_ramsey_chromatic,JSP-000604,\bchromatic\b,Open,False,Graph theory / Chromatic number,Can graphs of arbitrarily high chromatic number be constructed without changing the finite subgraph types that occur?
+graph_ramsey_chromatic,JSP-000605,\bchromatic\b,Solved,False,Graph theory / Chromatic number,Must every graph of uncountable chromatic number have an edge lying on cycles of every sufficiently large length?
+graph_ramsey_chromatic,JSP-000606,\bchromatic\b,Open,False,Graph theory / Chromatic number,Must every triangle-free graph of infinite chromatic number contain every prescribed tree as an induced subgraph?
+graph_ramsey_chromatic,JSP-000607,\bchromatic\b,Open,False,Graph theory / Chromatic number,Does a graph of infinite chromatic number have subgraphs of every smaller infinite chromatic number?
+graph_ramsey_chromatic,JSP-000608,\bchromatic\b,Open,False,Graph theory / Chromatic number,Can short-odd-cycle structures be removed from a graph of infinite chromatic number while preserving its chromatic number?
+graph_ramsey_chromatic,JSP-000610,area:^graph theory,Open,False,Graph theory,How many edges can a diameter-two graph have if deleting any edge increases its diameter?
+graph_ramsey_chromatic,JSP-000611,area:^graph theory,Open,False,Graph theory,tree packing conjecture
+graph_ramsey_chromatic,JSP-000612,\bchromatic\b,Solved,False,Graph theory / Chromatic number,How many edges must be deleted from a chromatic-critical graph to make it bipartite?
+graph_ramsey_chromatic,JSP-000613,area:^graph theory,Solved,False,Graph theory,How large is the second-largest component of a random graph in the critical transition window?
+graph_ramsey_chromatic,JSP-000614,area:^graph theory,Solved,False,Graph theory,What is the edge threshold for Hamilton cycles in a random graph?
+graph_ramsey_chromatic,JSP-000618,\bchromatic\b,Solved,True,Graph theory / Chromatic number,Can an infinite-chromatic graph have an independent set of nearly half the vertices in every finite subgraph?
+graph_ramsey_chromatic,JSP-000619,area:^graph theory,Solved,False,Graph theory/ Cycles,How many distinct cycle lengths are forced by large minimum degree and large girth?
+graph_ramsey_chromatic,JSP-000622,area:^graph theory,Solved,False,Graph theory / Chromatic number,"For a prescribed small graph order, what is the worst-case minimum number of clique or independent-set parts in a vertex partition?"
+graph_ramsey_chromatic,JSP-000623,area:^graph theory,Solved,False,Graph theory / Chromatic number,How does the minimum number of clique or independent-set parts for graphs on a surface grow with the surface's complexity?
+graph_ramsey_chromatic,JSP-000624,\bchromatic\b,Open,False,Graph theory / Chromatic number,How does ordinary chromatic number relate to the number of acyclic vertex classes needed after orienting edges?
+graph_ramsey_chromatic,JSP-000627,area:^graph theory,Open,False,Graph theory / Turán numbers,"Among forbidden graphs with fixed vertex and edge counts, which minimizes the extremal function? Is this minimum strictly monotone in the forbidden graph's edge count?"
+graph_ramsey_chromatic,JSP-000628,area:^graph theory,Solved,False,Graph theory / Turán numbers,How many edges can a graph have if no vertex of a cycle is incident to several specified chords?
+graph_ramsey_chromatic,JSP-000637,area:^graph theory,Solved,False,Graph theory / Combinatorics,How many edges can the containment graph of a set family have?
+graph_ramsey_chromatic,JSP-000638,area:^graph theory,Open,False,Graph theory,"In the game where players alternately color edges to build the largest monochromatic clique, what outcomes and optimal strategies can each guarantee?"
+graph_ramsey_chromatic,JSP-000640,area:chromatic number,Solved,False,Combinatorics / Hypergraphs / Chromatic number,What size of a multicolored uniform hypergraph forces a prescribed number of disjoint edges of one color?
+graph_ramsey_chromatic,JSP-000655,area:^graph theory,Solved,False,Graph theory / Chromatic number,"How many colors are needed for an acyclic coloring of a bounded-maximum-degree graph, with every two color classes inducing a forest?"
+graph_ramsey_chromatic,JSP-000656,\bchromatic\b,Solved,False,Graph theory / Chromatic number,Is the list chromatic number of a random graph sublinear in its number of vertices?
+graph_ramsey_chromatic,JSP-000657,\bramsey\b,Solved,False,Graph theory / Ramsey theory,"If all high-degree vertices are pairwise nonadjacent, is the graph's Ramsey number linear in its size?"
+graph_ramsey_chromatic,JSP-000658,area:^graph theory,Solved,False,Graph theory / Ramsey theory,Does a graph with small independence number contain a small but dense subgraph?
+graph_ramsey_chromatic,JSP-000659,area:^graph theory,Solved,True,Graph theory,How large an independent set is guaranteed by average degree in a graph excluding a prescribed clique?
+graph_ramsey_chromatic,JSP-000660,area:^graph theory,Solved,False,Graph theory,Does every dense graph contain a sufficiently dense subgraph whose vertex degrees are comparable?
+graph_ramsey_chromatic,JSP-000661,area:^graph theory,Solved,False,Graph theory,"If every local part has a large independent set, how large an independent set must the whole graph have?"
+graph_ramsey_chromatic,JSP-000662,area:^graph theory,Open,False,Graph theory,Can every medium-size subgraph of a graph contain both a large clique and a large independent set?
+graph_ramsey_chromatic,JSP-000664,area:^graph theory,Solved,False,Graph theory,How many complete bipartite graphs are typically needed to partition a random graph's edges?
+graph_ramsey_chromatic,JSP-000666,area:^graph theory,Open,False,Graph theory / Ramsey theory,How many edge colors are needed to make every odd cycle rainbow?
+graph_ramsey_chromatic,JSP-000667,area:^graph theory,Open,False,Graph theory / Ramsey theory,Can a dense graph be edge-colored with linearly many colors so that every four-cycle is rainbow?
+graph_ramsey_chromatic,JSP-000668,area:^graph theory,Open,False,Graph theory / Ramsey theory,Which rainbow subgraphs are forced by the specified balanced restrictions on edge-color usage?
+graph_ramsey_chromatic,JSP-000669,\bramsey\b,Open,False,Graph theory / Ramsey theory,How much must the ratio and difference of successive clique Ramsey thresholds grow when the target order increases by one?
+graph_ramsey_chromatic,JSP-000670,area:^graph theory,Open,False,Graph theory,"If every seven vertices contain a triangle, how large a clique is guaranteed?"
+graph_ramsey_chromatic,JSP-000671,area:^graph theory,Solved,False,Graph theory,Does slightly exceeding the specified edge threshold force a small subgraph of high minimum degree?
+graph_ramsey_chromatic,JSP-000672,area:^graph theory,Solved,False,Graph theory,Do sufficiently large critical graphs satisfying the specified local minimum-degree restrictions contain every fixed cycle length?
+graph_ramsey_chromatic,JSP-000673,area:^graph theory,Solved,False,Graph theory,Must a dense graph of odd order have two equal-degree vertices joined by a three-edge path?
+graph_ramsey_chromatic,JSP-000688,\bchromatic\b,Solved,False,Graph theory / Hypergraphs / Chromatic number,How many edges are needed for a uniform hypergraph to attain a prescribed chromatic number?
+graph_ramsey_chromatic,JSP-000689,area:^graph theory,Solved,False,Graph theory / Hypergraphs / Chromatic number,Must a uniform hypergraph requiring three colors have maximum degree exponential in its edge size?
+graph_ramsey_chromatic,JSP-000690,\bchromatic\b,Solved,False,Graph theory / Hypergraphs,"Is there a three-uniform, three-chromatic-critical hypergraph with minimum degree at least seven?"
+graph_ramsey_chromatic,JSP-000691,area:^graph theory,Open,False,Graph theory / Hypergraphs,Can fixed-size subsets be colored so that every set of the next larger size contains subsets of every color?
+graph_ramsey_chromatic,JSP-000692,\bchromatic\b,Open,False,Graph theory / Hypergraphs / Chromatic number,What restrictions relate vertex count and pairwise edge-intersection sizes in intersecting three-chromatic uniform hypergraphs?
+graph_ramsey_chromatic,JSP-000693,area:^graph theory,Open,False,Graph theory / Hypergraphs,"Which edge densities are jumps for three-uniform hypergraphs, where slightly exceeding the density forces a definite local increase?"
+graph_ramsey_chromatic,JSP-000698,area:^graph theory,Solved,False,Graph theory / Chromatic number,Is every graph formed by vertex-disjoint triangles and a spanning Hamilton cycle three-colorable?
+graph_ramsey_chromatic,JSP-000745,area:ramsey theory,Solved,False,Number theory / Ramsey theory,Can the integers be finitely colored so that no same-colored pair has difference in a prescribed sparse set?
+graph_ramsey_chromatic,JSP-000748,area:^graph theory,Solved,False,Graph theory,"Just above the giant-component threshold, how long a path proportional to the vertex count does a random graph contain?"
+graph_ramsey_chromatic,JSP-000750,area:^graph theory,Open,False,Graph theory,How small can a tournament be if every small vertex set has a common external vertex dominating it?
+graph_ramsey_chromatic,JSP-000756,\bramsey\b,Open,False,Graph theory / Ramsey theory,How does the size Ramsey number grow with the target graph's average degree?
+graph_ramsey_chromatic,JSP-000759,area:^graph theory,Solved,False,Graph theory,What edge count forces many internally disjoint paths between two vertices?
+graph_ramsey_chromatic,JSP-000760,area:^graph theory,Solved,False,Graph theory/ Cycles,Can a linear edge bound force a cycle and an external vertex adjacent to three of its vertices?
+graph_ramsey_chromatic,JSP-000761,\bchromatic\b,Open,False,Graph theory / Chromatic number,How many edges can a graph critical under the specified chromatic-reducing deletions have?
+graph_ramsey_chromatic,JSP-000762,\bchromatic\b,Open,False,Graph theory / Chromatic number,Can a large graph have uncountable chromatic number while all subgraphs of the specified smaller size have countable chromatic number?
+graph_ramsey_chromatic,JSP-000763,\bchromatic\b,Open,False,Graph theory / Chromatic number,Can a graph's high chromatic number be absent from all subgraphs whose vertex sets have restricted order type?
+graph_ramsey_chromatic,JSP-000764,\bchromatic\b,Solved,False,Graph theory / Chromatic number,What is the largest chromatic number at a prescribed order when a fixed clique is forbidden?
+graph_ramsey_chromatic,JSP-000765,\bchromatic\b,Solved,False,Graph theory / Chromatic number/ Cycles,What is the largest odd girth of a graph with prescribed order and chromatic number?
+graph_ramsey_chromatic,JSP-000766,\bchromatic\b,Solved,False,Graph theory / Chromatic number,"If every finite local subgraph has an independent set of nearly half its vertices, is the whole graph's chromatic number bounded?"
+graph_ramsey_chromatic,JSP-000767,area:^graph theory,Solved,False,Graph theory / Ramsey theory,Can a graph exclude a larger clique while forcing a smaller monochromatic clique under every prescribed multicolor edge coloring?
+graph_ramsey_chromatic,JSP-000768,area:^graph theory,Solved,False,Graph theory / Ramsey theory,"If a graph admits an edge coloring with no monochromatic triangle, must it have a sufficiently large independent set?"
+graph_ramsey_chromatic,JSP-000769,area:^graph theory,Solved,False,Graph theory,How many edges can a graph have while excluding the specified complete-graph subdivision with a common center?
+graph_ramsey_chromatic,JSP-000776,area:^graph theory,Open,False,Graph theory,"Under a maximum-degree bound, how many edges force two edges sufficiently far apart in the graph?"
+graph_ramsey_chromatic,JSP-000785,\bchromatic\b,Open,False,Graph theory / Chromatic number,Can a graph be vertex-critical for chromatic number while deletion of any small number of edges never lowers its chromatic number?
+graph_ramsey_chromatic,JSP-000788,area:ramsey theory,Solved,False,Number theory / Ramsey theory,"Under a finite coloring of the positive integers, can the specified sparse sequence be found whose subset sums omit at least one color?"
+graph_ramsey_chromatic,JSP-000789,area:ramsey theory,Open,False,Ramsey theory,"If a real set is sum-free, does its complement contain a large set together with all its pairwise sums?"
+graph_ramsey_chromatic,JSP-000819,\bramsey\b,Solved,False,Graph theory / Ramsey theory,What lower bounds hold for off-diagonal clique Ramsey numbers with one target fixed and the other growing?
+graph_ramsey_chromatic,JSP-000826,area:^graph theory,Open,False,Graph theory,Is the sequence counting independent sets by size in a tree or forest unimodal?
+graph_ramsey_chromatic,JSP-000838,area:^graph theory,Solved,False,Graph theory/ Cycles,Can every graph without triangles or four-cycles be acyclically oriented so that reversing any single edge still leaves it acyclic?
+graph_ramsey_chromatic,JSP-000839,area:^graph theory,Solved,False,Graph theory,"Just above the maximum bipartite edge count, how many edge-disjoint triangles are guaranteed?"
+graph_ramsey_chromatic,JSP-000840,area:^graph theory,Solved,False,Graph theory,How many triangles must a graph have once its edge count exceeds the maximum bipartite edge count?
+graph_ramsey_chromatic,JSP-000841,\bchromatic\b,Open,False,Graph theory,"Under a high-chromatic-number condition, how many edges force a triangle?"
+graph_ramsey_chromatic,JSP-000842,area:^graph theory,Solved,False,Graph theory,What graph density forces a cycle containing nearly all vertices?
+graph_ramsey_chromatic,JSP-000843,\bchromatic\b,Open,False,Graph theory / Chromatic number,Chromatic number and minimum order of triangle-free graphs
+graph_ramsey_chromatic,JSP-000844,\bramsey\b,Solved,True,Graph theory / Ramsey theory,"With one off-diagonal Ramsey parameter fixed, does the ratio of successive values in the other parameter tend to one?"
+graph_ramsey_chromatic,JSP-000845,area:^graph theory,Solved,False,Graph theory / Ramsey theory,How few vertices need remain uncovered by disjoint monochromatic cliques in an edge-colored complete graph?
+graph_ramsey_chromatic,JSP-000846,area:^graph theory,Open,False,Graph theory/ Cycles,pancyclic graphs
+graph_ramsey_chromatic,JSP-000847,area:^graph theory,Open,False,Graph theory,How many cliques are needed to partition all edges of a dense graph?
+graph_ramsey_chromatic,JSP-000848,area:^graph theory,Solved,False,Graph theory / Planar graphs,Does superlinear edge count force a nonplanar subgraph of uniformly bounded order?
+graph_ramsey_chromatic,JSP-000849,area:^graph theory,Solved,False,Graph theory / Planar graphs,Must every dense graph contain a nontrivial maximal planar subgraph?
+graph_ramsey_chromatic,JSP-000850,area:^graph theory,Open,False,Graph theory / Hypergraphs,Maximum edge counts in uniform hypergraphs with bounded matchings
+graph_ramsey_chromatic,JSP-000851,area:^graph theory,Solved,False,Graph theory,How many edges can a graph have while excluding a complete graph with every edge subdivided once?
+graph_ramsey_chromatic,JSP-000852,area:^graph theory,Solved,False,Graph theory / Hypergraphs,How large an independent set is guaranteed in a three-uniform hypergraph whose edges intersect pairwise in at most one vertex?
+graph_ramsey_chromatic,JSP-000855,\bramsey\b,Open,False,Graph theory / Ramsey theory,Can the classical exponential lower bound for diagonal Ramsey numbers be improved by an unbounded factor?
+graph_ramsey_chromatic,JSP-000856,\bramsey\b,Open,False,Graph theory / Ramsey theory,Does the ratio of off-diagonal to corresponding diagonal Ramsey numbers satisfy a uniform parameter-dependent growth lower bound?
+graph_ramsey_chromatic,JSP-000857,area:^graph theory,Solved,False,Graph theory,Must a graph with neither large cliques nor large independent sets contain a nontrivial regular induced subgraph?
+graph_ramsey_chromatic,JSP-000858,\bchromatic\b,Open,False,Graph theory / Chromatic number,Can a four-chromatic-critical graph have minimum degree proportional to its order?
+graph_ramsey_chromatic,JSP-000859,area:^graph theory,Open,False,Graph theory,How large a sum of ambient vertex degrees is guaranteed for some triangle in a dense graph?
+graph_ramsey_chromatic,JSP-000860,area:^graph theory,Open,False,Graph theory,Does sufficiently high minimum degree force a spanning hypercube?
+graph_ramsey_chromatic,JSP-000886,area:^graph theory,Open,False,Graph theory / Planar graphs,"For a planar point set of minimum separation one, how large an independent set must its unit-distance graph have?"
+graph_ramsey_chromatic,JSP-000887,\bchromatic\b,Open,False,Graph theory / Set theory / Chromatic number,Must a graph of uncountable chromatic number contain a countable subgraph that remains connected after every finite vertex deletion?
+graph_ramsey_chromatic,JSP-000896,area:^graph theory,Solved,False,Graph theory,What minimum degree forces a transversal clique in a balanced multipartite graph?
+graph_ramsey_chromatic,JSP-000897,area:^graph theory,Solved,False,Graph theory / Turán numbers,"At the corresponding Turán edge threshold, must some vertex neighborhood contain sufficiently many edges?"
+graph_ramsey_chromatic,JSP-000907,\bchromatic\b,Solved,False,Chromatic number / Graph theory,Must every four-chromatic graph contain an odd cycle with the prescribed number of chords?
+graph_ramsey_chromatic,JSP-000916,area:^graph theory,Solved,False,Graph theory / Ramsey theory,How many edge colors can be used while avoiding the specified rainbow cycle or path?
+graph_ramsey_chromatic,JSP-000922,\bchromatic\b,Open,False,Graph theory,Does high chromatic number and small clique number force two anticomplete vertex subsets each of high chromatic number?
+graph_ramsey_chromatic,JSP-000960,area:^graph theory,Open,False,Graph theory,"After repeatedly choosing random triangles and deleting their edges, how many graph edges remain and what structure results?"
+graph_ramsey_chromatic,JSP-000961,\bchromatic\b,Open,False,Graph theory / Chromatic number,How narrow an integer range typically contains the chromatic number of a random graph?
+graph_ramsey_chromatic,JSP-000972,area:ramsey theory,Open,False,Set theory / Ramsey theory,Does a partition relation for an infinite cardinal imply a corresponding relation for smaller subset sizes?
+graph_ramsey_chromatic,JSP-000973,area:ramsey theory,Open,False,Set theory / Ramsey theory,Can the specified negative partition relations at successors of singular cardinals be proved without the generalized continuum hypothesis?
+graph_ramsey_chromatic,JSP-000974,area:ramsey theory,Open,False,Set theory / Ramsey theory,Can pairs on the ordinal square of the first uncountable ordinal be two-colored to avoid the specified monochromatic order types?
+graph_ramsey_chromatic,JSP-000975,area:ramsey theory,Open,False,Set theory / Ramsey theory,Is the specified two-color partition property of the second uncountable ordinal for all smaller order types consistent with the usual set-theoretic axioms?
+graph_ramsey_chromatic,JSP-000976,area:ramsey theory,Open,False,Set theory / Ramsey theory,Which monochromatic triangles or order types are forced by multicolorings on the ordinal square of the first uncountable ordinal?
+graph_ramsey_chromatic,JSP-000977,area:ramsey theory,Open,False,Set theory / Ramsey theory,"Under the generalized continuum hypothesis, which specified partition relations hold at higher uncountable ordinals?"
+graph_ramsey_chromatic,JSP-000979,area:ramsey theory,Open,False,Set theory / Ramsey theory,Can graphs exclude a large clique while forcing a prescribed smaller monochromatic clique under every countable coloring?
+graph_ramsey_chromatic,JSP-000980,\bchromatic\b,Open,False,Set theory / Chromatic number,Does sufficiently high chromatic number force a triangle-free subgraph whose chromatic number reaches a prescribed uncountable cardinal?
+graph_ramsey_chromatic,JSP-000981,\bchromatic\b,Open,False,Set theory / Ramsey theory,Can edges of an uncountable-chromatic graph be colored so that every prescribed vertex coloring has a color class realizing all edge colors?
+graph_ramsey_chromatic,JSP-000982,\bchromatic\b,Open,False,Set theory / Chromatic number / Hypergraphs,When does forbidding a finite three-uniform hypergraph still allow hypergraphs of uncountable chromatic number?
+graph_ramsey_chromatic,JSP-000983,area:^graph theory,Open,False,Graph theory / Hypergraphs,What vertex threshold for forbidden uniform-hypergraph configurations forces a subquadratic extremal edge count?
+graph_ramsey_chromatic,JSP-000987,\bramsey\b,Open,False,Graph theory / Ramsey theory,"If a connected graph's Ramsey number against a triangle is twice its order minus one, what edge counts are possible?"
+graph_ramsey_chromatic,JSP-000988,area:ramsey theory,Open,False,Combinatorics / Ramsey theory,Does every two-coloring of the power set contain a large monochromatic family closed under unions and intersections?
+graph_ramsey_chromatic,JSP-001003,area:ramsey theory,Solved,False,Additive combinatorics / Ramsey theory,Does every two-coloring of the positive integers contain an infinite set with all the specified mixed sum-product structures monochromatic?
+graph_ramsey_chromatic,JSP-001004,area:ramsey theory,Open,False,Additive combinatorics / Ramsey theory,Does every two-coloring of the natural numbers contain an infinite set whose specified pairwise sums all have one color?
+graph_ramsey_chromatic,JSP-001016,area:ramsey theory,Solved,False,Number theory / Ramsey theory,"In every partition of the natural numbers into two parts, must one part's finite subset sums have a uniform positive lower logarithmic density?"
+graph_ramsey_chromatic,JSP-001021,area:^graph theory,Solved,False,Graph theory / Ramsey theory,How large a transitive subtournament must every tournament of prescribed order contain?
+graph_ramsey_chromatic,JSP-001060,\bchromatic\b,Solved,True,Discrete geometry / Graph coloring,Five-colorability of the Euclidean plane
