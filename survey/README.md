@@ -93,6 +93,7 @@ general distinction, shared reading, and boundary.
   Comparator pending). Earlier evidence keeps the `14ec5e0` pin (source `lean-bgp212`).
 - Second bridge: `Survey.PrimeBridges.admissible_twin : AdmissibleZ ({0, 2} : Finset ℤ)`
   (LIFT-009-5, a general distinction: membership of {0, 2} in the admissible shift sets).
-  Source committed; kernel check pending (`check_bridges.sh` on a machine with the lean-bgp212 build).
+  Kernel-checked on the user's MBP against lean-bgp212 `89b43fa` (EV-0003, axioms propext,
+  Classical.choice, Quot.sound; Compiled, Comparator pending). The same run reproduces EV-0002.
 - Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 22 edges in total.
-  Lift states: Compiled 3, Specified 16, Proposed 3; Verified 0.
+  Lift states: Compiled 4, Specified 15, Proposed 3; Verified 0.

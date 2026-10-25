@@ -80,6 +80,56 @@
    "notes": "Kernel check only. Comparator against an independent Challenge has not run, so no Comparator acceptance is claimed."
   },
   {
+   "id": "EV-0003",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-009-5",
+    "LIFT-041-2"
+   ],
+   "kind": "kernel-check",
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyBridges/AdmissibleTwin.lean",
+     "sha256": "8a89082d81ee646c62a6118392fa645e67ec40e0c1c321e66ba3f3b59d1ab5c8"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/H1LeMono.lean",
+     "sha256": "3be3ce313a06fcbb4438ff43bae0afeb42f7a737c7761f9e5c78f60e1dca4ded"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.admissible_twin",
+    "Survey.PrimeBridges.h1Le_mono"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "survey/scripts/check_bridges.sh ~/lean-bgp212, at awards commit de9aec5 (survey/prime-bridges); lean-bgp212 89b43fa019337645b4c2c66ae917bcb1fe76450f, clean",
+   "tool": "Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+   "result": "Both modules compiled. Audit: @Survey.PrimeBridges.h1Le_mono : ∀ {D₁ D₂ : ℕ}, D₁ ≤ D₂ → BGP212.Gap.H1Le D₁ → BGP212.Gap.H1Le D₂; Survey.PrimeBridges.admissible_twin : BGP212.Gap.AdmissibleZ {0, 2}; each depends on axioms: [propext, Classical.choice, Quot.sound]. Script ended: 'axiom audit: only propext, Classical.choice, Quot.sound'.",
+   "axioms": {
+    "Survey.PrimeBridges.admissible_twin": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.h1Le_mono": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-25",
+   "machine": "Dan Hawkley's MacBook Pro (arm64-apple-darwin24.6.0); user-reported run, output pasted into the session; not re-run by Claude",
+   "notes": "User-reported kernel check. Reproduces EV-0002 for h1Le_mono from the committed file. Comparator against an independent Challenge has not run, so no Comparator acceptance is claimed."
+  },
+  {
    "id": "EV-UP-B3",
    "layer": "L4",
    "subjects": [

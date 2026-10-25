@@ -259,9 +259,9 @@
     },
     {
      "id": "adm",
-     "statement": "BGP212.Gap.AdmissibleZ {0, 2}: stated as Survey.PrimeBridges.admissible_twin (LIFT-009-5), kernel check pending",
+     "statement": "BGP212.Gap.AdmissibleZ {0, 2}: Survey.PrimeBridges.admissible_twin (LIFT-009-5), kernel-checked in EV-0003",
      "role": "side-condition",
-     "status": "open"
+     "status": "discharged"
     },
     {
      "id": "diam",
@@ -294,7 +294,7 @@
    "statement": {
     "math": "The twin-prime shift set {0, 2} is admissible: the residue 1 avoids both shifts modulo every prime, since 0 − 1 and 2 − 1 are ±1.",
     "lean_name": "Survey.PrimeBridges.admissible_twin",
-    "lean": "theorem admissible_twin : AdmissibleZ ({0, 2} : Finset ℤ)",
+    "lean": "theorem admissible_twin : BGP212.Gap.AdmissibleZ ({0, 2} : Finset ℤ)",
     "proof_term": "by intro p hp; refine ⟨1, ?_⟩; … (tactic proof in survey/lean-bridges/SurveyBridges/AdmissibleTwin.lean)"
    },
    "uses": [
@@ -315,11 +315,14 @@
    "source": "Survey.PrimeBridges.admissible_twin (survey/prime-bridges 5044386, sha256 8a89082d81ee646c62a6118392fa645e67ec40e0c1c321e66ba3f3b59d1ab5c8) over BGP212.Gap.AdmissibleZ at lean-bgp212 89b43fa",
    "state": {
     "mathematical": "established",
-    "formalization": "specified",
-    "verification": "unverified"
+    "formalization": "compiled",
+    "verification": "kernel-checked"
    },
    "obligation": "open",
-   "notes": "Lean source committed; compilation against lean-bgp212 89b43fa (Lean v4.34.0-rc2) is pending: survey/scripts/check_bridges.sh ~/lean-bgp212 on the MBP. A clean kernel check moves this lift to Compiled, kernel-checked, and discharges side condition 'adm' of LIFT-009-4 and the {0, 2} instance needed by LIFT-029-5; Comparator acceptance is a further step."
+   "notes": "Kernel-checked on the user's MBP (EV-0003, axioms propext, Classical.choice, Quot.sound). Compiled, not Verified: the obligation stays open until Comparator accepts it against an independent Challenge.",
+   "evidence": [
+    "EV-0003"
+   ]
   },
   {
    "id": "LIFT-029-1",
@@ -584,9 +587,10 @@
    },
    "obligation": "open",
    "evidence": [
-    "EV-0002"
+    "EV-0002",
+    "EV-0003"
    ],
-   "notes": "Kernel-checked (EV-0002); Comparator has not run, so the lift stays an open obligation at Compiled."
+   "notes": "Kernel-checked (EV-0002, reproduced from the committed file in EV-0003); Comparator has not run, so the lift stays an open obligation at Compiled."
   },
   {
    "id": "LIFT-041-3",
