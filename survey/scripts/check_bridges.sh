@@ -5,6 +5,8 @@
 # rebuilt: the checkout must sit at the commit pinned in survey/lean-bridges/lakefile.toml, have
 # a clean tree, and already hold built .olean files for BGP212.Gap and its imports. Only `lean`
 # is run, through `lake env`; the checkout's sources and build outputs are left as they are.
+# `-R "$HERE"` sets the source root to survey/lean-bridges, so module names (SurveyBridges.*)
+# resolve there rather than inside the lean-bgp212 checkout that provides the environment.
 #
 # Usage: survey/scripts/check_bridges.sh PATH/TO/lean-bgp212
 #
@@ -36,6 +38,6 @@ lake env lean --version
 for f in "$HERE"/SurveyBridges/*.lean; do
   m="$(basename "$f" .lean)"
   echo "== SurveyBridges.$m sha256 $(sha "$f")"
-  lake env lean -o "$OUT/SurveyBridges/$m.olean" "$f"
+  lake env lean -R "$HERE" -o "$OUT/SurveyBridges/$m.olean" "$f"
 done
-lake env bash -c 'LEAN_PATH="$0:$LEAN_PATH" lean "$1"' "$OUT" "$HERE/Audit.lean"
+lake env bash -c 'LEAN_PATH="$0:$LEAN_PATH" lean -R "$1" "$2"' "$OUT" "$HERE" "$HERE/Audit.lean"
