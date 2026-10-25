@@ -125,6 +125,14 @@
      "notes": {
       "type": "string",
       "minLength": 1
+     },
+     "dependencies": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      },
+      "description": "Source ids (sources.json) whose pinned commits the run used."
      }
     }
    }

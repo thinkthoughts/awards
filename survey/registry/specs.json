@@ -26,7 +26,7 @@
      "source": "survey-local",
      "name": "Survey.Foundation.add_one_eq_succ",
      "kind": "theorem",
-     "file": "SurveyFoundation/OnePlusOne.lean"
+     "file": "lean/SurveyFoundation/OnePlusOne.lean"
     },
     {
      "source": "lean4",

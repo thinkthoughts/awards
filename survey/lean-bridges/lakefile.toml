@@ -1,0 +1,22 @@
+name = "surveybridges"
+version = "0.1.0"
+defaultTargets = ["SurveyBridges"]
+
+[leanOptions]
+relaxedAutoImplicit = false
+
+# Bridge lemmas over lean-bgp212's definitions. Kept apart from survey/lean, whose
+# SurveyFoundation library stays core-only (prelude as the whole trusted base).
+#
+# lean-bgp212 is pinned to 89b43fa (branch v2o-local); its Gap.lean, Params.lean,
+# Theorem711.lean, lakefile and manifest are identical to 14ec5e0, the revision cited by the
+# survey's earlier evidence. Mathlib and its dependencies come pinned through lean-bgp212's
+# manifest (Mathlib 85e3a25). No lean-bgp212 source file is copied or modified.
+
+[[require]]
+name = "bgp212"
+git = "https://github.com/thinkthoughts/lean-bgp212"
+rev = "89b43fa019337645b4c2c66ae917bcb1fe76450f"
+
+[[lean_lib]]
+name = "SurveyBridges"

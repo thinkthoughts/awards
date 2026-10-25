@@ -132,7 +132,7 @@ class RegistryTests(unittest.TestCase):
     def test_candidate_cannot_be_verified(self):
         def promote(r):
             e = self.edge(r, "EDGE-CAND-1")
-            e["state"] = {"mathematical": "candidate", "formalization": "compiled", "verification": "kernel-checked"}
+            e["state"] = {"mathematical": "candidate", "formalization": "compiled", "verification": "comparator-accepted"}
             e["obligation"] = "discharged"
         self.assertRejected(promote, "candidate relationship cannot be Verified")
 
@@ -160,10 +160,38 @@ class RegistryTests(unittest.TestCase):
         self.assertRejected(lambda r: r["specs"]["specs"][0]["state"].update(verification="proved"), "is not one of")
 
     def test_kernel_evidence_hash_matches_lean_file(self):
-        ev = next(e for e in self.reg["evidence"]["evidence"] if e["id"] == "EV-0001")
-        for f in ev["files"]:
-            self.assertEqual(sha256(ROOT / f["path"]), f["sha256"],
-                             f"{f['path']} changed since EV-0001; re-run survey/scripts/check_lean.sh")
+        for ev in self.reg["evidence"]["evidence"]:
+            if ev["kind"] == "upstream-record":
+                continue
+            for f in ev["files"]:
+                self.assertEqual(sha256(ROOT / f["path"]), f["sha256"],
+                                 f"{f['path']} changed since {ev['id']}; re-run its check")
+
+    def test_kernel_check_alone_leaves_a_lift_open(self):
+        for e in self.reg["edges"]["edges"]:
+            if e["state"]["verification"] == "kernel-checked":
+                self.assertEqual(validate_registry.lift_state(e), "Compiled", e["id"])
+                self.assertEqual(e["obligation"], "open", e["id"])
+        self.assertRejected(lambda r: self.edge(r, "LIFT-041-2").update(obligation="discharged"),
+                            "discharged exactly when it is Verified")
+
+    def test_bridge_package_pins_the_registered_commit(self):
+        sources = {s["id"]: s for s in self.reg["sources"]["sources"]}
+        lakefile = (SURVEY / "lean-bridges" / "lakefile.toml").read_text(encoding="utf-8")
+        manifest = json.loads((SURVEY / "lean-bridges" / "lake-manifest.json").read_text(encoding="utf-8"))
+        pin = sources["lean-bgp212-89b43fa"]["commit"]
+        self.assertIn(f'rev = "{pin}"', lakefile)
+        bgp = next(p for p in manifest["packages"] if p["name"] == "bgp212")
+        self.assertEqual(bgp["rev"], pin)
+        self.assertEqual(sources["lean-bgp212"]["commit"], "14ec5e0c77f9867d97fe394f135d61c349ddd0b1")
+        toolchains = {(SURVEY / d / "lean-toolchain").read_text(encoding="utf-8").strip() for d in ("lean", "lean-bridges")}
+        self.assertEqual(toolchains, {sources["lean-bgp212-89b43fa"]["toolchain"]})
+
+    def test_foundation_package_stays_core_only(self):
+        lakefile = (SURVEY / "lean" / "lakefile.toml").read_text(encoding="utf-8")
+        manifest = json.loads((SURVEY / "lean" / "lake-manifest.json").read_text(encoding="utf-8"))
+        self.assertNotIn("[[require]]", lakefile)
+        self.assertEqual(manifest["packages"], [])
 
 
 if __name__ == "__main__":

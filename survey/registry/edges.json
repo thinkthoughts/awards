@@ -17,13 +17,13 @@
      "source": "survey-local",
      "name": "Survey.Foundation.add_one_eq_succ",
      "kind": "theorem",
-     "file": "SurveyFoundation/OnePlusOne.lean"
+     "file": "lean/SurveyFoundation/OnePlusOne.lean"
     },
     {
      "source": "survey-local",
      "name": "Survey.Foundation.one_add_one_of_spec",
      "kind": "theorem",
-     "file": "SurveyFoundation/OnePlusOne.lean"
+     "file": "lean/SurveyFoundation/OnePlusOne.lean"
     }
    ],
    "hypotheses": [
@@ -40,10 +40,11 @@
     "formalization": "compiled",
     "verification": "kernel-checked"
    },
-   "obligation": "discharged",
+   "obligation": "open",
    "evidence": [
     "EV-0001"
-   ]
+   ],
+   "notes": "Kernel-checked with no axioms (EV-0001); the lift reaches Verified once Comparator accepts it against an independent Challenge."
   },
   {
    "id": "EDGE-GDT-1",
@@ -511,12 +512,20 @@
    "relation": "implies",
    "strength": "direct-application",
    "statement": {
-    "math": "H1Le is monotone: D ≤ D' and H1Le D give H1Le D'.",
-    "lean": "theorem H1Le_mono {D D' : ℕ} (h : D ≤ D') : BGP212.Gap.H1Le D → BGP212.Gap.H1Le D'"
+    "math": "H1Le is monotone: D₁ ≤ D₂ and H1Le D₁ give H1Le D₂.",
+    "lean_name": "Survey.PrimeBridges.h1Le_mono",
+    "lean": "theorem h1Le_mono {D₁ D₂ : ℕ} (hD : D₁ ≤ D₂) (h : BGP212.Gap.H1Le D₁) : BGP212.Gap.H1Le D₂",
+    "proof_term": "by unfold BGP212.Gap.H1Le at h ⊢; exact h.mono (fun n hn => le_trans hn hD)"
    },
    "uses": [
     {
-     "source": "lean-bgp212",
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.h1Le_mono",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/H1LeMono.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
      "name": "BGP212.Gap.H1Le",
      "kind": "def",
      "file": "BGP212/Gap.lean"
@@ -525,18 +534,23 @@
    "hypotheses": [
     {
      "id": "le",
-     "statement": "D ≤ D'",
+     "statement": "D₁ ≤ D₂, taken as the theorem's argument hD",
      "role": "side-condition",
-     "status": "open"
+     "status": "discharged",
+     "lean": "hD : D₁ ≤ D₂"
     }
    ],
-   "source": "Filter.Frequently.mono",
+   "source": "Survey.PrimeBridges.h1Le_mono over BGP212.Gap.H1Le at lean-bgp212 89b43fa; Filter.Frequently.mono (Mathlib 85e3a25)",
    "state": {
     "mathematical": "established",
-    "formalization": "specified",
-    "verification": "unverified"
+    "formalization": "compiled",
+    "verification": "kernel-checked"
    },
-   "obligation": "open"
+   "obligation": "open",
+   "evidence": [
+    "EV-0002"
+   ],
+   "notes": "Kernel-checked (EV-0002); Comparator has not run, so the lift stays an open obligation at Compiled."
   },
   {
    "id": "LIFT-041-3",
@@ -558,9 +572,9 @@
     },
     {
      "id": "mono",
-     "statement": "LIFT-041-2 at 2 ≤ 186",
+     "statement": "LIFT-041-2 at 2 ≤ 186 (Survey.PrimeBridges.h1Le_mono, EV-0002)",
      "role": "side-condition",
-     "status": "open"
+     "status": "discharged"
     }
    ],
    "source": "Composition",
@@ -639,9 +653,9 @@
    "hypotheses": [
     {
      "id": "mono",
-     "statement": "LIFT-041-2 at 186 ≤ 212",
+     "statement": "LIFT-041-2 at 186 ≤ 212 (Survey.PrimeBridges.h1Le_mono, EV-0002)",
      "role": "side-condition",
-     "status": "open"
+     "status": "discharged"
     }
    ],
    "source": "Monotonicity",

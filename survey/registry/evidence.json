@@ -38,7 +38,46 @@
    "sorry_free": true,
    "date": "2026-10-25",
    "machine": "Claude cloud session container, x86_64 Linux",
-   "notes": "Kernel check by elaboration plus axiom audit; a Comparator run against an independent Challenge is the next level."
+   "notes": "Kernel check by elaboration plus axiom audit. Comparator against an independent Challenge has not run; LIFT-0001 stays an open obligation until it does."
+  },
+  {
+   "id": "EV-0002",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-041-2"
+   ],
+   "kind": "kernel-check",
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyBridges/H1LeMono.lean",
+     "sha256": "3be3ce313a06fcbb4438ff43bae0afeb42f7a737c7761f9e5c78f60e1dca4ded"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.h1Le_mono"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "Reported run: the file, then at /tmp/JSPH1Mono.lean (same sha256), compiled against the ~/lean-bgp212 checkout at 89b43fa. Reproduce with survey/scripts/check_bridges.sh ~/lean-bgp212.",
+   "tool": "Lean v4.34.0-rc2",
+   "result": "Compiled without errors. #print axioms: Survey.PrimeBridges.h1Le_mono depends on propext, Classical.choice, Quot.sound.",
+   "axioms": {
+    "Survey.PrimeBridges.h1Le_mono": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-25",
+   "machine": "Dan Hawkley's Mac, run by the user and reported in the session; the survey has not re-run it",
+   "notes": "Kernel check only. Comparator against an independent Challenge has not run, so no Comparator acceptance is claimed."
   },
   {
    "id": "EV-UP-B3",

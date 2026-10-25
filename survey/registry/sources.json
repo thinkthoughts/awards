@@ -18,7 +18,17 @@
    "commit": "14ec5e0c77f9867d97fe394f135d61c349ddd0b1",
    "toolchain": "leanprover/lean4:v4.34.0-rc2",
    "mathlib": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
-   "notes": "Vendors GDT v1.0.0 (cef9605) in BGP212/GDTv1Basic.lean and BGP212/GDTv1.lean."
+   "notes": "Vendors GDT v1.0.0 (cef9605) in BGP212/GDTv1Basic.lean and BGP212/GDTv1.lean. Pin for the survey's earlier evidence (EV-UP-B1, EV-UP-B3) and definitions."
+  },
+  {
+   "id": "lean-bgp212-89b43fa",
+   "repository": "thinkthoughts/lean-bgp212",
+   "url": "https://github.com/thinkthoughts/lean-bgp212",
+   "commit": "89b43fa019337645b4c2c66ae917bcb1fe76450f",
+   "ref": "v2o-local (branch)",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2",
+   "mathlib": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+   "notes": "Revision the survey/lean-bridges package requires (EV-0002). One commit after 14ec5e0; BGP212.Gap and its eight BGP212 imports, the lakefile, manifest and toolchain are byte-identical at both commits. Reachable through the v2o-local branch only: a tag would keep it fetchable."
   },
   {
    "id": "general-divisor-theorem",

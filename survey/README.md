@@ -23,6 +23,7 @@ Leading specifications first. Admissible generalizations trail leading specifica
 | `registry/edges.json` | Typed PiπΠ lifts and other dependency edges |
 | `registry/evidence.json` | L4 verification evidence |
 | `lean/` | Core-only Lean project: `SurveyFoundation/OnePlusOne.lean` and its axiom audit |
+| `lean-bridges/` | Lean project requiring lean-bgp212 at `89b43fa`: `SurveyBridges/H1LeMono.lean` and its audit |
 | `scripts/` | Parser, classifier, provenance, registry validator, Lean check |
 | `tests/test_survey.py` | Regression tests (standard library only) |
 
@@ -38,7 +39,13 @@ python3 survey/scripts/validate_registry.py        # schemas, cross-references, 
 python3 survey/scripts/validate_registry.py --sources-dir DIR   # also look up cited declarations
 python3 -m unittest discover -s survey/tests -v
 survey/scripts/check_lean.sh <path-to-lean-4.34.0-rc2>          # kernel check + axiom audit
+survey/scripts/check_bridges.sh ~/lean-bgp212                    # bridge modules, against a built checkout
 ```
+
+`check_bridges.sh` requires the lean-bgp212 checkout to sit at the pinned commit with a clean tree
+and existing builds; it downloads and rebuilds nothing. `lake build` inside `survey/lean-bridges`
+is the from-scratch route: it fetches lean-bgp212 and Mathlib at their pinned commits (several GB
+with the Mathlib cache). `survey/lean` stays core-only, so its check needs only the toolchain.
 
 `--sources-dir DIR` expects clones named by source id (`DIR/lean-bgp212`,
 `DIR/general-divisor-theorem`, `DIR/formal-conjectures`); each cited declaration is looked up in its
@@ -64,8 +71,10 @@ Every object, specification, reading and edge carries three independent states:
 | formalization | prose, specified, compiled | How far the Lean statement exists |
 | verification | unverified, upstream-reported, kernel-checked, comparator-accepted | What checking stands behind it, with evidence |
 
-An edge's lift state summarizes these: Proposed (prose), Specified, Compiled, Verified (kernel-checked
-or comparator-accepted here). Every lift is an open proof obligation until it is Verified;
+An edge's lift state summarizes these: Proposed (prose), Specified, Compiled, and Verified, which
+means Comparator accepted the proof against an independently written Challenge. A kernel check with
+an axiom audit (`kernel-checked`) keeps the edge at Compiled. Every lift is an open proof
+obligation until it is Verified;
 `upstream-reported` records a source repository's own verification and keeps the obligation open
 until the check is re-run for the survey. Analogy and scope-boundary edges carry obligation
 `recorded`: they transfer no conclusion.
@@ -78,6 +87,9 @@ general distinction, shared reading, and boundary.
 
 - Foundational reading point RP-0001, `1 + 1 = 2`: statement, Lean declaration
   `Survey.Foundation.one_add_one`, proof term `rfl`, kernel check EV-0001 (no axioms), and its
-  generalization SPEC-nat-add-one through LIFT-0001 (Verified).
+  generalization SPEC-nat-add-one through LIFT-0001 (Compiled; Comparator pending).
+- First prime-gap bridge: `Survey.PrimeBridges.h1Le_mono` (LIFT-041-2), kernel-checked against
+  lean-bgp212 `89b43fa` with axioms propext, Classical.choice, Quot.sound (EV-0002; Compiled,
+  Comparator pending). Earlier evidence keeps the `14ec5e0` pin (source `lean-bgp212`).
 - Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 21 edges in total.
-  Lift states: Verified 1, Compiled 1, Specified 16, Proposed 3.
+  Lift states: Compiled 3, Specified 15, Proposed 3; Verified 0.

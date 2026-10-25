@@ -10,7 +10,9 @@ Standard library only. The JSON Schemas in survey/schemas use a small subset of 
 which this script implements; any full JSON Schema validator gives the same structural result.
 
 --sources-dir DIR expects local clones named after source ids (DIR/lean-bgp212, ...). Each cited
-declaration is then looked up in its file at the pinned commit with `git show`.
+declaration is then looked up in its file at the pinned commit with `git show`. Two source ids
+may share one clone (DIR/lean-bgp212-89b43fa can link to the same repository as DIR/lean-bgp212).
+Survey-local references give their file relative to survey/.
 """
 from __future__ import annotations
 
@@ -26,7 +28,8 @@ SURVEY = ROOT / "survey"
 SCHEMAS = SURVEY / "schemas"
 REGISTRY = SURVEY / "registry"
 LAYERS = ["sources", "objects", "specs", "readings", "edges", "evidence"]
-LOCAL_VERIFIED = {"kernel-checked", "comparator-accepted"}
+LOCAL_VERIFIED = {"kernel-checked", "comparator-accepted"}   # checks run for the survey
+VERIFIED = {"comparator-accepted"}   # architecture v2: kernel proof plus Comparator acceptance
 LIFT_RELATIONS = {"reading-of", "equivalent", "implies", "special-case", "supplies-hypothesis"}
 
 
@@ -85,9 +88,12 @@ def load_records(path: Path = SURVEY / "data" / "records.json") -> dict:
 
 
 def lift_state(edge: dict) -> str:
-    """The four-state summary of an edge: Proposed, Specified, Compiled, Verified."""
+    """The four-state summary of an edge: Proposed, Specified, Compiled, Verified.
+
+    Verified means Comparator accepted the proof against an independently written Challenge
+    (architecture v2). A kernel check alone leaves the edge at Compiled."""
     s = edge["state"]
-    if s["verification"] in LOCAL_VERIFIED:
+    if s["verification"] in VERIFIED:
         return "Verified"
     return {"prose": "Proposed", "specified": "Specified", "compiled": "Compiled"}[s["formalization"]]
 
@@ -211,7 +217,7 @@ def validate(reg: dict, records: dict) -> list[str]:
         for h in e["hypotheses"]:
             if h["role"] == "assumption" and h["status"] == "discharged":
                 errors.append(f"{eid}: assumption {h['id']} is recorded as discharged; make it a side condition")
-        verified = e["state"]["verification"] in LOCAL_VERIFIED
+        verified = e["state"]["verification"] in VERIFIED
         recorded_kind = relation in {"analogy", "scope-boundary"}
         if recorded_kind != (e["obligation"] == "recorded"):
             errors.append(f"{eid}: analogy and scope-boundary edges carry obligation 'recorded'; "
@@ -229,6 +235,9 @@ def validate(reg: dict, records: dict) -> list[str]:
         for subj in ev["subjects"]:
             if subj not in all_ids:
                 errors.append(f"{vid}: unknown subject {subj}")
+        for dep in ev.get("dependencies", []):
+            if dep not in sources:
+                errors.append(f"{vid}: dependency {dep} is absent from sources.json")
         if ev["kind"] == "upstream-record":
             if ev.get("source") not in sources:
                 errors.append(f"{vid}: upstream evidence names a source from sources.json")
@@ -263,7 +272,7 @@ def check_declarations(reg: dict, sources_dir: Path) -> list[str]:
         refs += [(e["id"], r) for r in e.get("uses", [])]
     for owner, ref in refs:
         if ref["source"] == "survey-local":
-            path = SURVEY / "lean" / ref["file"]
+            path = SURVEY / ref["file"]
             short = ref["name"].rsplit(".", 1)[-1]
             if not path.exists() or not re.search(rf"\b{DECL_KW}\s+{re.escape(short)}\b", path.read_text(encoding="utf-8")):
                 errors.append(f"{owner}: survey-local {ref['name']} absent from {ref['file']}")

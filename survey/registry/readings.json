@@ -21,7 +21,7 @@
      "source": "survey-local",
      "name": "Survey.Foundation.one_add_one",
      "kind": "theorem",
-     "file": "SurveyFoundation/OnePlusOne.lean"
+     "file": "lean/SurveyFoundation/OnePlusOne.lean"
     }
    ],
    "leading_constraints": [
