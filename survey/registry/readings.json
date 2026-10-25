@@ -1,0 +1,177 @@
+{
+ "schema": "survey/readings@1",
+ "description": "L2 reading points: JSP catalog entries and foundational readings, each an instance of an L1 specification.",
+ "readings": [
+  {
+   "id": "RP-0001",
+   "layer": "L2",
+   "kind": "foundational",
+   "spec": "SPEC-nat-add-one",
+   "parameters": {
+    "n": 1
+   },
+   "statement": {
+    "math": "1 + 1 = 2 in the natural numbers.",
+    "lean_name": "Survey.Foundation.one_add_one",
+    "lean": "theorem one_add_one : (1 : Nat) + 1 = 2",
+    "proof_term": "rfl"
+   },
+   "lean": [
+    {
+     "source": "survey-local",
+     "name": "Survey.Foundation.one_add_one",
+     "kind": "theorem",
+     "file": "SurveyFoundation/OnePlusOne.lean"
+    }
+   ],
+   "leading_constraints": [
+    "Numerals are natural-number literals.",
+    "Addition is Nat.add."
+   ],
+   "excluded_generalizations": [
+    "1 + 1 = 2 in ℤ, ℚ or ℝ: the same numeral reading under a separate specification.",
+    "Rings of characteristic 2, where 1 + 1 = 0."
+   ],
+   "state": {
+    "mathematical": "proved",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "evidence": [
+    "EV-0001"
+   ],
+   "notes": "Five layers kept apart: mathematical statement (statement.math); Lean declaration (statement.lean_name, statement.lean); proof term (statement.proof_term); kernel verification (EV-0001); generalization (SPEC-nat-add-one via LIFT-0001)."
+  },
+  {
+   "id": "RP-JSP-000009",
+   "layer": "L2",
+   "kind": "jsp",
+   "jsp": "JSP-000009",
+   "catalog": {
+    "title": "Twin prime conjecture",
+    "volume": "catalog-0001-0100.md",
+    "status": "Open",
+    "lean_proof": false,
+    "text": "Are there infinitely many pairs of primes differing by exactly two?"
+   },
+   "spec": "SPEC-prime-tuple",
+   "parameters": {
+    "H": "{0, 2}"
+   },
+   "statement": {
+    "math": "There are infinitely many primes p with p + 2 prime.",
+    "lean_name": "Survey.Pilot.JSP_000009",
+    "lean": "def JSP_000009 : Prop := {p : ℕ | p.Prime ∧ (p + 2).Prime}.Infinite"
+   },
+   "lean": [
+    {
+     "source": "formal-conjectures",
+     "name": "TwinPrimes.twin_primes",
+     "kind": "statement",
+     "file": "FormalConjectures/Wikipedia/TwinPrimes.lean"
+    }
+   ],
+   "leading_constraints": [
+    "Gap exactly 2.",
+    "The shift set {0, 2} is admissible: the residue 1 avoids both shifts modulo every prime."
+   ],
+   "excluded_generalizations": [
+    "Every even gap (Polignac; the content of DHL[2, 2]).",
+    "The Hardy–Littlewood twin-prime constant.",
+    "JSP-000708 (second Hardy–Littlewood conjecture)."
+   ],
+   "state": {
+    "mathematical": "open",
+    "formalization": "specified",
+    "verification": "unverified"
+   }
+  },
+  {
+   "id": "RP-JSP-000029",
+   "layer": "L2",
+   "kind": "jsp",
+   "jsp": "JSP-000029",
+   "catalog": {
+    "title": "Dickson conjecture",
+    "volume": "catalog-0001-0100.md",
+    "status": "Open",
+    "lean_proof": false,
+    "text": "Do finitely many integer linear polynomials with positive leading coefficients take prime values simultaneously infinitely often whenever no fixed prime divisor obstructs this?"
+   },
+   "spec": "SPEC-dickson-linear",
+   "parameters": {
+    "fs": "every finite set of linear forms with positive leading coefficients and no fixed prime divisor"
+   },
+   "statement": {
+    "math": "Every such set of linear forms is simultaneously prime at infinitely many natural numbers.",
+    "lean_name": "Survey.Pilot.JSP_000029",
+    "lean": "def JSP_000029 : Prop := ∀ fs : Finset ℤ[X], (∀ f ∈ fs, f.degree = 1 ∧ 0 < f.leadingCoeff) → SchinzelCondition fs → {n : ℕ | ∀ f ∈ fs, (f.eval (n : ℤ)).natAbs.Prime}.Infinite"
+   },
+   "lean": [
+    {
+     "source": "formal-conjectures",
+     "name": "Dickson.dickson_conjecture",
+     "kind": "statement",
+     "file": "FormalConjectures/Wikipedia/Dickson.lean"
+    }
+   ],
+   "leading_constraints": [
+    "Positive leading coefficients.",
+    "No fixed prime divisor (Schinzel condition)."
+   ],
+   "excluded_generalizations": [
+    "Higher-degree polynomials.",
+    "Forms with negative leading coefficients.",
+    "Counting asymptotics (Bateman–Horn)."
+   ],
+   "state": {
+    "mathematical": "open",
+    "formalization": "specified",
+    "verification": "unverified"
+   }
+  },
+  {
+   "id": "RP-JSP-000041",
+   "layer": "L2",
+   "kind": "jsp",
+   "jsp": "JSP-000041",
+   "catalog": {
+    "title": "Consecutive prime gap bound of 186",
+    "volume": "catalog-0001-0100.md",
+    "status": "Open",
+    "lean_proof": false,
+    "text": "Are there infinitely many consecutive prime pairs with gap at most 186? This is a quantitative bounded-prime-gaps problem."
+   },
+   "spec": "SPEC-h1le",
+   "parameters": {
+    "D": 186
+   },
+   "statement": {
+    "math": "Infinitely many consecutive primes differ by at most 186.",
+    "lean_name": "Survey.Pilot.JSP_000041",
+    "lean": "def JSP_000041 : Prop := BGP212.Gap.H1Le 186"
+   },
+   "lean": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.H1Le",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "leading_constraints": [
+    "Consecutive primes.",
+    "Gap at most 186, infinitely often."
+   ],
+   "excluded_generalizations": [
+    "Other values of D, including lean-bgp212's target D = 212.",
+    "Asymptotic gap distributions (JSP-000207)."
+   ],
+   "state": {
+    "mathematical": "open",
+    "formalization": "specified",
+    "verification": "unverified"
+   }
+  }
+ ]
+}

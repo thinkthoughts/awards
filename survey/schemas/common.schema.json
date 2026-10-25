@@ -1,0 +1,43 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "common.schema.json",
+ "title": "Shared definitions for survey registry records",
+ "$defs": {
+  "leanRef": {
+   "type": "object",
+   "additionalProperties": false,
+   "required": [
+    "source",
+    "name",
+    "kind"
+   ],
+   "description": "A Lean declaration cited by fully qualified name; source is an id in sources.json or 'survey-local'.",
+   "properties": {
+    "source": {
+     "type": "string",
+     "pattern": "^[a-z0-9-]+$"
+    },
+    "name": {
+     "type": "string",
+     "minLength": 1
+    },
+    "file": {
+     "type": "string",
+     "minLength": 1
+    },
+    "kind": {
+     "enum": [
+      "def",
+      "theorem",
+      "statement",
+      "survey-local"
+     ]
+    },
+    "note": {
+     "type": "string",
+     "minLength": 1
+    }
+   }
+  }
+ }
+}

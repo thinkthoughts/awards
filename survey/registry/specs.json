@@ -1,0 +1,320 @@
+{
+ "schema": "survey/specs@1",
+ "description": "L1 leading specifications: parametric statements over L0 objects.",
+ "specs": [
+  {
+   "id": "SPEC-nat-add-one",
+   "layer": "L1",
+   "name": "Successor law for addition",
+   "parameters": [
+    {
+     "name": "n",
+     "type": "ℕ"
+    }
+   ],
+   "statement": {
+    "math": "For every natural number n, n + 1 = succ n.",
+    "lean_name": "Survey.Foundation.add_one_eq_succ",
+    "lean": "theorem add_one_eq_succ (n : Nat) : n + 1 = n.succ",
+    "proof_term": "Nat.add_one n"
+   },
+   "objects": [
+    "OBJ-nat"
+   ],
+   "lean": [
+    {
+     "source": "survey-local",
+     "name": "Survey.Foundation.add_one_eq_succ",
+     "kind": "theorem",
+     "file": "SurveyFoundation/OnePlusOne.lean"
+    },
+    {
+     "source": "lean4",
+     "name": "Nat.add_one",
+     "kind": "theorem",
+     "note": "Lean core: ∀ n, n + 1 = n.succ"
+    }
+   ],
+   "leading_constraints": [
+    "Addition is Nat.add; succ is Nat.succ."
+   ],
+   "excluded_generalizations": [
+    "Other semirings, where 1 + 1 can differ from 2 (ZMod 2) or needs its own specification (ℤ, ℚ, ℝ)."
+   ],
+   "state": {
+    "mathematical": "proved",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "evidence": [
+    "EV-0001"
+   ]
+  },
+  {
+   "id": "SPEC-gdt",
+   "layer": "L1",
+   "name": "General Divisor Theorem (Theorem 3)",
+   "parameters": [
+    {
+     "name": "N",
+     "type": "ℕ",
+     "domain": "N > 0"
+    },
+    {
+     "name": "m",
+     "type": "ℕ",
+     "domain": "m > 0"
+    },
+    {
+     "name": "a",
+     "type": "ℤ"
+    }
+   ],
+   "statement": {
+    "math": "If a is not admissible the accepted set is empty; otherwise Tmin is the minimal period and every run of Tmin consecutive integers holds exactly φ(R) accepted values; and φ(R)·N·φ(d) = d·R·φ(N).",
+    "lean_name": "GDT.Challenge.general_divisor_theorem"
+   },
+   "objects": [
+    "OBJ-gdt-accepted"
+   ],
+   "lean": [
+    {
+     "source": "general-divisor-theorem",
+     "name": "GDT.Challenge.general_divisor_theorem",
+     "kind": "theorem",
+     "file": "Solution/GeneralDivisionTheorem.lean"
+    }
+   ],
+   "leading_constraints": [
+    "Single residue class n ≡ a (mod m); coprimality to one modulus N."
+   ],
+   "excluded_generalizations": [
+    "Several simultaneous shifts (the multi-shift GDT, SPEC-multishift-gdt)."
+   ],
+   "state": {
+    "mathematical": "proved",
+    "formalization": "compiled",
+    "verification": "upstream-reported"
+   },
+   "evidence": [
+    "EV-UP-GDT"
+   ]
+  },
+  {
+   "id": "SPEC-multishift-gdt",
+   "layer": "L1",
+   "name": "Multi-shift General Divisor Theorem (count per period)",
+   "parameters": [
+    {
+     "name": "N",
+     "type": "ℕ",
+     "domain": "N > 0"
+    },
+    {
+     "name": "m",
+     "type": "ℕ",
+     "domain": "m > 0"
+    },
+    {
+     "name": "a",
+     "type": "ℤ"
+    },
+    {
+     "name": "H",
+     "type": "Finset ℤ"
+    }
+   ],
+   "statement": {
+    "math": "For admissible (N, m, a, H), every run of Tmin consecutive integers holds exactly ∏_{p | R} (p − ν_p(H)) values n with n ≡ a (mod m) and gcd(n + h, N) = 1 for all h ∈ H.",
+    "lean_name": "BGP212.Challenge.gdtH_count_per_period"
+   },
+   "objects": [
+    "OBJ-gdt-accepted",
+    "OBJ-local-factor-nu"
+   ],
+   "lean": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Challenge.gdtH_count_per_period",
+     "kind": "theorem",
+     "file": "Solution/MultiShift.lean"
+    }
+   ],
+   "leading_constraints": [
+    "Moduli enter through the squarefree radical of N; independence across distinct primes (Chinese remainder theorem)."
+   ],
+   "excluded_generalizations": [
+    "Residue-class families with overlapping composite moduli (general covering systems): a count over the lcm period, outside this theorem."
+   ],
+   "state": {
+    "mathematical": "proved",
+    "formalization": "compiled",
+    "verification": "upstream-reported"
+   },
+   "evidence": [
+    "EV-UP-B1"
+   ]
+  },
+  {
+   "id": "SPEC-prime-tuple",
+   "layer": "L1",
+   "name": "Prime pattern for an admissible shift set",
+   "parameters": [
+    {
+     "name": "H",
+     "type": "Finset ℤ",
+     "domain": "AdmissibleZ H"
+    }
+   ],
+   "statement": {
+    "math": "For an admissible H there are infinitely many integers n with n + h prime for every h ∈ H.",
+    "lean_name": "Survey.Pilot.PrimeTuple",
+    "lean": "def PrimeTuple (H : Finset ℤ) : Prop := {n : ℤ | ∀ h ∈ H, BGP212.Gap.PrimeZ (n + h)}.Infinite"
+   },
+   "objects": [
+    "OBJ-prime-z",
+    "OBJ-admissible-z"
+   ],
+   "leading_constraints": [
+    "Distinct integer shifts; admissibility is the only local obstruction."
+   ],
+   "excluded_generalizations": [
+    "Quantitative counts (Hardy–Littlewood k-tuple constants).",
+    "Shifts with leading coefficients other than 1 (Dickson, SPEC-dickson-linear)."
+   ],
+   "state": {
+    "mathematical": "open",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "notes": "Survey-local definition; it compiles once the survey project depends on lean-bgp212 (stage 4)."
+  },
+  {
+   "id": "SPEC-dhl",
+   "layer": "L1",
+   "name": "DHL[k, m]",
+   "parameters": [
+    {
+     "name": "k",
+     "type": "ℕ"
+    },
+    {
+     "name": "m",
+     "type": "ℕ"
+    }
+   ],
+   "statement": {
+    "math": "For every admissible k-element H there are infinitely many n with at least m of the n + h prime.",
+    "lean_name": "BGP212.Gap.DHL"
+   },
+   "objects": [
+    "OBJ-prime-z",
+    "OBJ-admissible-z"
+   ],
+   "lean": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.DHL",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "leading_constraints": [
+    "Quantifies over every admissible H of size k."
+   ],
+   "excluded_generalizations": [
+    "Weighted or quantitative versions from the sieve literature."
+   ],
+   "state": {
+    "mathematical": "parametric",
+    "formalization": "compiled",
+    "verification": "upstream-reported"
+   },
+   "evidence": [
+    "EV-UP-B3"
+   ]
+  },
+  {
+   "id": "SPEC-h1le",
+   "layer": "L1",
+   "name": "H₁ ≤ D",
+   "parameters": [
+    {
+     "name": "D",
+     "type": "ℕ"
+    }
+   ],
+   "statement": {
+    "math": "Infinitely many consecutive primes differ by at most D.",
+    "lean_name": "BGP212.Gap.H1Le",
+    "lean": "def H1Le (D : ℕ) : Prop := ∃ᶠ n in atTop, primeGap n ≤ D"
+   },
+   "objects": [
+    "OBJ-prime-gap"
+   ],
+   "lean": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.H1Le",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "leading_constraints": [
+    "Consecutive primes Nat.nth Nat.Prime; 'infinitely often' as Filter.Frequently atTop."
+   ],
+   "excluded_generalizations": [
+    "Limiting distributions of normalized gaps (JSP-000207).",
+    "Gaps between non-consecutive primes or in other sequences."
+   ],
+   "state": {
+    "mathematical": "parametric",
+    "formalization": "compiled",
+    "verification": "upstream-reported"
+   },
+   "evidence": [
+    "EV-UP-B3"
+   ]
+  },
+  {
+   "id": "SPEC-dickson-linear",
+   "layer": "L1",
+   "name": "Dickson's conjecture for linear forms",
+   "parameters": [
+    {
+     "name": "fs",
+     "type": "Finset ℤ[X]",
+     "domain": "degree 1, positive leading coefficients, Schinzel condition"
+    }
+   ],
+   "statement": {
+    "math": "A finite set of linear forms a·n + b with a > 0 and no fixed prime divisor takes simultaneously prime values at infinitely many natural n.",
+    "lean_name": "Dickson.dickson_conjecture"
+   },
+   "objects": [
+    "OBJ-schinzel-condition"
+   ],
+   "lean": [
+    {
+     "source": "formal-conjectures",
+     "name": "Dickson.dickson_conjecture",
+     "kind": "statement",
+     "file": "FormalConjectures/Wikipedia/Dickson.lean"
+    }
+   ],
+   "leading_constraints": [
+    "Degree 1; positive leading coefficients; Schinzel condition."
+   ],
+   "excluded_generalizations": [
+    "Higher degree (Schinzel's Hypothesis H, Bunyakovsky).",
+    "Counting asymptotics (Bateman–Horn)."
+   ],
+   "state": {
+    "mathematical": "open",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "notes": "Stated with sorry in formal-conjectures; the survey records the statement only."
+  }
+ ]
+}

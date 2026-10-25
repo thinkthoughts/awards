@@ -1,0 +1,175 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "specs.schema.json",
+ "title": "L1 leading specifications",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "schema",
+  "specs"
+ ],
+ "properties": {
+  "schema": {
+   "enum": [
+    "survey/specs@1"
+   ]
+  },
+  "description": {
+   "type": "string",
+   "minLength": 1
+  },
+  "specs": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "id",
+     "name",
+     "parameters",
+     "statement",
+     "objects",
+     "leading_constraints",
+     "excluded_generalizations",
+     "state"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^SPEC-[A-Za-z0-9-]+$"
+     },
+     "layer": {
+      "enum": [
+       "L1"
+      ]
+     },
+     "name": {
+      "type": "string",
+      "minLength": 1
+     },
+     "parameters": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "name",
+        "type"
+       ],
+       "properties": {
+        "name": {
+         "type": "string",
+         "minLength": 1
+        },
+        "type": {
+         "type": "string",
+         "minLength": 1
+        },
+        "domain": {
+         "type": "string",
+         "minLength": 1
+        }
+       }
+      }
+     },
+     "statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "math"
+      ],
+      "properties": {
+       "math": {
+        "type": "string",
+        "minLength": 1
+       },
+       "lean_name": {
+        "type": "string",
+        "minLength": 1
+       },
+       "lean": {
+        "type": "string",
+        "minLength": 1
+       },
+       "proof_term": {
+        "type": "string",
+        "minLength": 1
+       }
+      }
+     },
+     "objects": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "lean": {
+      "type": "array",
+      "items": {
+       "$ref": "common.schema.json#/$defs/leanRef"
+      }
+     },
+     "leading_constraints": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "excluded_generalizations": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "mathematical",
+       "formalization",
+       "verification"
+      ],
+      "properties": {
+       "mathematical": {
+        "enum": [
+         "parametric",
+         "proved",
+         "open"
+        ]
+       },
+       "formalization": {
+        "enum": [
+         "prose",
+         "specified",
+         "compiled"
+        ]
+       },
+       "verification": {
+        "enum": [
+         "unverified",
+         "upstream-reported",
+         "kernel-checked",
+         "comparator-accepted"
+        ]
+       }
+      }
+     },
+     "evidence": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "notes": {
+      "type": "string",
+      "minLength": 1
+     }
+    }
+   }
+  }
+ }
+}

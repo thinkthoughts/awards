@@ -1,0 +1,133 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "$id": "evidence.schema.json",
+ "title": "L4 verification evidence",
+ "type": "object",
+ "additionalProperties": false,
+ "required": [
+  "schema",
+  "evidence"
+ ],
+ "properties": {
+  "schema": {
+   "enum": [
+    "survey/evidence@1"
+   ]
+  },
+  "description": {
+   "type": "string",
+   "minLength": 1
+  },
+  "evidence": {
+   "type": "array",
+   "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+     "id",
+     "subjects",
+     "kind",
+     "declarations",
+     "result",
+     "permitted_axioms"
+    ],
+    "properties": {
+     "id": {
+      "type": "string",
+      "pattern": "^EV-[A-Za-z0-9-]+$"
+     },
+     "layer": {
+      "enum": [
+       "L4"
+      ]
+     },
+     "subjects": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "kind": {
+      "enum": [
+       "kernel-check",
+       "comparator",
+       "upstream-record"
+      ]
+     },
+     "source": {
+      "type": "string",
+      "minLength": 1
+     },
+     "files": {
+      "type": "array",
+      "items": {
+       "type": "object",
+       "additionalProperties": false,
+       "required": [
+        "path"
+       ],
+       "properties": {
+        "path": {
+         "type": "string",
+         "minLength": 1
+        },
+        "sha256": {
+         "type": "string",
+         "pattern": "^[0-9a-f]{64}$"
+        }
+       }
+      }
+     },
+     "declarations": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "command": {
+      "type": "string",
+      "minLength": 1
+     },
+     "tool": {
+      "type": "string",
+      "minLength": 1
+     },
+     "result": {
+      "type": "string",
+      "minLength": 1
+     },
+     "axioms": {
+      "type": "object"
+     },
+     "permitted_axioms": {
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "sorry_free": {
+      "type": [
+       "boolean",
+       "null"
+      ]
+     },
+     "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+     },
+     "machine": {
+      "type": "string",
+      "minLength": 1
+     },
+     "notes": {
+      "type": "string",
+      "minLength": 1
+     }
+    }
+   }
+  }
+ }
+}

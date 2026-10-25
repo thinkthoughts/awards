@@ -1,0 +1,756 @@
+{
+ "schema": "survey/edges@1",
+ "description": "Typed PiπΠ lifts and other dependency edges. A lift stays an open proof obligation until it is Verified.",
+ "edges": [
+  {
+   "id": "LIFT-0001",
+   "from": "SPEC-nat-add-one",
+   "to": "RP-0001",
+   "relation": "reading-of",
+   "strength": "direct-application",
+   "statement": {
+    "math": "The successor law at n = 1 gives 1 + 1 = succ 1 = 2.",
+    "lean": "theorem one_add_one_of_spec : (1 : Nat) + 1 = 2 := add_one_eq_succ 1"
+   },
+   "uses": [
+    {
+     "source": "survey-local",
+     "name": "Survey.Foundation.add_one_eq_succ",
+     "kind": "theorem",
+     "file": "SurveyFoundation/OnePlusOne.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.Foundation.one_add_one_of_spec",
+     "kind": "theorem",
+     "file": "SurveyFoundation/OnePlusOne.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "n",
+     "statement": "n = 1",
+     "role": "side-condition",
+     "status": "discharged"
+    }
+   ],
+   "source": "Lean core Nat.add_one; definitional unfolding of Nat.succ 1 to the literal 2.",
+   "state": {
+    "mathematical": "established",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "obligation": "discharged",
+   "evidence": [
+    "EV-0001"
+   ]
+  },
+  {
+   "id": "EDGE-GDT-1",
+   "from": "SPEC-multishift-gdt",
+   "to": "SPEC-gdt",
+   "relation": "special-case",
+   "strength": "direct-application",
+   "statement": {
+    "math": "At H = {0} the multi-shift theorem re-derives GDT v1.0.0's count per period, statement for statement."
+   },
+   "uses": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Challenge.gdtH_single_shift",
+     "kind": "theorem",
+     "file": "Solution/MultiShift.lean"
+    },
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Challenge.gdt_count_per_period_via_multishift",
+     "kind": "theorem",
+     "file": "Solution/MultiShift.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "H0",
+     "statement": "H = {0}",
+     "role": "side-condition",
+     "status": "discharged"
+    }
+   ],
+   "source": "lean-bgp212 B1 (Gate B): specs/results/B1_multishift.yaml",
+   "state": {
+    "mathematical": "established",
+    "formalization": "compiled",
+    "verification": "upstream-reported"
+   },
+   "obligation": "open",
+   "evidence": [
+    "EV-UP-B1"
+   ],
+   "notes": "Admissible generalization trails leading specification: GDT (one shift) leads; the multi-shift form is admitted through this reduction. Re-run under Comparator here (stage 5) to discharge."
+  },
+  {
+   "id": "LIFT-ADM-1",
+   "from": "OBJ-local-factor-nu",
+   "to": "OBJ-admissible-z",
+   "relation": "equivalent",
+   "strength": "direct-application",
+   "statement": {
+    "math": "H is admissible exactly when ν_p(H) < p for every prime p (every local factor is positive).",
+    "lean": "theorem admissibleZ_iff_local (H : Finset ℤ) : BGP212.Gap.AdmissibleZ H ↔ ∀ p, p.Prime → BGP212.MultiShift.nu p H < p"
+   },
+   "uses": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Challenge.admissible_iff_local_factors",
+     "kind": "theorem",
+     "file": "Solution/MultiShiftB2.lean",
+     "note": "Stated for BGP212.Admissible on List ℕ"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "bridge",
+     "statement": "BGP212.Admissible (lists of naturals) agrees with AdmissibleZ (finite sets of integers)",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "lean-bgp212 B2: admissible_iff_local_factors",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-009-1",
+   "from": "RP-JSP-000009",
+   "to": "lean:formal-conjectures:TwinPrimes.twin_primes",
+   "relation": "equivalent",
+   "strength": "direct-application",
+   "statement": {
+    "math": "The survey statement and formal-conjectures' twin_primes state the same proposition (Prime versus Nat.Prime).",
+    "lean": "theorem L9_1 : JSP_000009 ↔ {p : ℕ | Prime p ∧ Prime (p + 2)}.Infinite"
+   },
+   "uses": [
+    {
+     "source": "formal-conjectures",
+     "name": "TwinPrimes.twin_primes",
+     "kind": "statement",
+     "file": "FormalConjectures/Wikipedia/TwinPrimes.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "prime-iff",
+     "statement": "Nat.Prime p ↔ Prime p (Mathlib Nat.prime_iff)",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "formal-conjectures TwinPrimes.lean",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-009-2",
+   "from": "SPEC-prime-tuple",
+   "to": "RP-JSP-000009",
+   "relation": "reading-of",
+   "strength": "direct-application",
+   "statement": {
+    "math": "JSP-000009 is PrimeTuple at H = {0, 2}.",
+    "lean": "theorem L9_2 : JSP_000009 ↔ PrimeTuple {0, 2}"
+   },
+   "uses": [],
+   "hypotheses": [
+    {
+     "id": "nat-int",
+     "statement": "Passage between p : ℕ and n : ℤ with PrimeZ positivity",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "Definitions of JSP_000009 and PrimeTuple",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-009-3",
+   "from": "SPEC-h1le",
+   "to": "RP-JSP-000009",
+   "relation": "equivalent",
+   "strength": "direct-application",
+   "statement": {
+    "math": "JSP-000009 holds exactly when H1Le 2 holds.",
+    "lean": "theorem L9_3 : JSP_000009 ↔ BGP212.Gap.H1Le 2"
+   },
+   "uses": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.H1Le",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "gap-one",
+     "statement": "primeGap n = 1 only at n = 0 (the primes 2, 3)",
+     "role": "side-condition",
+     "status": "open"
+    },
+    {
+     "id": "consecutive",
+     "statement": "For p ≥ 3, p + 1 is even, so a twin pair is a consecutive pair",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "Parity of odd primes",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-009-4",
+   "from": "SPEC-dhl",
+   "to": "RP-JSP-000009",
+   "relation": "implies",
+   "strength": "conditional-implication",
+   "statement": {
+    "math": "DHL[2, 2] implies JSP-000009, by dhl_implies_gap at k = 2, D = 2, H = {0, 2}.",
+    "lean": "theorem L9_4 : BGP212.Gap.DHL 2 2 → JSP_000009"
+   },
+   "uses": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.dhl_implies_gap",
+     "kind": "theorem",
+     "file": "Solution/Gap.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "DHL22",
+     "statement": "DHL[2, 2]: every admissible pair is infinitely often a prime pair (Polignac in full)",
+     "role": "assumption",
+     "status": "open-conjecture",
+     "lean": "BGP212.Gap.DHL 2 2"
+    },
+    {
+     "id": "card",
+     "statement": "({0, 2} : Finset ℤ).card = 2",
+     "role": "side-condition",
+     "status": "open"
+    },
+    {
+     "id": "adm",
+     "statement": "BGP212.Gap.AdmissibleZ {0, 2}",
+     "role": "side-condition",
+     "status": "open"
+    },
+    {
+     "id": "diam",
+     "statement": "Diameter of {0, 2} is at most 2",
+     "role": "side-condition",
+     "status": "open"
+    },
+    {
+     "id": "bridge",
+     "statement": "LIFT-009-3",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "lean-bgp212 dhl_implies_gap (Verified upstream, EV-UP-B3); the instance is open",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open",
+   "notes": "The assumption is stronger than the conclusion: DHL[2, 2] is Polignac's conjecture for every admissible pair."
+  },
+  {
+   "id": "LIFT-029-1",
+   "from": "RP-JSP-000029",
+   "to": "lean:formal-conjectures:Dickson.dickson_conjecture",
+   "relation": "equivalent",
+   "strength": "direct-application",
+   "statement": {
+    "math": "The catalog's form agrees with formal-conjectures' dickson_conjecture.",
+    "lean": "theorem L29_1 : JSP_000029 ↔ ∀ fs : Finset ℤ[X], (∀ f ∈ fs, f.degree = 1 ∧ BunyakovskyCondition f) → SchinzelCondition fs → Infinite {n : ℕ | ∀ f ∈ fs, (f.eval (n : ℤ)).natAbs.Prime}"
+   },
+   "uses": [
+    {
+     "source": "formal-conjectures",
+     "name": "Dickson.dickson_conjecture",
+     "kind": "statement",
+     "file": "FormalConjectures/Wikipedia/Dickson.lean"
+    },
+    {
+     "source": "formal-conjectures",
+     "name": "BunyakovskyCondition",
+     "kind": "def",
+     "file": "FormalConjecturesForMathlib/Algebra/Polynomial/Basic.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "irreducible",
+     "statement": "For a linear form under the Schinzel condition, gcd(a, b) = 1, hence the form is irreducible",
+     "role": "side-condition",
+     "status": "open"
+    },
+    {
+     "id": "natAbs",
+     "statement": "natAbs agrees with the value for large n when a > 0",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "formal-conjectures Dickson.lean",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-029-2",
+   "from": "OBJ-schinzel-condition",
+   "to": "OBJ-admissible-z",
+   "relation": "equivalent",
+   "strength": "direct-application",
+   "statement": {
+    "math": "The Schinzel condition for the forms X + h (h ∈ H) is admissibility of H.",
+    "lean": "theorem L29_2 (H : Finset ℤ) : SchinzelCondition (H.image fun h => X + C h) ↔ BGP212.Gap.AdmissibleZ H"
+   },
+   "uses": [
+    {
+     "source": "formal-conjectures",
+     "name": "SchinzelCondition",
+     "kind": "def",
+     "file": "FormalConjecturesForMathlib/Algebra/Polynomial/Basic.lean"
+    },
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "residue",
+     "statement": "Take r = −n mod p",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "Definitions",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-029-3",
+   "from": "RP-JSP-000029",
+   "to": "SPEC-prime-tuple",
+   "relation": "special-case",
+   "strength": "direct-application",
+   "statement": {
+    "math": "Dickson's conjecture at the forms X + h gives PrimeTuple H for every admissible H.",
+    "lean": "theorem L29_3 : JSP_000029 → ∀ H, BGP212.Gap.AdmissibleZ H → PrimeTuple H"
+   },
+   "uses": [],
+   "hypotheses": [
+    {
+     "id": "schinzel",
+     "statement": "LIFT-029-2",
+     "role": "side-condition",
+     "status": "open"
+    },
+    {
+     "id": "positivity",
+     "statement": "PrimeZ holds once n + h > 0",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "Specialization",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-029-4",
+   "from": "SPEC-prime-tuple",
+   "to": "SPEC-dhl",
+   "relation": "implies",
+   "strength": "direct-application",
+   "statement": {
+    "math": "PrimeTuple H for every admissible H gives DHL[k, k], hence DHL[k, 2] for k ≥ 2.",
+    "lean": "theorem L29_4 : (∀ H, BGP212.Gap.AdmissibleZ H → PrimeTuple H) → ∀ k, 2 ≤ k → BGP212.Gap.DHL k 2"
+   },
+   "uses": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.DHL",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "mono",
+     "statement": "DHL k m' → DHL k m for m ≤ m'",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "Monotonicity of DHL in m",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-029-5",
+   "from": "RP-JSP-000029",
+   "to": "RP-JSP-000009",
+   "relation": "implies",
+   "strength": "direct-application",
+   "statement": {
+    "math": "Dickson's conjecture implies the twin prime conjecture.",
+    "lean": "theorem L29_5 : JSP_000029 → JSP_000009"
+   },
+   "uses": [],
+   "hypotheses": [
+    {
+     "id": "special",
+     "statement": "LIFT-029-3 at H = {0, 2}",
+     "role": "side-condition",
+     "status": "open"
+    },
+    {
+     "id": "reading",
+     "statement": "LIFT-009-2",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "Composition",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-041-1",
+   "from": "SPEC-h1le",
+   "to": "RP-JSP-000041",
+   "relation": "reading-of",
+   "strength": "direct-application",
+   "statement": {
+    "math": "JSP-000041 is H1Le at D = 186.",
+    "lean": "def JSP_000041 : Prop := BGP212.Gap.H1Le 186"
+   },
+   "uses": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.H1Le",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "prose",
+     "statement": "The catalog text means consecutive primes with gap at most 186, infinitely often (SG-6 content check)",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "Catalog text and Gap.lean",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-041-2",
+   "from": "SPEC-h1le",
+   "to": "SPEC-h1le",
+   "relation": "implies",
+   "strength": "direct-application",
+   "statement": {
+    "math": "H1Le is monotone: D ≤ D' and H1Le D give H1Le D'.",
+    "lean": "theorem H1Le_mono {D D' : ℕ} (h : D ≤ D') : BGP212.Gap.H1Le D → BGP212.Gap.H1Le D'"
+   },
+   "uses": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.H1Le",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "le",
+     "statement": "D ≤ D'",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "Filter.Frequently.mono",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-041-3",
+   "from": "RP-JSP-000009",
+   "to": "RP-JSP-000041",
+   "relation": "implies",
+   "strength": "direct-application",
+   "statement": {
+    "math": "The twin prime conjecture implies the 186 gap bound.",
+    "lean": "theorem L41_3 : JSP_000009 → JSP_000041"
+   },
+   "uses": [],
+   "hypotheses": [
+    {
+     "id": "bridge",
+     "statement": "LIFT-009-3",
+     "role": "side-condition",
+     "status": "open"
+    },
+    {
+     "id": "mono",
+     "statement": "LIFT-041-2 at 2 ≤ 186",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "Composition",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-041-4",
+   "from": "SPEC-dhl",
+   "to": "RP-JSP-000041",
+   "relation": "implies",
+   "strength": "conditional-implication",
+   "statement": {
+    "math": "For an admissible k-tuple H of diameter at most 186, DHL[k, 2] implies JSP-000041.",
+    "lean": "theorem L41_4 (k : ℕ) (H : Finset ℤ) (hk : H.card = k) (hadm : BGP212.Gap.AdmissibleZ H) (hdiam : ∀ a ∈ H, ∀ b ∈ H, b - a ≤ 186) : BGP212.Gap.DHL k 2 → JSP_000041"
+   },
+   "uses": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.dhl_implies_gap",
+     "kind": "theorem",
+     "file": "Solution/Gap.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "DHLk2",
+     "statement": "DHL[k, 2] for the chosen k",
+     "role": "assumption",
+     "status": "open-conjecture"
+    },
+    {
+     "id": "tuple",
+     "statement": "A concrete admissible H with |H| = k and diameter ≤ 186, from a cited table",
+     "role": "side-condition",
+     "status": "open"
+    },
+    {
+     "id": "adm",
+     "statement": "AdmissibleZ H, certified (Lemma 12.1 technique)",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "lean-bgp212 dhl_implies_gap (Verified upstream, EV-UP-B3)",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open",
+   "notes": "The general form is an alias of dhl_implies_gap; the open work is the concrete tuple."
+  },
+  {
+   "id": "LIFT-041-5",
+   "from": "RP-JSP-000041",
+   "to": "lean:lean-bgp212:BGP212.Gap.H1Le",
+   "relation": "implies",
+   "strength": "direct-application",
+   "statement": {
+    "math": "JSP-000041 gives H1Le 212, lean-bgp212's target.",
+    "lean": "theorem L41_5 : JSP_000041 → BGP212.Gap.H1Le 212"
+   },
+   "uses": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.H1Le",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "mono",
+     "statement": "LIFT-041-2 at 186 ≤ 212",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "Monotonicity",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "LIFT-041-6",
+   "from": "RP-JSP-000041",
+   "to": "lean:lean-bgp212:BGP212.Gap.h1_liminf",
+   "relation": "implies",
+   "strength": "direct-application",
+   "statement": {
+    "math": "JSP-000041 gives liminf primeGap ≤ 186.",
+    "lean": "theorem L41_6 : JSP_000041 → Filter.liminf BGP212.Gap.primeGap Filter.atTop ≤ 186"
+   },
+   "uses": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.h1_liminf",
+     "kind": "theorem",
+     "file": "Solution/Gap.lean"
+    }
+   ],
+   "hypotheses": [],
+   "source": "lean-bgp212 h1_liminf",
+   "state": {
+    "mathematical": "established",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "obligation": "open"
+  },
+  {
+   "id": "EDGE-BND-041",
+   "from": "lean:lean-bgp212:BGP212.Gap.dhl_45_implies_gap",
+   "to": "RP-JSP-000041",
+   "relation": "scope-boundary",
+   "strength": "boundary",
+   "statement": {
+    "math": "DHL[45, 2] → H1Le 212 reaches the bound 212; JSP-000041 asks for 186, which lies beyond that theorem's conclusion."
+   },
+   "uses": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.dhl_45_implies_gap",
+     "kind": "theorem",
+     "file": "Solution/Gap.lean"
+    }
+   ],
+   "hypotheses": [],
+   "source": "lean-bgp212 B3",
+   "state": {
+    "mathematical": "established",
+    "formalization": "prose",
+    "verification": "unverified"
+   },
+   "obligation": "recorded"
+  },
+  {
+   "id": "EDGE-ANA-1",
+   "from": "SPEC-h1le",
+   "to": "JSP-001018",
+   "relation": "analogy",
+   "strength": "structural-analogy",
+   "statement": {
+    "math": "Both concern bounded gaps in an increasing integer sequence; JSP-001018 concerns arbitrary sequences, SPEC-h1le the primes. Shared shape only."
+   },
+   "uses": [],
+   "hypotheses": [],
+   "source": "Reach screening: JSP-001018 matches the prime family on the phrase 'bounded gaps'",
+   "state": {
+    "mathematical": "established",
+    "formalization": "prose",
+    "verification": "unverified"
+   },
+   "obligation": "recorded",
+   "notes": "Recorded so the keyword overlap carries no implication (SCOPE.md: a structural analogy transfers no objects, hypotheses or conclusions)."
+  },
+  {
+   "id": "EDGE-CAND-1",
+   "from": "JSP-001009",
+   "to": "RP-JSP-000041",
+   "relation": "supplies-hypothesis",
+   "strength": "direct-application",
+   "statement": {
+    "math": "An answer to JSP-001009 (narrowest admissible tuples) supplies the tuple LIFT-041-4 needs."
+   },
+   "uses": [],
+   "hypotheses": [
+    {
+     "id": "width",
+     "statement": "Some admissible k-tuple has diameter ≤ 186 with the matching k",
+     "role": "side-condition",
+     "status": "open"
+    }
+   ],
+   "source": "Candidate relationship from the JSP-001009 description",
+   "state": {
+    "mathematical": "candidate",
+    "formalization": "prose",
+    "verification": "unverified"
+   },
+   "obligation": "open",
+   "notes": "Unverified candidate: the exact statement of JSP-001009 still needs a manual read."
+  }
+ ]
+}

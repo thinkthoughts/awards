@@ -1,0 +1,192 @@
+{
+ "schema": "survey/objects@1",
+ "description": "L0 shared mathematical objects, each with its Lean definition cited by name and pinned source.",
+ "objects": [
+  {
+   "id": "OBJ-nat",
+   "layer": "L0",
+   "name": "Natural numbers with addition",
+   "definition": "ℕ with 0, successor, and addition defined by recursion on the second argument; numerals are ℕ literals.",
+   "lean": [
+    {
+     "source": "lean4",
+     "name": "Nat",
+     "kind": "def",
+     "note": "Lean core inductive type"
+    },
+    {
+     "source": "lean4",
+     "name": "Nat.add",
+     "kind": "def",
+     "note": "Lean core, with kernel acceleration for literals"
+    }
+   ],
+   "state": {
+    "mathematical": "defined",
+    "formalization": "compiled",
+    "verification": "unverified"
+   },
+   "notes": "Part of Lean's trusted base (the prelude)."
+  },
+  {
+   "id": "OBJ-prime-z",
+   "layer": "L0",
+   "name": "Prime integer",
+   "definition": "An integer z is prime when 0 < z and z, as a natural number, is prime.",
+   "lean": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.PrimeZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "state": {
+    "mathematical": "defined",
+    "formalization": "compiled",
+    "verification": "upstream-reported"
+   },
+   "evidence": [
+    "EV-UP-B3"
+   ]
+  },
+  {
+   "id": "OBJ-admissible-z",
+   "layer": "L0",
+   "name": "Admissible shift set",
+   "definition": "A finite set H of integers is admissible when, for every prime p, some residue class mod p contains no element of H.",
+   "lean": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "state": {
+    "mathematical": "defined",
+    "formalization": "compiled",
+    "verification": "upstream-reported"
+   },
+   "evidence": [
+    "EV-UP-B3"
+   ]
+  },
+  {
+   "id": "OBJ-prime-gap",
+   "layer": "L0",
+   "name": "Consecutive prime gap",
+   "definition": "primeGap n = p_{n+1} − p_n, with p_0 = 2 the first prime.",
+   "lean": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Gap.primeGap",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "state": {
+    "mathematical": "defined",
+    "formalization": "compiled",
+    "verification": "upstream-reported"
+   },
+   "evidence": [
+    "EV-UP-B3"
+   ]
+  },
+  {
+   "id": "OBJ-local-factor-nu",
+   "layer": "L0",
+   "name": "Local factor ν_p(H)",
+   "definition": "ν_p(H) is the number of residue classes mod p of the form −h, h ∈ H: the classes H forbids.",
+   "lean": [
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.MultiShift.nu",
+     "kind": "def",
+     "file": "BGP212/MultiShift.lean"
+    },
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.MultiShift.localCount",
+     "kind": "def",
+     "file": "BGP212/MultiShift.lean"
+    }
+   ],
+   "state": {
+    "mathematical": "defined",
+    "formalization": "compiled",
+    "verification": "upstream-reported"
+   },
+   "evidence": [
+    "EV-UP-B1"
+   ]
+  },
+  {
+   "id": "OBJ-gdt-accepted",
+   "layer": "L0",
+   "name": "GDT accepted set",
+   "definition": "For N, m > 0 and a ∈ ℤ: n is accepted when n ≡ a (mod m) and gcd(n, N) = 1; a is admissible when gcd(a, d) = 1 with d = rad(gcd(m, N)); Tmin = m·rad(N)/d.",
+   "lean": [
+    {
+     "source": "general-divisor-theorem",
+     "name": "GDT.accepted",
+     "kind": "def",
+     "file": "GeneralDivisorTheorem/Basic.lean"
+    },
+    {
+     "source": "general-divisor-theorem",
+     "name": "GDT.Admissible",
+     "kind": "def",
+     "file": "GeneralDivisorTheorem/Basic.lean"
+    },
+    {
+     "source": "general-divisor-theorem",
+     "name": "GDT.Tmin",
+     "kind": "def",
+     "file": "GeneralDivisorTheorem/Basic.lean"
+    },
+    {
+     "source": "general-divisor-theorem",
+     "name": "GDT.R",
+     "kind": "def",
+     "file": "GeneralDivisorTheorem/Basic.lean"
+    }
+   ],
+   "state": {
+    "mathematical": "defined",
+    "formalization": "compiled",
+    "verification": "upstream-reported"
+   },
+   "evidence": [
+    "EV-UP-GDT"
+   ]
+  },
+  {
+   "id": "OBJ-schinzel-condition",
+   "layer": "L0",
+   "name": "No fixed prime divisor (Schinzel condition)",
+   "definition": "A finite set of integer polynomials satisfies the Schinzel condition when for every prime p some natural n makes p divide none of the values f(n).",
+   "lean": [
+    {
+     "source": "formal-conjectures",
+     "name": "SchinzelCondition",
+     "kind": "def",
+     "file": "FormalConjecturesForMathlib/Algebra/Polynomial/Basic.lean"
+    },
+    {
+     "source": "formal-conjectures",
+     "name": "BunyakovskyCondition",
+     "kind": "def",
+     "file": "FormalConjecturesForMathlib/Algebra/Polynomial/Basic.lean"
+    }
+   ],
+   "state": {
+    "mathematical": "defined",
+    "formalization": "compiled",
+    "verification": "unverified"
+   },
+   "notes": "formal-conjectures builds these in its own CI; the survey holds no verification record for them yet."
+  }
+ ]
+}

@@ -84,26 +84,64 @@ def parse_volume(path: Path) -> list[dict]:
     return records
 
 
+INDEX_ROW = re.compile(r"^\| (JSP-\d{6}) \| \[(.+?)\]\((catalog-[\d-]+\.md)#(JSP-\d{6})\) \| (\w+) \|")
+
+
+def read_index(readme: Path) -> list[dict]:
+    """Rows of the problem index in problems/README.md: id, title, volume, status."""
+    rows = []
+    for line in readme.read_text(encoding="utf-8").splitlines():
+        m = INDEX_ROW.match(line)
+        if m:
+            rows.append({"id": m[1], "title": m[2], "volume": m[3], "anchor": m[4], "status": m[5]})
+    return rows
+
+
+def validate(records: list[dict], index: list[dict]) -> list[str]:
+    """Return a list of problems; an empty list means the catalog parsed consistently."""
+    errors = []
+    ids = [r["id"] for r in records]
+    dupes = sorted({i for i in ids if ids.count(i) > 1})
+    if dupes:
+        errors.append(f"duplicate ids: {dupes}")
+    n = len(index)
+    expected = [f"JSP-{i:06d}" for i in range(1, n + 1)]
+    if [row["id"] for row in index] != expected:
+        errors.append("index ids are not contiguous from JSP-000001")
+    missing, extra = sorted(set(expected) - set(ids)), sorted(set(ids) - set(expected))
+    if missing or extra:
+        errors.append(f"catalog id mismatch against the {n}-row index: missing={missing}, extra={extra}")
+    unknown = [r["id"] for r in records if r["status"] == "Unknown"]
+    if unknown:
+        errors.append(f"unrecognized status in: {unknown}")
+    by_id = {r["id"]: r for r in records}
+    for row in index:
+        r = by_id.get(row["id"])
+        if r is None:
+            continue
+        if row["anchor"] != row["id"]:
+            errors.append(f"{row['id']}: index anchor points to {row['anchor']}")
+        if row["volume"] != r["volume"]:
+            errors.append(f"{row['id']}: index volume {row['volume']} vs record volume {r['volume']}")
+        if row["status"] != r["status"]:
+            errors.append(f"{row['id']}: index status {row['status']} vs record status {r['status']}")
+        if row["title"] != r["title"]:
+            errors.append(f"{row['id']}: index title differs from record heading")
+    return errors
+
+
 def main() -> int:
     vols = sorted(PROBLEMS.glob("catalog-*.md"))
     records = [r for v in vols for r in parse_volume(v)]
-    ids = [r["id"] for r in records]
-    dupes = {i for i in ids if ids.count(i) > 1}
-    if dupes:
-        print(f"duplicate ids: {sorted(dupes)}", file=sys.stderr)
-        return 1
-    expected = {f"JSP-{i:06d}" for i in range(1, 1074)}
-    missing, extra = expected - set(ids), set(ids) - expected
-    if missing or extra:
-        print(f"catalog id mismatch: missing={sorted(missing)}, extra={sorted(extra)}", file=sys.stderr)
-        return 1
-    unknown = [r["id"] for r in records if r["status"] == "Unknown"]
-    if unknown:
-        print(f"unrecognized status in: {unknown}", file=sys.stderr)
+    index = read_index(PROBLEMS / "README.md")
+    errors = validate(records, index)
+    if errors:
+        for e in errors:
+            print(e, file=sys.stderr)
         return 1
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(records, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    print(f"{len(records)} records -> {OUT.relative_to(ROOT)}")
+    print(f"{len(records)} records -> {OUT.relative_to(ROOT)} (index rows: {len(index)})")
     return 0
 
 

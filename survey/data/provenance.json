@@ -1,0 +1,67 @@
+{
+ "schema": "survey/provenance@1",
+ "catalog": {
+  "repository": "thinkthoughts/awards (fork of TheJustinSunPrize/awards)",
+  "last_commit_touching_catalog": "5b7126acf3d3d31c71e5964525807d1532cba892",
+  "last_commit_subject": "docs(reward): clarify MathDB partnership and Lean award prerequisites (#5126)",
+  "working_tree_catalog_clean": true,
+  "files": [
+   {
+    "path": "problems/README.md",
+    "sha256": "bdd497ba6f099947e8c574b50f7a1cc6882a2860b65efbdd560c0c90e705a9f6"
+   },
+   {
+    "path": "problems/catalog-0001-0100.md",
+    "sha256": "d71285d6232cdaa872f7ca1a236990c6ec86073e5d24d5b4e0953f4355c4b3cb"
+   },
+   {
+    "path": "problems/catalog-0101-0200.md",
+    "sha256": "9dc8df1572a06fcdcf80b61885e20c9a7f7fda6a3d386e7319b0144f38304ec8"
+   },
+   {
+    "path": "problems/catalog-0201-0300.md",
+    "sha256": "f7737584b98557e2b3d18fab89f6642c8ff68476bb958ce1de1e895c16f846cb"
+   },
+   {
+    "path": "problems/catalog-0301-0400.md",
+    "sha256": "0a956bc288759e92f19e8dca78b2b4df094defbe5cdcae6376baa8974cd7c399"
+   },
+   {
+    "path": "problems/catalog-0401-0500.md",
+    "sha256": "dec926326471737961078c80c85a9d629b77e1224c9c4ce7c584f41d066d5882"
+   },
+   {
+    "path": "problems/catalog-0501-0600.md",
+    "sha256": "78ecc0e2a46520944d1b2f07196bd945433e82e4788a32585f22604c6b8b7834"
+   },
+   {
+    "path": "problems/catalog-0601-0700.md",
+    "sha256": "0f51c4141330655de15aed209bd890aa34b4819eeb45428a5bb763f6435c4368"
+   },
+   {
+    "path": "problems/catalog-0701-0800.md",
+    "sha256": "2645234266cb470e34c92cba86eb1a0caebf7219ea24395bdab03eb3bcf2d8b9"
+   },
+   {
+    "path": "problems/catalog-0801-0900.md",
+    "sha256": "a1300db8091025a36ce9432c3c94e0bda0bdaa3e79a894532c107561fcabdf9c"
+   },
+   {
+    "path": "problems/catalog-0901-1000.md",
+    "sha256": "a5e3205da7e7e4621b47c258d6c7bc962eb6e82deb0fceffe7465077568e8a90"
+   },
+   {
+    "path": "problems/catalog-1001-1022.md",
+    "sha256": "42dc0202d6c6a77c9628d9d3cc7ec5d6c96810c0ab9721a6f63e04bc9af4fabc"
+   }
+  ]
+ },
+ "records": {
+  "path": "survey/data/records.json",
+  "count": 1073,
+  "first_id": "JSP-000001",
+  "last_id": "JSP-001073",
+  "sha256": "805f355a67969f27e31596d72560e0abc2c4f1a751f5f4d58dfdb3d4e07d4ea1",
+  "generator": "survey/scripts/parse_catalog.py"
+ }
+}

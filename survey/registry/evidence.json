@@ -1,0 +1,150 @@
+{
+ "schema": "survey/evidence@1",
+ "description": "L4 verification evidence. Local entries record runs made for the survey; upstream entries cite the source repository's own records.",
+ "evidence": [
+  {
+   "id": "EV-0001",
+   "layer": "L4",
+   "subjects": [
+    "RP-0001",
+    "SPEC-nat-add-one",
+    "LIFT-0001"
+   ],
+   "kind": "kernel-check",
+   "files": [
+    {
+     "path": "survey/lean/SurveyFoundation/OnePlusOne.lean",
+     "sha256": "b0c5fe6c9da0e3b93506f5dc5dc80e3d62abf88d61c753a9ef939d40e4194e2a"
+    }
+   ],
+   "declarations": [
+    "Survey.Foundation.one_add_one",
+    "Survey.Foundation.add_one_eq_succ",
+    "Survey.Foundation.one_add_one_of_spec"
+   ],
+   "command": "survey/scripts/check_lean.sh <lean>; also `lake build` in survey/lean",
+   "tool": "Lean 4.34.0-rc2 (commit 6a10ac8c22beadecabdbb0919c2b50214762f91d)",
+   "result": "Compiled without errors. #print shows the proof term of one_add_one is rfl. #print axioms: each declaration 'does not depend on any axioms'.",
+   "axioms": {
+    "Survey.Foundation.one_add_one": [],
+    "Survey.Foundation.add_one_eq_succ": [],
+    "Survey.Foundation.one_add_one_of_spec": []
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-25",
+   "machine": "Claude cloud session container, x86_64 Linux",
+   "notes": "Kernel check by elaboration plus axiom audit; a Comparator run against an independent Challenge is the next level."
+  },
+  {
+   "id": "EV-UP-B3",
+   "layer": "L4",
+   "subjects": [
+    "OBJ-prime-z",
+    "OBJ-admissible-z",
+    "OBJ-prime-gap",
+    "SPEC-dhl",
+    "SPEC-h1le"
+   ],
+   "kind": "upstream-record",
+   "source": "lean-bgp212",
+   "files": [
+    {
+     "path": "specs/results/B3_final_deduction.yaml",
+     "sha256": "465b08b6aca59dbff9f2cd4254ed521d7fcb434f25a37b5ac0997a28ad59855b"
+    },
+    {
+     "path": "Comparator/final_deduction.json",
+     "sha256": "61334aa13909ce51f643f6952c64996e83f9c72a281aefa0a37a9aad35f993d8"
+    }
+   ],
+   "declarations": [
+    "BGP212.Challenge.dhl_implies_gap",
+    "BGP212.Challenge.h1_liminf",
+    "BGP212.Challenge.dhl_45_implies_gap",
+    "BGP212.Gap.PrimeZ",
+    "BGP212.Gap.AdmissibleZ",
+    "BGP212.Gap.DHL",
+    "BGP212.Gap.primeGap",
+    "BGP212.Gap.H1Le"
+   ],
+   "result": "Upstream record B3: state mathematical proved, computational kernel-verified; Comparator config lists these theorems and definitions with the three-axiom whitelist. Not re-run by the survey.",
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": null
+  },
+  {
+   "id": "EV-UP-B1",
+   "layer": "L4",
+   "subjects": [
+    "OBJ-local-factor-nu",
+    "SPEC-multishift-gdt",
+    "EDGE-GDT-1"
+   ],
+   "kind": "upstream-record",
+   "source": "lean-bgp212",
+   "files": [
+    {
+     "path": "specs/results/B1_multishift.yaml",
+     "sha256": "de3935baf90f930c803b25ad6b356a11326e95784f9f29f830bc4913c006f4ce"
+    },
+    {
+     "path": "Comparator/multishift.json",
+     "sha256": "6fc25a4f6c1bbd781d245628e8d577f5e0c43af33d9244dbde682690930ac7c2"
+    }
+   ],
+   "declarations": [
+    "BGP212.Challenge.gdtH_count_per_period",
+    "BGP212.Challenge.gdtH_single_shift",
+    "BGP212.Challenge.gdt_count_per_period_via_multishift",
+    "BGP212.MultiShift.nu",
+    "BGP212.MultiShift.localCount"
+   ],
+   "result": "Upstream record B1: state mathematical proved, computational kernel-verified; Comparator config with the three-axiom whitelist. Not re-run by the survey.",
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": null
+  },
+  {
+   "id": "EV-UP-GDT",
+   "layer": "L4",
+   "subjects": [
+    "OBJ-gdt-accepted",
+    "SPEC-gdt"
+   ],
+   "kind": "upstream-record",
+   "source": "general-divisor-theorem",
+   "files": [
+    {
+     "path": "Comparator/general_divisor_theorem.json",
+     "sha256": "00596754d2ee39e4dd89959140ad76bff98e4aaa572eed5394f340d04e7dd946"
+    }
+   ],
+   "declarations": [
+    "GDT.Challenge.general_divisor_theorem",
+    "GDT.Challenge.gdt_count_per_period",
+    "GDT.accepted",
+    "GDT.Admissible",
+    "GDT.Tmin",
+    "GDT.R"
+   ],
+   "result": "GDT v1.0.0 Comparator config lists the seven Theorem 3 statements with the three-axiom whitelist; the repository README reports 'Lean default kernel accepts the solution'. Not re-run by the survey.",
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": null
+  }
+ ]
+}

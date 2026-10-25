@@ -1,0 +1,57 @@
+{
+ "schema": "survey/sources@1",
+ "description": "Pinned external repositories cited by the survey registry.",
+ "sources": [
+  {
+   "id": "lean4",
+   "repository": "leanprover/lean4",
+   "url": "https://github.com/leanprover/lean4",
+   "commit": "6a10ac8c22beadecabdbb0919c2b50214762f91d",
+   "ref": "v4.34.0-rc2",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2",
+   "notes": "Lean core; the survey's foundational module uses only the prelude."
+  },
+  {
+   "id": "lean-bgp212",
+   "repository": "thinkthoughts/lean-bgp212",
+   "url": "https://github.com/thinkthoughts/lean-bgp212",
+   "commit": "14ec5e0c77f9867d97fe394f135d61c349ddd0b1",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2",
+   "mathlib": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+   "notes": "Vendors GDT v1.0.0 (cef9605) in BGP212/GDTv1Basic.lean and BGP212/GDTv1.lean."
+  },
+  {
+   "id": "general-divisor-theorem",
+   "repository": "thinkthoughts/general-divisor-theorem",
+   "url": "https://github.com/thinkthoughts/general-divisor-theorem",
+   "commit": "cef96056a8aa96e44af8bcc5c35375abd8c4bf2e",
+   "ref": "v1.0.0",
+   "toolchain": "leanprover/lean4:v4.34.0-rc2",
+   "mathlib": "85e3a25e006c35636f0e53b0e9296caca2685bc0",
+   "notes": "Pinned to the v1.0.0 tag, the revision lean-bgp212 vendors. Later commits (to ec66260) rename files and update the README."
+  },
+  {
+   "id": "formal-conjectures",
+   "repository": "google-deepmind/formal-conjectures",
+   "url": "https://github.com/google-deepmind/formal-conjectures",
+   "commit": "37f0808b83c56c8cef4ea5816b8329c09b8905a8",
+   "toolchain": "leanprover/lean4:v4.33.1",
+   "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+   "notes": "Different toolchain and Mathlib from lean-bgp212; statements are cited by name until the stacks are joined."
+  },
+  {
+   "id": "specification-grammar",
+   "repository": "thinkthoughts/specification-grammar",
+   "url": "https://github.com/thinkthoughts/specification-grammar",
+   "commit": "d958b81fc0737db1d13b90a61d5d5ba9631ce355",
+   "notes": "SG_0001_SPECIFICATION_ROLES.md: SG-1 to SG-7."
+  },
+  {
+   "id": "mathematical-basis",
+   "repository": "thinkthoughts/mathematical-basis",
+   "url": "https://github.com/thinkthoughts/mathematical-basis",
+   "commit": "e571a609caa7508f2c12b543975cb8de8bf6cd90",
+   "notes": "papers/SCOPE.md: general distinction, structural analogy, direct theorem application; reading points."
+  }
+ ]
+}

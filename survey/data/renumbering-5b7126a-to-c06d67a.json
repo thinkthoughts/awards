@@ -1,0 +1,239 @@
+{
+ "schema": "survey/renumbering@1",
+ "from_catalog_commit": "5b7126acf3d3d31c71e5964525807d1532cba892",
+ "to_catalog_commit": "c06d67a66a8ba426c68e475eff22ee98a86f4e75",
+ "from_count": 1073,
+ "to_count": 1072,
+ "method": "records matched by exact heading title",
+ "unchanged_ids": 1028,
+ "renumbered": [
+  {
+   "from": "JSP-001030",
+   "to": "JSP-001029",
+   "title": "Bombieri–Lang conjecture for varieties of general type"
+  },
+  {
+   "from": "JSP-001031",
+   "to": "JSP-001030",
+   "title": "Novikov conjecture on higher signatures"
+  },
+  {
+   "from": "JSP-001032",
+   "to": "JSP-001031",
+   "title": "Farrell–Jones conjecture in algebraic K- and L-theory"
+  },
+  {
+   "from": "JSP-001033",
+   "to": "JSP-001032",
+   "title": "Grothendieck's generalized Hodge conjecture"
+  },
+  {
+   "from": "JSP-001034",
+   "to": "JSP-001033",
+   "title": "Matrix-multiplication exponent equals two"
+  },
+  {
+   "from": "JSP-001035",
+   "to": "JSP-001034",
+   "title": "Generalized Ramanujan conjecture for GL_n"
+  },
+  {
+   "from": "JSP-001036",
+   "to": "JSP-001035",
+   "title": "Extended states in the Anderson model in dimension at least three"
+  },
+  {
+   "from": "JSP-001037",
+   "to": "JSP-001036",
+   "title": "Extension of Kronecker's theorem to arbitrary number fields (Hilbert's twelfth problem)"
+  },
+  {
+   "from": "JSP-001038",
+   "to": "JSP-001037",
+   "title": "Spacetime Penrose inequality"
+  },
+  {
+   "from": "JSP-001039",
+   "to": "JSP-001038",
+   "title": "Modularity of elliptic curves over number fields"
+  },
+  {
+   "from": "JSP-001040",
+   "to": "JSP-001039",
+   "title": "Fontaine–Mazur conjecture on geometric Galois representations"
+  },
+  {
+   "from": "JSP-001041",
+   "to": "JSP-001040",
+   "title": "Fourier restriction conjecture"
+  },
+  {
+   "from": "JSP-001042",
+   "to": "JSP-001041",
+   "title": "Grothendieck period conjecture"
+  },
+  {
+   "from": "JSP-001043",
+   "to": "JSP-001042",
+   "title": "Existence of one-way permutations"
+  },
+  {
+   "from": "JSP-001044",
+   "to": "JSP-001043",
+   "title": "Finiteness of Tate–Shafarevich groups for elliptic curves"
+  },
+  {
+   "from": "JSP-001045",
+   "to": "JSP-001044",
+   "title": "Weight–monodromy conjecture"
+  },
+  {
+   "from": "JSP-001046",
+   "to": "JSP-001045",
+   "title": "Zilber–Pink conjecture on unlikely intersections"
+  },
+  {
+   "from": "JSP-001047",
+   "to": "JSP-001046",
+   "title": "Grothendieck–Teichmüller conjecture"
+  },
+  {
+   "from": "JSP-001048",
+   "to": "JSP-001047",
+   "title": "Deligne's absolute Hodge conjecture"
+  },
+  {
+   "from": "JSP-001049",
+   "to": "JSP-001048",
+   "title": "Mumford–Tate conjecture for abelian varieties over number fields"
+  },
+  {
+   "from": "JSP-001050",
+   "to": "JSP-001049",
+   "title": "Effective Mordell conjecture for curves of genus at least two"
+  },
+  {
+   "from": "JSP-001051",
+   "to": "JSP-001050",
+   "title": "Quasi-Riemann hypothesis"
+  },
+  {
+   "from": "JSP-001052",
+   "to": "JSP-001051",
+   "title": "Nagata conjecture and maximal Seshadri constants on complex surfaces"
+  },
+  {
+   "from": "JSP-001053",
+   "to": "JSP-001052",
+   "title": "Falconer distance conjecture"
+  },
+  {
+   "from": "JSP-001054",
+   "to": "JSP-001053",
+   "title": "Geometric Mahler conjectures"
+  },
+  {
+   "from": "JSP-001055",
+   "to": "JSP-001054",
+   "title": "Unique Games conjecture"
+  },
+  {
+   "from": "JSP-001056",
+   "to": "JSP-001055",
+   "title": "Hardness of finding large independent sets in three-colorable graphs"
+  },
+  {
+   "from": "JSP-001057",
+   "to": "JSP-001056",
+   "title": "Complex matrix multiplication exponent at most 9/4"
+  },
+  {
+   "from": "JSP-001058",
+   "to": "JSP-001057",
+   "title": "Exact discrete Fourier transforms with a power saving over n log n"
+  },
+  {
+   "from": "JSP-001059",
+   "to": "JSP-001058",
+   "title": "Hilbert's sixteenth problem: uniform bounds for planar limit cycles"
+  },
+  {
+   "from": "JSP-001060",
+   "to": "JSP-001059",
+   "title": "Five-colorability of the Euclidean plane"
+  },
+  {
+   "from": "JSP-001061",
+   "to": "JSP-001060",
+   "title": "Weak pinned planar distance problem"
+  },
+  {
+   "from": "JSP-001062",
+   "to": "JSP-001061",
+   "title": "Circulant Hadamard conjecture"
+  },
+  {
+   "from": "JSP-001063",
+   "to": "JSP-001062",
+   "title": "Kaplansky's zero-divisor conjecture"
+  },
+  {
+   "from": "JSP-001064",
+   "to": "JSP-001063",
+   "title": "Absence of critical percolation on quasi-transitive graphs"
+  },
+  {
+   "from": "JSP-001065",
+   "to": "JSP-001064",
+   "title": "Rigidity of the Turing degrees"
+  },
+  {
+   "from": "JSP-001066",
+   "to": "JSP-001065",
+   "title": "Partition Principle without the Axiom of Choice"
+  },
+  {
+   "from": "JSP-001067",
+   "to": "JSP-001066",
+   "title": "Amenability of Thompson's group F"
+  },
+  {
+   "from": "JSP-001068",
+   "to": "JSP-001067",
+   "title": "Ionization and generalized ionization conjectures for Coulomb atoms"
+  },
+  {
+   "from": "JSP-001069",
+   "to": "JSP-001068",
+   "title": "Hyperinvariant subspace problem on a complex Hilbert space"
+  },
+  {
+   "from": "JSP-001070",
+   "to": "JSP-001069",
+   "title": "Generator problem for finite factors"
+  },
+  {
+   "from": "JSP-001071",
+   "to": "JSP-001070",
+   "title": "Grothendieck homotopy hypothesis"
+  },
+  {
+   "from": "JSP-001072",
+   "to": "JSP-001071",
+   "title": "Global classical solvability of the three-dimensional relativistic Vlasov-Maxwell system"
+  },
+  {
+   "from": "JSP-001073",
+   "to": "JSP-001072",
+   "title": "Mirror symmetry conjecture"
+  }
+ ],
+ "without_match_in_target": [
+  {
+   "from": "JSP-001029",
+   "title": "Smooth four-dimensional Poincaré conjecture",
+   "matches": []
+  }
+ ],
+ "only_in_target": []
+}

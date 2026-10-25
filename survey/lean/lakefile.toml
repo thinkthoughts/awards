@@ -1,0 +1,12 @@
+name = "survey"
+version = "0.1.0"
+defaultTargets = ["SurveyFoundation"]
+
+[leanOptions]
+relaxedAutoImplicit = false
+
+# Core Lean only. Pilot records cite lean-bgp212, GDT and formal-conjectures declarations by
+# fully qualified name and pinned commit (survey/registry/sources.json); none is required here.
+
+[[lean_lib]]
+name = "SurveyFoundation"
