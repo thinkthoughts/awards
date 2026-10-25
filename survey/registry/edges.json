@@ -637,10 +637,43 @@
    "relation": "implies",
    "strength": "direct-application",
    "statement": {
-    "math": "The twin prime conjecture implies the 186 gap bound.",
-    "lean": "theorem L41_3 : JSP_000009 → JSP_000041"
+    "math": "Infinitely many twin primes imply that infinitely many consecutive primes differ by at most 186 (JSP-000009 ⇒ JSP-000041). An implication between two open statements; it proves neither.",
+    "lean_name": "Survey.PrimeBridges.twin_primes_implies_h1Le_186",
+    "lean": "theorem twin_primes_implies_h1Le_186 (h : InfinitelyManyTwinPrimes) : BGP212.Gap.H1Le 186",
+    "proof_term": "h1Le_mono (by norm_num) (twin_primes_iff_h1Le_two.mp h)"
    },
-   "uses": [],
+   "uses": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.twin_primes_implies_h1Le_186",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/TwinPrimeTo186.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.twin_primes_iff_h1Le_two",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/TwinPrimeEquiv.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.InfinitelyManyTwinPrimes",
+     "kind": "def",
+     "file": "lean-bridges/SurveyBridges/TwinPrimeEquiv.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.h1Le_mono",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/H1LeMono.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.H1Le",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
    "hypotheses": [
     {
      "id": "bridge",
@@ -655,13 +688,17 @@
      "status": "discharged"
     }
    ],
-   "source": "Composition",
+   "source": "survey/lean-bridges/SurveyBridges/TwinPrimeTo186.lean (sha256 808cbc0282e497710f843ce9ec75e8a6b26dab5a89c17dce5f50d9512f7f3617): composition of LIFT-009-3 (EV-0004) and LIFT-041-2 (EV-0002, EV-0003)",
    "state": {
     "mathematical": "established",
-    "formalization": "specified",
-    "verification": "unverified"
+    "formalization": "compiled",
+    "verification": "kernel-checked"
    },
-   "obligation": "open"
+   "obligation": "open",
+   "notes": "Kernel-checked on the user's MBP (EV-0005, axioms propext, Classical.choice, Quot.sound); both side conditions discharged. This proves the implication JSP-000009 ⇒ JSP-000041 outright, with no added assumption; it proves neither conjecture, and both readings stay open. Compiled, not Verified: the only remaining obligation is Comparator acceptance against an independent Challenge.",
+   "evidence": [
+    "EV-0005"
+   ]
   },
   {
    "id": "LIFT-041-4",

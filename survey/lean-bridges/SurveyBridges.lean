@@ -1,3 +1,4 @@
 import SurveyBridges.AdmissibleTwin
 import SurveyBridges.H1LeMono
 import SurveyBridges.TwinPrimeEquiv
+import SurveyBridges.TwinPrimeTo186

@@ -181,6 +181,45 @@
    "notes": "User-reported kernel check, after replacing one omega step in h1Le_two_of_twin_primes with an explicit Nat.nth_strictMono contradiction. Comparator against an independent Challenge has not run, so no Comparator acceptance is claimed."
   },
   {
+   "id": "EV-0005",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-041-3"
+   ],
+   "kind": "kernel-check",
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyBridges/TwinPrimeTo186.lean",
+     "sha256": "808cbc0282e497710f843ce9ec75e8a6b26dab5a89c17dce5f50d9512f7f3617"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.twin_primes_implies_h1Le_186"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "survey/scripts/check_bridges.sh ~/lean-bgp212, on survey/prime-bridges at ccde8a1 plus the uncommitted TwinPrimeTo186 change; lean-bgp212 89b43fa019337645b4c2c66ae917bcb1fe76450f, clean",
+   "tool": "Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+   "result": "All four bridge modules compiled. Survey.PrimeBridges.twin_primes_implies_h1Le_186 : Survey.PrimeBridges.InfinitelyManyTwinPrimes → BGP212.Gap.H1Le 186; depends on axioms: [propext, Classical.choice, Quot.sound]. Script ended: 'axiom audit: only propext, Classical.choice, Quot.sound'.",
+   "axioms": {
+    "Survey.PrimeBridges.twin_primes_implies_h1Le_186": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-25",
+   "machine": "Dan Hawkley's MacBook Pro (arm64-apple-darwin24.6.0); user-reported run, summarized in the session; not re-run by Claude",
+   "notes": "User-reported kernel check. Proves the implication JSP-000009 ⇒ JSP-000041, neither conjecture. Comparator against an independent Challenge has not run, so no Comparator acceptance is claimed."
+  },
+  {
    "id": "EV-UP-B3",
    "layer": "L4",
    "subjects": [

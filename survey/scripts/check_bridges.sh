@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Kernel-check the survey/lean-bridges modules (AdmissibleTwin, H1LeMono, TwinPrimeEquiv) and audit
-# their axioms.
+# Kernel-check the survey/lean-bridges modules (AdmissibleTwin, H1LeMono, TwinPrimeEquiv,
+# TwinPrimeTo186) and audit their axioms.
 #
 # Uses an existing lean-bgp212 checkout as the build environment, so nothing is downloaded or
 # rebuilt: the checkout must sit at the commit pinned in survey/lean-bridges/lakefile.toml, have
@@ -36,8 +36,9 @@ mkdir -p "$OUT/SurveyBridges"
 cd "$BGP"
 echo "lean-bgp212 $head (clean)"
 lake env lean --version
-# Bridge modules, in dependency order. Each imports only lean-bgp212 (BGP212.Gap).
-MODULES=(AdmissibleTwin H1LeMono TwinPrimeEquiv)
+# Bridge modules, in dependency order. Each imports lean-bgp212 (BGP212.Gap) and may import
+# bridge modules listed before it, whose .olean files are found through $OUT on LEAN_PATH.
+MODULES=(AdmissibleTwin H1LeMono TwinPrimeEquiv TwinPrimeTo186)
 for m in "${MODULES[@]}"; do
   f="$HERE/SurveyBridges/$m.lean"
   if grep -nwE 'sorry|admit|native_decide' "$f"; then
@@ -45,7 +46,8 @@ for m in "${MODULES[@]}"; do
     exit 1
   fi
   echo "== SurveyBridges.$m sha256 $(sha "$f")"
-  lake env lean -R "$HERE" -o "$OUT/SurveyBridges/$m.olean" "$f"
+  lake env bash -c 'LEAN_PATH="$0:$LEAN_PATH" lean -R "$1" -o "$2" "$3"' \
+    "$OUT" "$HERE" "$OUT/SurveyBridges/$m.olean" "$f"
 done
 for f in "$HERE"/SurveyBridges/*.lean; do
   case " ${MODULES[*]} " in *" $(basename "$f" .lean) "*) ;; *)
