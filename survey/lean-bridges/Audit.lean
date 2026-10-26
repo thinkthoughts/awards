@@ -11,6 +11,7 @@ import SurveyBridges.AdmissiblePair
 import SurveyBridges.ResidueImage
 import SurveyBridges.AdmissibleZMod
 import SurveyBridges.ResidueNu
+import SurveyBridges.LocalFactor
 
 #check @Survey.PrimeBridges.h1Le_mono
 #print axioms Survey.PrimeBridges.h1Le_mono
@@ -76,3 +77,16 @@ import SurveyBridges.ResidueNu
 #print axioms Survey.PrimeBridges.admissibleZ_iff_nu_lt
 #check @Survey.PrimeBridges.nu_twin_lt
 #print axioms Survey.PrimeBridges.nu_twin_lt
+#print BGP212.MultiShift.localCount
+#check @Survey.PrimeBridges.admissibleZ_iff_local_factor_pos
+#print axioms Survey.PrimeBridges.admissibleZ_iff_local_factor_pos
+#check @Survey.PrimeBridges.localCount_pos_iff
+#print axioms Survey.PrimeBridges.localCount_pos_iff
+#check @Survey.PrimeBridges.localCount_pos_of_admissibleZ
+#print axioms Survey.PrimeBridges.localCount_pos_of_admissibleZ
+#check @Survey.PrimeBridges.localCount_twin_pos
+#print axioms Survey.PrimeBridges.localCount_twin_pos
+#check @Survey.PrimeBridges.nu_singleton
+#print axioms Survey.PrimeBridges.nu_singleton
+#check @Survey.PrimeBridges.localCount_singleton
+#print axioms Survey.PrimeBridges.localCount_singleton

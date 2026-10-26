@@ -144,5 +144,11 @@ general distinction, shared reading, and boundary.
   natural `p`, through `negRep p : x ↦ ZMod.cast (-x)`), its prime form `residueImage_card_eq_nu`,
   and `admissibleZ_iff_nu_lt` (LIFT-ADM-7, an equivalence characterizing OBJ-admissible-z:
   `AdmissibleZ H ↔ ∀ p prime, ν_p(H) < p`).
-- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 29 edges in total.
-  Lift states: Compiled 13, Specified 13, Proposed 3; Verified 0.
+- Local factors and the per-period count, kernel-checked on the user's MBP (EV-0010; Compiled,
+  Comparator pending): `admissibleZ_iff_local_factor_pos`
+  (LIFT-ADM-8: `AdmissibleZ H ↔ ∀ p prime, 0 < p - ν_p(H)`), `localCount_pos_iff` (LIFT-GDT-2:
+  `0 < localCount N m H ↔ ∀ p ∣ R N m, ν_p(H) < p`, no hypothesis on `N`, `m`),
+  `localCount_pos_of_admissibleZ` (LIFT-GDT-3), and `localCount_singleton` (LIFT-GDT-4:
+  `localCount N m {a} = ∏ p ∣ R N m, (p - 1)`; the totient step remains open).
+- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 33 edges in total.
+  Lift states: Compiled 17, Specified 13, Proposed 3; Verified 0.

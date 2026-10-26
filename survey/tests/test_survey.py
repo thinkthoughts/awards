@@ -360,6 +360,29 @@ class RegistryTests(unittest.TestCase):
         self.assertIn("== Audit sha256 9cc05336370922aac8d862633b8d3f826879d0e140e3894619b4f34e8a807acd", log)
         self.assertIn("f34452cacba252276ed683231780ad34c4f15cfb24eaa8b00b254bc1ef0ffb78", ev["EV-0008"]["notes"])
 
+    def test_local_factor_statements_match_lean_source(self):
+        import re
+        src = (SURVEY / "lean-bridges" / "SurveyBridges" / "LocalFactor.lean").read_text(encoding="utf-8")
+        norm = lambda s: " ".join(s.replace("BGP212.Gap.", "").split())
+        for eid in ("LIFT-ADM-8", "LIFT-GDT-2", "LIFT-GDT-3", "LIFT-GDT-4"):
+            e = self.edge(self.reg, eid)
+            name = e["statement"]["lean_name"].rsplit(".", 1)[-1]
+            decl = re.search(rf"theorem {name}\b.*?:=", src, re.S).group(0)[:-2]
+            self.assertEqual(norm(decl), norm(e["statement"]["lean"]), eid)
+            self.assertEqual(validate_registry.lift_state(e), "Compiled", eid)
+            self.assertEqual(e["obligation"], "open", eid)
+        # AdmissibleH (fixed class a) stays out of the AdmissibleZ / localCount statements
+        for name in ("localCount_pos_iff", "localCount_pos_of_admissibleZ"):
+            decl = re.search(rf"theorem {name}\b.*?:=", src, re.S).group(0)
+            self.assertNotIn("AdmissibleH", decl)
+        ev = {v["id"]: v for v in self.reg["evidence"]["evidence"]}
+        self.assertIn("25a3d75acae92227f5f98128becfcb02ab4f221c888c3bb09bea2734308f02d8", ev["EV-0010"]["notes"])
+        log = (ROOT / "survey/evidence/kernel/bridges-localfactor.log").read_text(encoding="utf-8")
+        self.assertIn("== Audit sha256 25a3d75acae92227f5f98128becfcb02ab4f221c888c3bb09bea2734308f02d8", log)
+        # the totient step is an open side condition
+        tot = [h for h in self.edge(self.reg, "LIFT-GDT-4")["hypotheses"] if h["id"] == "totient"]
+        self.assertEqual([h["status"] for h in tot], ["open"])
+
     def test_foundation_package_stays_core_only(self):
         lakefile = (SURVEY / "lean" / "lakefile.toml").read_text(encoding="utf-8")
         manifest = json.loads((SURVEY / "lean" / "lake-manifest.json").read_text(encoding="utf-8"))

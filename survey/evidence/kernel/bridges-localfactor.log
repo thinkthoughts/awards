@@ -1,0 +1,165 @@
+lean-bgp212 89b43fa019337645b4c2c66ae917bcb1fe76450f (clean)
+Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)
+== SurveyBridges.AdmissibleTwin sha256 8a89082d81ee646c62a6118392fa645e67ec40e0c1c321e66ba3f3b59d1ab5c8
+'Survey.PrimeBridges.admissible_twin' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.H1LeMono sha256 3be3ce313a06fcbb4438ff43bae0afeb42f7a737c7761f9e5c78f60e1dca4ded
+'Survey.PrimeBridges.h1Le_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.TwinPrimeEquiv sha256 4c269741a5de637d43d26a015aedbb0f2f892db2085095c60c6163f9e0cf72e9
+'Survey.PrimeBridges.twin_primes_iff_h1Le_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.TwinPrimeTo186 sha256 808cbc0282e497710f843ce9ec75e8a6b26dab5a89c17dce5f50d9512f7f3617
+'Survey.PrimeBridges.twin_primes_implies_h1Le_186' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.AdmissibleSubset sha256 f0870786ed0f9572cd93fdac0dc6fc61cb88a18e25f62c318406fbbaa1dba246
+'Survey.PrimeBridges.admissibleZ_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.AdmissiblePair sha256 00c1090cbf6ffea1d1d0c6cfe27b8981156dd6625d97d7c7ac54782d66a65d83
+'Survey.PrimeBridges.admissibleZ_pair_iff_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.admissibleZ_pair_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.admissibleZ_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.admissible_twin_of_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.not_admissibleZ_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.ResidueImage sha256 91e79f6b088e32d6c228d3de9e11130fc12dcd2b5c4bd0e5fdc86ec51c48d91a
+'Survey.PrimeBridges.mem_residueImage' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.dvd_sub_iff_intCast_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.intCast_cast_residue' depends on axioms: [propext, Quot.sound]
+== SurveyBridges.AdmissibleZMod sha256 15add2ed18fcd1b3fa5f9766a122edd6a914280266d5cc95ab39851265bd73aa
+/Users/danhawkley/awards/survey/lean-bridges/SurveyBridges/AdmissibleZMod.lean:48:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'Survey.PrimeBridges.admissibleZ_iff_omits_residue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.omits_residue_iff_card_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.admissibleZ_iff_card_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.card_lt_residueImage_empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.card_lt_residueImage_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.omits_residue_pair_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.card_lt_residueImage_twin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.not_card_lt_residueImage_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.omits_residue_neg_three_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.ResidueNu sha256 76c20ab6d9404c514c39941610e53bc6195928dc4c033cb570948598086aed53
+/Users/danhawkley/awards/survey/lean-bridges/SurveyBridges/ResidueNu.lean:74:13: warning: Variable name `hp` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'Survey.PrimeBridges.negRep_intCast' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.negRep_injective' depends on axioms: [propext, Quot.sound]
+'Survey.PrimeBridges.image_neg_emod_eq_image_negRep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.residueImage_card_eq_nu' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.admissibleZ_iff_nu_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.nu_twin_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.LocalFactor sha256 c07131de403e5ac055242cf9956459a4c5731e862abe584735cedc0518d9b49e
+'Survey.PrimeBridges.admissibleZ_iff_local_factor_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.localCount_pos_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.localCount_pos_of_admissibleZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.localCount_twin_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.nu_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.localCount_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Audit sha256 25a3d75acae92227f5f98128becfcb02ab4f221c888c3bb09bea2734308f02d8
+@Survey.PrimeBridges.h1Le_mono : ∀ {D₁ D₂ : ℕ}, D₁ ≤ D₂ → BGP212.Gap.H1Le D₁ → BGP212.Gap.H1Le D₂
+'Survey.PrimeBridges.h1Le_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissible_twin : BGP212.Gap.AdmissibleZ {0, 2}
+'Survey.PrimeBridges.admissible_twin' depends on axioms: [propext, Classical.choice, Quot.sound]
+def Survey.PrimeBridges.InfinitelyManyTwinPrimes : Prop :=
+{p | Nat.Prime p ∧ Nat.Prime (p + 2)}.Infinite
+Survey.PrimeBridges.twin_primes_iff_h1Le_two : Survey.PrimeBridges.InfinitelyManyTwinPrimes ↔ BGP212.Gap.H1Le 2
+'Survey.PrimeBridges.twin_primes_iff_h1Le_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.h1Le_two_of_twin_primes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.twin_primes_of_h1Le_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.twin_primes_implies_h1Le_186 : Survey.PrimeBridges.InfinitelyManyTwinPrimes → BGP212.Gap.H1Le 186
+'Survey.PrimeBridges.twin_primes_implies_h1Le_186' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Survey.PrimeBridges.admissibleZ_subset : ∀ {H K : Finset ℤ},
+  K ⊆ H → BGP212.Gap.AdmissibleZ H → BGP212.Gap.AdmissibleZ K
+'Survey.PrimeBridges.admissibleZ_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissibleZ_pair_iff_even : ∀ (a b : ℤ), BGP212.Gap.AdmissibleZ {a, b} ↔ Even (b - a)
+'Survey.PrimeBridges.admissibleZ_pair_iff_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissibleZ_pair_self : ∀ (a : ℤ), BGP212.Gap.AdmissibleZ {a, a}
+'Survey.PrimeBridges.admissibleZ_pair_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissibleZ_singleton : ∀ (a : ℤ), BGP212.Gap.AdmissibleZ {a}
+'Survey.PrimeBridges.admissibleZ_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissible_twin_of_pair : BGP212.Gap.AdmissibleZ {0, 2}
+'Survey.PrimeBridges.admissible_twin_of_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.not_admissibleZ_zero_one : ¬BGP212.Gap.AdmissibleZ {0, 1}
+'Survey.PrimeBridges.not_admissibleZ_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+def Survey.PrimeBridges.residueImage : (p : ℕ) → Finset ℤ → Finset (ZMod p) :=
+fun p H => Finset.image (fun h => ↑h) H
+@Survey.PrimeBridges.mem_residueImage : ∀ {p : ℕ} {H : Finset ℤ} {x : ZMod p},
+  x ∈ Survey.PrimeBridges.residueImage p H ↔ ∃ h ∈ H, ↑h = x
+'Survey.PrimeBridges.mem_residueImage' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Survey.PrimeBridges.dvd_sub_iff_intCast_eq : ∀ {p : ℕ} (h r : ℤ), ↑p ∣ h - r ↔ ↑h = ↑r
+'Survey.PrimeBridges.dvd_sub_iff_intCast_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Survey.PrimeBridges.intCast_cast_residue : ∀ {p : ℕ} (r : ZMod p), ↑r.cast = r
+'Survey.PrimeBridges.intCast_cast_residue' depends on axioms: [propext, Quot.sound]
+Survey.PrimeBridges.admissibleZ_iff_omits_residue : ∀ (H : Finset ℤ),
+  BGP212.Gap.AdmissibleZ H ↔ ∀ (p : ℕ), Nat.Prime p → ∃ r, r ∉ Survey.PrimeBridges.residueImage p H
+'Survey.PrimeBridges.admissibleZ_iff_omits_residue' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Survey.PrimeBridges.omits_residue_iff_card_lt : ∀ {p : ℕ},
+  Nat.Prime p →
+    ∀ (H : Finset ℤ), (∃ r, r ∉ Survey.PrimeBridges.residueImage p H) ↔ (Survey.PrimeBridges.residueImage p H).card < p
+'Survey.PrimeBridges.omits_residue_iff_card_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissibleZ_iff_card_lt : ∀ (H : Finset ℤ),
+  BGP212.Gap.AdmissibleZ H ↔ ∀ (p : ℕ), Nat.Prime p → (Survey.PrimeBridges.residueImage p H).card < p
+'Survey.PrimeBridges.admissibleZ_iff_card_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.card_lt_residueImage_empty : ∀ (p : ℕ),
+  Nat.Prime p → (Survey.PrimeBridges.residueImage p ∅).card < p
+'Survey.PrimeBridges.card_lt_residueImage_empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.card_lt_residueImage_singleton : ∀ (a : ℤ) (p : ℕ),
+  Nat.Prime p → (Survey.PrimeBridges.residueImage p {a}).card < p
+'Survey.PrimeBridges.card_lt_residueImage_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.omits_residue_pair_self : ∀ (a : ℤ) (p : ℕ),
+  Nat.Prime p → ∃ r, r ∉ Survey.PrimeBridges.residueImage p {a, a}
+'Survey.PrimeBridges.omits_residue_pair_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.card_lt_residueImage_twin : ∀ (p : ℕ),
+  Nat.Prime p → (Survey.PrimeBridges.residueImage p {0, 2}).card < p
+'Survey.PrimeBridges.card_lt_residueImage_twin' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.not_card_lt_residueImage_zero_one : ¬∀ (p : ℕ),
+    Nat.Prime p → (Survey.PrimeBridges.residueImage p {0, 1}).card < p
+'Survey.PrimeBridges.not_card_lt_residueImage_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.omits_residue_neg_three_neg_one : ∀ (p : ℕ),
+  Nat.Prime p → ∃ r, r ∉ Survey.PrimeBridges.residueImage p {-3, -1}
+'Survey.PrimeBridges.omits_residue_neg_three_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+def BGP212.MultiShift.nu : ℕ → Finset ℤ → ℕ :=
+fun p H => (Finset.image (fun h => -h % ↑p) H).card
+def Survey.PrimeBridges.negRep : (p : ℕ) → ZMod p → ℤ :=
+fun p x => (-x).cast
+Survey.PrimeBridges.negRep_intCast : ∀ (p : ℕ) (h : ℤ), Survey.PrimeBridges.negRep p ↑h = -h % ↑p
+'Survey.PrimeBridges.negRep_intCast' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.negRep_injective : ∀ (p : ℕ), Function.Injective (Survey.PrimeBridges.negRep p)
+'Survey.PrimeBridges.negRep_injective' depends on axioms: [propext, Quot.sound]
+Survey.PrimeBridges.image_neg_emod_eq_image_negRep : ∀ (p : ℕ) (H : Finset ℤ),
+  Finset.image (fun h => -h % ↑p) H = Finset.image (Survey.PrimeBridges.negRep p) (Survey.PrimeBridges.residueImage p H)
+'Survey.PrimeBridges.image_neg_emod_eq_image_negRep' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus : ∀ (p : ℕ) (H : Finset ℤ),
+  (Survey.PrimeBridges.residueImage p H).card = BGP212.MultiShift.nu p H
+'Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.residueImage_card_eq_nu : ∀ (p : ℕ),
+  Nat.Prime p → ∀ (H : Finset ℤ), (Survey.PrimeBridges.residueImage p H).card = BGP212.MultiShift.nu p H
+'Survey.PrimeBridges.residueImage_card_eq_nu' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissibleZ_iff_nu_lt : ∀ (H : Finset ℤ),
+  BGP212.Gap.AdmissibleZ H ↔ ∀ (p : ℕ), Nat.Prime p → BGP212.MultiShift.nu p H < p
+'Survey.PrimeBridges.admissibleZ_iff_nu_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.nu_twin_lt : ∀ (p : ℕ), Nat.Prime p → BGP212.MultiShift.nu p {0, 2} < p
+'Survey.PrimeBridges.nu_twin_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+def BGP212.MultiShift.localCount : ℕ → ℕ → Finset ℤ → ℕ :=
+fun N m H => ∏ p ∈ (GDT.R N m).primeFactors, (p - BGP212.MultiShift.nu p H)
+Survey.PrimeBridges.admissibleZ_iff_local_factor_pos : ∀ (H : Finset ℤ),
+  BGP212.Gap.AdmissibleZ H ↔ ∀ (p : ℕ), Nat.Prime p → 0 < p - BGP212.MultiShift.nu p H
+'Survey.PrimeBridges.admissibleZ_iff_local_factor_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.localCount_pos_iff : ∀ (N m : ℕ) (H : Finset ℤ),
+  0 < BGP212.MultiShift.localCount N m H ↔ ∀ p ∈ (GDT.R N m).primeFactors, BGP212.MultiShift.nu p H < p
+'Survey.PrimeBridges.localCount_pos_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.localCount_pos_of_admissibleZ : ∀ (N m : ℕ) {H : Finset ℤ},
+  BGP212.Gap.AdmissibleZ H → 0 < BGP212.MultiShift.localCount N m H
+'Survey.PrimeBridges.localCount_pos_of_admissibleZ' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.localCount_twin_pos : ∀ (N m : ℕ), 0 < BGP212.MultiShift.localCount N m {0, 2}
+'Survey.PrimeBridges.localCount_twin_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.nu_singleton : ∀ (p : ℕ) (a : ℤ), BGP212.MultiShift.nu p {a} = 1
+'Survey.PrimeBridges.nu_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.localCount_singleton : ∀ (N m : ℕ) (a : ℤ),
+  BGP212.MultiShift.localCount N m {a} = ∏ p ∈ (GDT.R N m).primeFactors, (p - 1)
+'Survey.PrimeBridges.localCount_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+axiom audit: only propext, Classical.choice, Quot.sound

@@ -210,6 +210,32 @@
    "evidence": [
     "EV-0008"
    ]
+  },
+  {
+   "id": "OBJ-local-count",
+   "layer": "L0",
+   "name": "Multi-shift count per period localCount(N, m, H)",
+   "definition": "localCount N m H = ∏_{p ∣ R(N, m)} (p − ν_p(H)), the product over the prime factors of R N m = rad N / d N m (GDT v1.0.0's R, vendored in BGP212/GDTv1Basic.lean), with natural subtraction.",
+   "lean": [
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.MultiShift.localCount",
+     "kind": "def",
+     "file": "BGP212/MultiShift.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "GDT.R",
+     "kind": "def",
+     "file": "BGP212/GDTv1Basic.lean"
+    }
+   ],
+   "state": {
+    "mathematical": "defined",
+    "formalization": "compiled",
+    "verification": "unverified"
+   },
+   "notes": "Upstream definition at lean-bgp212 89b43fa; the upstream record EV-UP-B1 lists BGP212.MultiShift.localCount among its declarations. Survey-local results about it: LIFT-GDT-2 to LIFT-GDT-4."
   }
  ]
 }

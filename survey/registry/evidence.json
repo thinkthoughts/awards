@@ -681,6 +681,82 @@
    "date": "2026-10-25",
    "machine": "Dan Hawkley's MacBook Pro (arm64-apple-darwin24.6.0); user-reported run; Claude inspected the complete 140-line log",
    "notes": "User-reported kernel check with axiom audit; exit status 0 user-reported (echoed outside the log). The audit file of this run is survey/lean-bridges/Audit.lean sha256 9cc05336370922aac8d862633b8d3f826879d0e140e3894619b4f34e8a807acd, printed in the log and committed with this record; pinned by commit because Audit.lean grows with each bridge. The definition negRep and BGP212.MultiShift.nu are printed by the audit (#print). The same run reproduces EV-0002 to EV-0005, EV-0007 and EV-0008. Comparator against independent Challenges has not run for these declarations, so no Comparator acceptance is claimed."
+  },
+  {
+   "id": "EV-0010",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-ADM-8",
+    "LIFT-GDT-2",
+    "LIFT-GDT-3",
+    "LIFT-GDT-4"
+   ],
+   "kind": "kernel-check",
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyBridges/LocalFactor.lean",
+     "sha256": "c07131de403e5ac055242cf9956459a4c5731e862abe584735cedc0518d9b49e"
+    },
+    {
+     "path": "survey/evidence/kernel/bridges-localfactor.log",
+     "sha256": "6f31d4f9cd8e9eba3c0a555534d13c9bf6b89c0a02dbda70fe68a2605bf99ba1"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.admissibleZ_iff_local_factor_pos",
+    "Survey.PrimeBridges.localCount_pos_iff",
+    "Survey.PrimeBridges.localCount_pos_of_admissibleZ",
+    "Survey.PrimeBridges.localCount_twin_pos",
+    "Survey.PrimeBridges.nu_singleton",
+    "Survey.PrimeBridges.localCount_singleton"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "survey/scripts/check_bridges.sh ~/lean-bgp212 2>&1 | tee ~/bridges-localfactor.log (on survey/prime-bridges 2eb630f plus the uncommitted LocalFactor module); lean-bgp212 89b43fa019337645b4c2c66ae917bcb1fe76450f, clean",
+   "tool": "Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+   "result": "All ten bridge modules compiled in order; the nine earlier ones at their recorded sha256. Audit sha256 25a3d75acae92227f5f98128becfcb02ab4f221c888c3bb09bea2734308f02d8. Audit signatures: admissibleZ_iff_local_factor_pos : ∀ (H : Finset ℤ), BGP212.Gap.AdmissibleZ H ↔ ∀ (p : ℕ), Nat.Prime p → 0 < p - BGP212.MultiShift.nu p H; localCount_pos_iff : ∀ (N m : ℕ) (H : Finset ℤ), 0 < BGP212.MultiShift.localCount N m H ↔ ∀ p ∈ (GDT.R N m).primeFactors, BGP212.MultiShift.nu p H < p; localCount_pos_of_admissibleZ : ∀ (N m : ℕ) {H : Finset ℤ}, BGP212.Gap.AdmissibleZ H → 0 < BGP212.MultiShift.localCount N m H; localCount_twin_pos : ∀ (N m : ℕ), 0 < BGP212.MultiShift.localCount N m {0, 2}; nu_singleton : ∀ (p : ℕ) (a : ℤ), BGP212.MultiShift.nu p {a} = 1; localCount_singleton : ∀ (N m : ℕ) (a : ℤ), BGP212.MultiShift.localCount N m {a} = ∏ p ∈ (GDT.R N m).primeFactors, (p - 1). Each depends on axioms: [propext, Classical.choice, Quot.sound]. LocalFactor.lean compiled with no warnings; the two earlier warnings (AdmissibleZMod.lean:48:2, ResidueNu.lean:74:13) recur. Script ended: 'axiom audit: only propext, Classical.choice, Quot.sound'. Full output: survey/evidence/kernel/bridges-localfactor.log.",
+   "axioms": {
+    "Survey.PrimeBridges.admissibleZ_iff_local_factor_pos": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.localCount_pos_iff": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.localCount_pos_of_admissibleZ": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.localCount_twin_pos": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.nu_singleton": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.localCount_singleton": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-25",
+   "machine": "Dan Hawkley's MacBook Pro (arm64-apple-darwin24.6.0); user-reported run; Claude inspected the complete 165-line log",
+   "notes": "User-reported kernel check with axiom audit; exit status user-reported. The audit file of this run is survey/lean-bridges/Audit.lean sha256 25a3d75acae92227f5f98128becfcb02ab4f221c888c3bb09bea2734308f02d8, printed in the log and committed with this record; pinned by commit because Audit.lean grows with each bridge. The same run reproduces EV-0002 to EV-0005 and EV-0007 to EV-0009. Comparator against independent Challenges has not run for these declarations, so no Comparator acceptance is claimed."
   }
  ]
 }
