@@ -149,6 +149,11 @@ general distinction, shared reading, and boundary.
   (LIFT-ADM-8: `AdmissibleZ H ↔ ∀ p prime, 0 < p - ν_p(H)`), `localCount_pos_iff` (LIFT-GDT-2:
   `0 < localCount N m H ↔ ∀ p ∣ R N m, ν_p(H) < p`, no hypothesis on `N`, `m`),
   `localCount_pos_of_admissibleZ` (LIFT-GDT-3), and `localCount_singleton` (LIFT-GDT-4:
-  `localCount N m {a} = ∏ p ∣ R N m, (p - 1)`; the totient step remains open).
-- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 33 edges in total.
-  Lift states: Compiled 17, Specified 13, Proposed 3; Verified 0.
+  `localCount N m {a} = ∏ p ∣ R N m, (p - 1)`; its totient side condition discharged by LIFT-GDT-5).
+- Single-shift compatibility, kernel-checked on the user's MBP (EV-0011; Compiled, Comparator
+  pending): `localCount_singleton_eq_totient`
+  (LIFT-GDT-5: `0 < N → localCount N m {a} = φ(R N m)`), through `R_eq_prod_sdiff`
+  (`R N m = ∏ p ∈ N.primeFactors \ (gcd m N).primeFactors, p`) and `totient_prod_primes`;
+  `localCount_singleton_at_zero` shows `0 < N` is needed.
+- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 34 edges in total.
+  Lift states: Compiled 18, Specified 13, Proposed 3; Verified 0.

@@ -379,9 +379,26 @@ class RegistryTests(unittest.TestCase):
         self.assertIn("25a3d75acae92227f5f98128becfcb02ab4f221c888c3bb09bea2734308f02d8", ev["EV-0010"]["notes"])
         log = (ROOT / "survey/evidence/kernel/bridges-localfactor.log").read_text(encoding="utf-8")
         self.assertIn("== Audit sha256 25a3d75acae92227f5f98128becfcb02ab4f221c888c3bb09bea2734308f02d8", log)
-        # the totient step is an open side condition
-        tot = [h for h in self.edge(self.reg, "LIFT-GDT-4")["hypotheses"] if h["id"] == "totient"]
-        self.assertEqual([h["status"] for h in tot], ["open"])
+
+    def test_single_shift_totient_matches_lean_source(self):
+        import re
+        src = (SURVEY / "lean-bridges" / "SurveyBridges" / "SingleShiftTotient.lean").read_text(encoding="utf-8")
+        e = self.edge(self.reg, "LIFT-GDT-5")
+        decl = re.search(r"theorem localCount_singleton_eq_totient\b.*?:=", src, re.S).group(0)[:-2]
+        self.assertEqual(" ".join(decl.split()), " ".join(e["statement"]["lean"].split()))
+        self.assertIn("hN : 0 < N", [h.get("lean") for h in e["hypotheses"]])
+        self.assertIn("theorem localCount_singleton_at_zero", src)
+        self.assertEqual(validate_registry.lift_state(e), "Compiled")
+        self.assertEqual(e["obligation"], "open")
+        # LIFT-GDT-4's totient side condition is discharged by LIFT-GDT-5 (EV-0011)
+        g4 = self.edge(self.reg, "LIFT-GDT-4")
+        tot = [h for h in g4["hypotheses"] if h["id"] == "totient"]
+        self.assertEqual([h["status"] for h in tot], ["discharged"])
+        self.assertIn("EV-0011", g4["evidence"])
+        ev = {v["id"]: v for v in self.reg["evidence"]["evidence"]}
+        self.assertIn("074c3fbaaea5587a852c73ebb7470f2d18beab47c08a94a2b01742e4cf0ad3de", ev["EV-0011"]["notes"])
+        log = (ROOT / "survey/evidence/kernel/bridges-totient.log").read_text(encoding="utf-8")
+        self.assertIn("== Audit sha256 074c3fbaaea5587a852c73ebb7470f2d18beab47c08a94a2b01742e4cf0ad3de", log)
 
     def test_foundation_package_stays_core_only(self):
         lakefile = (SURVEY / "lean" / "lakefile.toml").read_text(encoding="utf-8")

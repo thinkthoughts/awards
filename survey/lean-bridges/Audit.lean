@@ -12,6 +12,7 @@ import SurveyBridges.ResidueImage
 import SurveyBridges.AdmissibleZMod
 import SurveyBridges.ResidueNu
 import SurveyBridges.LocalFactor
+import SurveyBridges.SingleShiftTotient
 
 #check @Survey.PrimeBridges.h1Le_mono
 #print axioms Survey.PrimeBridges.h1Le_mono
@@ -90,3 +91,18 @@ import SurveyBridges.LocalFactor
 #print axioms Survey.PrimeBridges.nu_singleton
 #check @Survey.PrimeBridges.localCount_singleton
 #print axioms Survey.PrimeBridges.localCount_singleton
+#print GDT.R
+#print GDT.d
+#print GDT.rad
+#check @Survey.PrimeBridges.totient_prod_primes
+#print axioms Survey.PrimeBridges.totient_prod_primes
+#check @Survey.PrimeBridges.R_eq_prod_sdiff
+#print axioms Survey.PrimeBridges.R_eq_prod_sdiff
+#check @Survey.PrimeBridges.totient_R_eq_prod
+#print axioms Survey.PrimeBridges.totient_R_eq_prod
+#check @Survey.PrimeBridges.localCount_singleton_eq_totient
+#print axioms Survey.PrimeBridges.localCount_singleton_eq_totient
+#check @Survey.PrimeBridges.localCount_zero_eq_totient
+#print axioms Survey.PrimeBridges.localCount_zero_eq_totient
+#check @Survey.PrimeBridges.localCount_singleton_at_zero
+#print axioms Survey.PrimeBridges.localCount_singleton_at_zero

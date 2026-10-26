@@ -38,7 +38,7 @@ echo "lean-bgp212 $head (clean)"
 lake env lean --version
 # Bridge modules, in dependency order. Each imports lean-bgp212 (BGP212.Gap) and may import
 # bridge modules listed before it, whose .olean files are found through $OUT on LEAN_PATH.
-MODULES=(AdmissibleTwin H1LeMono TwinPrimeEquiv TwinPrimeTo186 AdmissibleSubset AdmissiblePair ResidueImage AdmissibleZMod ResidueNu LocalFactor)
+MODULES=(AdmissibleTwin H1LeMono TwinPrimeEquiv TwinPrimeTo186 AdmissibleSubset AdmissiblePair ResidueImage AdmissibleZMod ResidueNu LocalFactor SingleShiftTotient)
 for m in "${MODULES[@]}"; do
   f="$HERE/SurveyBridges/$m.lean"
   if grep -nwE 'sorry|admit|native_decide' "$f"; then

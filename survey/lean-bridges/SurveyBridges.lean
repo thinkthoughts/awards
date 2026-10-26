@@ -8,3 +8,4 @@ import SurveyBridges.ResidueImage
 import SurveyBridges.AdmissibleZMod
 import SurveyBridges.ResidueNu
 import SurveyBridges.LocalFactor
+import SurveyBridges.SingleShiftTotient

@@ -1505,7 +1505,7 @@
    "relation": "special-case",
    "strength": "direct-application",
    "statement": {
-    "math": "Single shift: ν_p({a}) = 1 for every modulus, so localCount N m {a} = ∏_{p ∣ R(N, m)} (p − 1). With R(N, m) squarefree (0 < N) this product is φ(R(N, m)), GDT v1.0.0's count per period; that last step is not yet formalized here.",
+    "math": "Single shift: ν_p({a}) = 1 for every modulus, so localCount N m {a} = ∏_{p ∣ R(N, m)} (p − 1); for 0 < N this product is φ(R(N, m)) (LIFT-GDT-5), GDT v1.0.0's count per period.",
     "lean_name": "Survey.PrimeBridges.localCount_singleton",
     "lean": "theorem localCount_singleton (N m : ℕ) (a : ℤ) : BGP212.MultiShift.localCount N m ({a} : Finset ℤ) = ∏ p ∈ (GDT.R N m).primeFactors, (p - 1)"
    },
@@ -1557,9 +1557,10 @@
     },
     {
      "id": "totient",
-     "statement": "∏_{p ∣ R} (p − 1) = φ(R) for squarefree R = R N m, 0 < N (needs R squarefree: upstream BGP212.GDTv1.R_squarefree, and Nat.totient_eq_prod_factorization)",
+     "statement": "∏_{p ∣ R} (p − 1) = φ(R) for R = R N m, 0 < N: discharged by totient_R_eq_prod and localCount_singleton_eq_totient (LIFT-GDT-5, EV-0011)",
      "role": "side-condition",
-     "status": "open"
+     "status": "discharged",
+     "lean": "Survey.PrimeBridges.totient_R_eq_prod (hN : 0 < N) (m) : Nat.totient (GDT.R N m) = ∏ p ∈ (GDT.R N m).primeFactors, (p - 1)"
     }
    ],
    "source": "Survey.PrimeBridges.localCount_singleton and nu_singleton; Mathlib 85e3a25: Finset.image_singleton, Finset.card_singleton, Finset.prod_congr",
@@ -1569,9 +1570,111 @@
     "verification": "kernel-checked"
    },
    "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0010): the singleton product localCount N m {a} = ∏ p ∈ (R N m).primeFactors, (p − 1) and nu_singleton. The totient side condition stays open, to be proved in a separate module. Compiled; the obligation stays open until the totient step and Comparator acceptance under landrun on Linux. Partial reduction toward EDGE-GDT-1 (upstream gdtH_single_shift).",
+   "notes": "Kernel-checked on the user's MBP: the singleton product and nu_singleton (EV-0010); the totient side condition discharged by LIFT-GDT-5 (EV-0011), giving localCount N m {a} = φ(R N m) for 0 < N. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Partial reduction toward EDGE-GDT-1 (upstream gdtH_single_shift).",
    "evidence": [
-    "EV-0010"
+    "EV-0010",
+    "EV-0011"
+   ]
+  },
+  {
+   "id": "LIFT-GDT-5",
+   "from": "OBJ-local-count",
+   "to": "SPEC-gdt",
+   "relation": "special-case",
+   "strength": "direct-application",
+   "statement": {
+    "math": "For 0 < N, one shift gives GDT v1.0.0's count per period: localCount N m {a} = φ(R(N, m)). R(N, m) = ∏ p ∈ N.primeFactors \\ (gcd m N).primeFactors, p, a product of distinct primes, and φ of such a product is ∏ (p − 1). At N = 0 the identity fails (N = 0, m = 2: count 1, φ 0 = 0).",
+    "lean_name": "Survey.PrimeBridges.localCount_singleton_eq_totient",
+    "lean": "theorem localCount_singleton_eq_totient {N : ℕ} (hN : 0 < N) (m : ℕ) (a : ℤ) : BGP212.MultiShift.localCount N m ({a} : Finset ℤ) = Nat.totient (GDT.R N m)"
+   },
+   "uses": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.localCount_singleton_eq_totient",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/SingleShiftTotient.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.localCount_zero_eq_totient",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/SingleShiftTotient.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.totient_R_eq_prod",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/SingleShiftTotient.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.R_eq_prod_sdiff",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/SingleShiftTotient.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.totient_prod_primes",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/SingleShiftTotient.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.localCount_singleton_at_zero",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/SingleShiftTotient.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.localCount_singleton",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/LocalFactor.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.MultiShift.localCount",
+     "kind": "def",
+     "file": "BGP212/MultiShift.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "GDT.R",
+     "kind": "def",
+     "file": "BGP212/GDTv1Basic.lean"
+    },
+    {
+     "source": "lean-bgp212",
+     "name": "BGP212.Challenge.gdtH_single_shift",
+     "kind": "theorem",
+     "file": "Solution/MultiShift.lean",
+     "note": "upstream third conjunct: localCount N m {0} = Nat.totient (R N m), with 0 < N"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "Npos",
+     "statement": "0 < N, taken as the theorem's argument hN; necessary (localCount_singleton_at_zero)",
+     "role": "side-condition",
+     "status": "discharged",
+     "lean": "hN : 0 < N"
+    },
+    {
+     "id": "single",
+     "statement": "H = {a}",
+     "role": "side-condition",
+     "status": "discharged"
+    }
+   ],
+   "source": "Survey.PrimeBridges.localCount_singleton_eq_totient; Mathlib 85e3a25: Nat.totient_eq_div_primeFactors_mul, Nat.primeFactors_prod, Nat.primeFactors_mono, Finset.prod_sdiff, Finset.prod_pos, Nat.Prime.primeFactors, Nat.totient_zero; core Nat.mul_div_cancel, Nat.div_self",
+   "state": {
+    "mathematical": "established",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "obligation": "open",
+   "notes": "Kernel-checked on the user's MBP (EV-0011). Discharges the totient side condition of LIFT-GDT-4. Survey-local counterpart of the third conjunct of upstream gdtH_single_shift (EDGE-GDT-1); AdmissibleH, the first conjunct, is a separate statement. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "evidence": [
+    "EV-0011"
    ]
   }
  ]
