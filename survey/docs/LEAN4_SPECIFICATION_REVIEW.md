@@ -104,3 +104,76 @@ Dickson-type statements use forms `aᵢ*n+bᵢ`. The monic shift predicate `Admi
 6. Rank only the next **three** general Lean targets by exact reusable dependencies and proof cost. For each, list a theorem statement, imports, intended proof lemmas, and evidence needed for its verification state. Include catalog IDs only where you have inspected the exact catalog statement.
 
 **Requested output:** A concise technical Markdown response with a `source-checked / inferred / proposed` label for each claim. No repository edits or claims of compiled proofs.
+
+---
+
+## 5. Review 2 — admissibility and residue coverage
+
+**Reading point:** October 2026  
+**Input:** DeepSeek's second read-only technical review. Its GitHub retrieval failed, so its Mathlib declaration names and proposed Lean proof terms remain candidates awaiting source inspection and compilation.
+
+### 5.1 Established source definition
+
+The previously inspected `BGP212/Gap.lean` defines:
+
+```lean
+def AdmissibleZ (H : Finset ℤ) : Prop :=
+  ∀ p : ℕ, p.Prime → ∃ r : ℤ, ∀ h ∈ H, ¬ ((p : ℤ) ∣ h - r)
+```
+
+This is the authoritative starting point for the next bridge. A residue omission may be represented by the image of `h` or `-h` in `ZMod p`; negation permutes the residue classes and preserves coverage and image cardinality.
+
+### 5.2 General theorem targets
+
+The following are **Specified in this review**, pending Lean source, kernel compilation, axiom audit, registry entries, and Comparator evidence. They do not yet have recorded proof status in `survey/registry`.
+
+| Candidate declaration | Mathematical content | Dependencies / proof obligations |
+| --- | --- | --- |
+| `admissibleZ_iff_omits_residue` | Every prime modulus has an omitted residue of `H` | Connect integer divisibility to equality in `ZMod p`; lift the integer witness to `ZMod p` and back |
+| `admissibleZ_iff_card_lt` | `AdmissibleZ H ↔ ∀ p, p.Prime → (residueImage p H).card < p` | Finite-type card for `ZMod p`, image versus universal set, prime positivity |
+| `admissibleZ_subset` | `K ⊆ H → AdmissibleZ H → AdmissibleZ K` | Reuse each omitted residue for the subset; a direct proof may avoid cardinality lemmas |
+| `admissibleZ_pair_iff_even` | `AdmissibleZ ({a,b} : Finset ℤ) ↔ Even (b-a)` | Modulus two covers both classes exactly for opposite-parity shifts; moduli greater than two have more classes than two shifts |
+
+For distinct shifts, the pair classification reduces to a parity condition. The statement also covers `a=b`, where the `Finset` is a singleton and the difference is zero.
+
+The existing `Survey.PrimeBridges.admissible_twin` is the `{a,b}={0,2}` reading of the proposed pair classification. Its existing kernel evidence remains EV-0003; deriving it again from the new general theorem would be an additional corollary.
+
+### 5.3 Mathematical check of two-element admissibility
+
+For `H={a,b}`, the residue image has cardinality at most two. At a prime `p>2`, it omits a class. At `p=2`, it omits a class exactly where `a` and `b` share parity. Thus:
+
+\[
+\operatorname{AdmissibleZ}(\{a,b\})\iff 2\mid(b-a).
+\]
+
+Examples: `{0,2}`, `{0,4}`, and `{3,9}` are admissible; `{0,1}` and `{7,12}` cover both residues modulo two.
+
+The substitution `h ↦ -h` leaves this classification unchanged. DeepSeek's suggestion that the parity criterion might flip under the sign convention is corrected here.
+
+### 5.4 DHL distinctions retained
+
+1. `DHL k 2` is a parameterized proposition and may appear as a named hypothesis.
+2. `dhl_implies_gap` is a general implication requiring a certified admissible tuple and diameter bound.
+3. A particular bounded-gap conclusion requires its specific premises and explicit tuple certificate.
+4. `twin_primes_implies_h1Le_186` is an independently kernel-checked implication obtained by composing the twin-prime equivalence with `h1Le_mono`. Its proof uses the twin-prime premise.
+
+The next work should reuse the general `dhl_implies_gap` statement already present in `Solution/Gap.lean`; any new package interface should provide a genuine new dependency or reproducibility benefit.
+
+### 5.5 Decisions and source checks
+
+- **Keep** the existing kernel-checked twin-prime equivalence and its gap-one lemma. EV-0004 covers their reported kernel checks.
+- **Develop first** the omitted-residue bridge, then cardinality, subset closure, and the two-element classification.
+- **Verify exact Mathlib identifiers** against the pinned commit before treating proposed lemma names as existing declarations.
+- **Separate exploratory reach estimates** from catalog statement matches established through explicit mathematical reduction.
+- **Continue** the current Linux-isolated Comparator milestone independently of these proposed generalizations.
+
+## 6. Next questions for DeepSeek — round 3
+
+1. Using the exact `AdmissibleZ` definition quoted in §5.1, give a Lean proof plan for `admissibleZ_iff_omits_residue`. Specify the intermediate lemma relating `((p:ℤ) ∣ h-r)` to equality of `(h : ZMod p)` and `(r : ZMod p)`. State clearly which lemma names are verified and which are candidates.
+2. Specify `residueImage` and `admissibleZ_iff_card_lt` with correct `ZMod p` types. Provide the precise conversion between `Finset.image` being a proper subset of `Finset.univ` and having cardinality less than `p`, including the `p.Prime` hypothesis.
+3. Give the shortest direct proof strategy for `admissibleZ_subset` using the original quantifier definition, independent of the proposed cardinality theorem. Identify the exact `Finset` membership step.
+4. Develop a structured proof of `admissibleZ_pair_iff_even` with separate `p=2` and `p>2` cases. Cover `a=b`, negative integers, and `ZMod 2` coercions. Give a minimal sequence of supporting lemmas rather than a monolithic tactic proof.
+5. Compare two implementation orders: direct subset/pair proofs from `AdmissibleZ`, versus first establishing `ZMod` coverage and cardinality bridges. Identify which produces the smallest reusable dependency graph.
+6. Return a three-step handoff for Claude: exact proposed module names, theorem declarations, import requirements, and one local compilation milestone per step. Keep every uncompiled claim explicitly proposed.
+
+**Requested output:** a focused Lean engineering note, with source-checked / inferred / proposed labels. Read-only; omit unrelated catalog reach claims.
