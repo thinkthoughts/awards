@@ -368,6 +368,116 @@
    "evidence": [
     "EV-0007"
    ]
+  },
+  {
+   "id": "SPEC-admissible-omits-residue",
+   "layer": "L1",
+   "name": "Admissibility as an omitted residue in ZMod p",
+   "parameters": [
+    {
+     "name": "H",
+     "type": "Finset ℤ"
+    }
+   ],
+   "statement": {
+    "math": "H is admissible exactly when for every prime p some residue r ∈ ZMod p lies outside residueImage p H.",
+    "lean_name": "Survey.PrimeBridges.admissibleZ_iff_omits_residue",
+    "lean": "theorem admissibleZ_iff_omits_residue (H : Finset ℤ) : BGP212.Gap.AdmissibleZ H ↔ ∀ p : ℕ, p.Prime → ∃ r : ZMod p, r ∉ residueImage p H"
+   },
+   "objects": [
+    "OBJ-admissible-z",
+    "OBJ-residue-image"
+   ],
+   "lean": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissibleZ_iff_omits_residue",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissibleZMod.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.dvd_sub_iff_intCast_eq",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueImage.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "leading_constraints": [
+    "Residue bridge: (p : ℤ) ∣ h − r ↔ (h : ZMod p) = (r : ZMod p), valid for every modulus; an omitted residue r returns the integer ZMod.cast r."
+   ],
+   "excluded_generalizations": [
+    "Composite moduli: admissibility quantifies over primes only."
+   ],
+   "state": {
+    "mathematical": "proved",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "notes": "Kernel-checked on the user's MBP against lean-bgp212 89b43fa (EV-0008). Comparator acceptance is a separate obligation.",
+   "evidence": [
+    "EV-0008"
+   ]
+  },
+  {
+   "id": "SPEC-admissible-card-lt",
+   "layer": "L1",
+   "name": "Admissibility as residue counting",
+   "parameters": [
+    {
+     "name": "H",
+     "type": "Finset ℤ"
+    }
+   ],
+   "statement": {
+    "math": "H is admissible exactly when for every prime p the shifts occupy fewer than p residue classes: (residueImage p H).card < p.",
+    "lean_name": "Survey.PrimeBridges.admissibleZ_iff_card_lt",
+    "lean": "theorem admissibleZ_iff_card_lt (H : Finset ℤ) : BGP212.Gap.AdmissibleZ H ↔ ∀ p : ℕ, p.Prime → (residueImage p H).card < p"
+   },
+   "objects": [
+    "OBJ-admissible-z",
+    "OBJ-residue-image"
+   ],
+   "lean": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissibleZ_iff_card_lt",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissibleZMod.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.omits_residue_iff_card_lt",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissibleZMod.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "leading_constraints": [
+    "For prime p, ZMod p is finite with Fintype.card (ZMod p) = p (NeZero p from p.Prime); an omitted residue is a proper subset of Finset.univ."
+   ],
+   "excluded_generalizations": [
+    "Comparison with the local factor ν_p(H) of the multi-shift GDT (OBJ-local-factor-nu), which counts the classes −h: the next connection."
+   ],
+   "state": {
+    "mathematical": "proved",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "notes": "Kernel-checked on the user's MBP against lean-bgp212 89b43fa (EV-0008). Comparator acceptance is a separate obligation.",
+   "evidence": [
+    "EV-0008"
+   ]
   }
  ]
 }

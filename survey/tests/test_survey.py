@@ -298,6 +298,31 @@ class RegistryTests(unittest.TestCase):
         self.assertRejected(lambda r: self.edge(r, "LIFT-ADM-3").update(closure=e["closure"]),
                             "closure record go together")
 
+    def test_zmod_statements_match_lean_source(self):
+        import re
+        src = (SURVEY / "lean-bridges" / "SurveyBridges" / "AdmissibleZMod.lean").read_text(encoding="utf-8")
+        norm = lambda s: " ".join(s.replace("BGP212.Gap.", "").split())
+        specs = {s["id"]: s for s in self.reg["specs"]["specs"]}
+        for sid in ("SPEC-admissible-omits-residue", "SPEC-admissible-card-lt"):
+            stmt = specs[sid]["statement"]["lean"]
+            name = specs[sid]["statement"]["lean_name"].rsplit(".", 1)[-1]
+            decl = re.search(rf"theorem {name}\b.*?:=", src, re.S).group(0)[:-2]
+            self.assertEqual(norm(decl), norm(stmt), sid)
+        ri = (SURVEY / "lean-bridges" / "SurveyBridges" / "ResidueImage.lean").read_text(encoding="utf-8")
+        self.assertIn("H.image (fun (h : ℤ) => (h : ZMod p))", ri)
+        for e in ("LIFT-ADM-4", "LIFT-ADM-5"):
+            edge = self.edge(self.reg, e)
+            self.assertEqual(validate_registry.lift_state(edge), "Compiled", e)
+            self.assertEqual(edge["obligation"], "open", e)
+
+    def test_audit_hash_history_is_pinned_by_commit(self):
+        ev = {v["id"]: v for v in self.reg["evidence"]["evidence"]}
+        self.assertIn("at commit 58d810f (sha256 6dcef42dad00b7024424deff62d5fdcf61337f3e41c7c3f196064e33ebe66ed6)",
+                      ev["EV-0007"]["notes"])
+        self.assertIn("f34452cacba252276ed683231780ad34c4f15cfb24eaa8b00b254bc1ef0ffb78", ev["EV-0008"]["notes"])
+        log = (ROOT / "survey/evidence/kernel/bridges-zmod-2.log").read_text(encoding="utf-8")
+        self.assertIn("== Audit sha256 f34452cacba252276ed683231780ad34c4f15cfb24eaa8b00b254bc1ef0ffb78", log)
+
     def test_foundation_package_stays_core_only(self):
         lakefile = (SURVEY / "lean" / "lakefile.toml").read_text(encoding="utf-8")
         manifest = json.loads((SURVEY / "lean" / "lake-manifest.json").read_text(encoding="utf-8"))

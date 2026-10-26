@@ -38,7 +38,7 @@ echo "lean-bgp212 $head (clean)"
 lake env lean --version
 # Bridge modules, in dependency order. Each imports lean-bgp212 (BGP212.Gap) and may import
 # bridge modules listed before it, whose .olean files are found through $OUT on LEAN_PATH.
-MODULES=(AdmissibleTwin H1LeMono TwinPrimeEquiv TwinPrimeTo186 AdmissibleSubset AdmissiblePair)
+MODULES=(AdmissibleTwin H1LeMono TwinPrimeEquiv TwinPrimeTo186 AdmissibleSubset AdmissiblePair ResidueImage AdmissibleZMod)
 for m in "${MODULES[@]}"; do
   f="$HERE/SurveyBridges/$m.lean"
   if grep -nwE 'sorry|admit|native_decide' "$f"; then
@@ -54,7 +54,7 @@ for f in "$HERE"/SurveyBridges/*.lean; do
     echo "unlisted bridge module $f: add it to MODULES" >&2; exit 1;; esac
 done
 
-echo "== Audit"
+echo "== Audit sha256 $(sha "$HERE/Audit.lean")"
 AUDIT="$(lake env bash -c 'LEAN_PATH="$0:$LEAN_PATH" lean -R "$1" "$2"' "$OUT" "$HERE" "$HERE/Audit.lean")"
 printf '%s\n' "$AUDIT"
 # Every audited declaration may use only the three standard axioms.

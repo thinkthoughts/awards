@@ -427,10 +427,6 @@
      "sha256": "00c1090cbf6ffea1d1d0c6cfe27b8981156dd6625d97d7c7ac54782d66a65d83"
     },
     {
-     "path": "survey/lean-bridges/Audit.lean",
-     "sha256": "6dcef42dad00b7024424deff62d5fdcf61337f3e41c7c3f196064e33ebe66ed6"
-    },
-    {
      "path": "survey/evidence/kernel/bridges-admissible.log",
      "sha256": "0f63679dfa712cfa6f9ae7ef38c11d64fc9c97c667938cb1323d8e4cfa9ca4c3"
     }
@@ -489,7 +485,123 @@
    "sorry_free": true,
    "date": "2026-10-25",
    "machine": "Dan Hawkley's MacBook Pro (arm64-apple-darwin24.6.0); user-reported run; Claude inspected the complete 45-line log",
-   "notes": "User-reported kernel check with axiom audit. Exit status 0 is user-reported (echoed outside the log). The same run reproduces EV-0002 to EV-0005 at their recorded hashes. Comparator against independent Challenges has not run for these declarations, so no Comparator acceptance is claimed."
+   "notes": "User-reported kernel check with axiom audit. Exit status 0 is user-reported (echoed outside the log). The same run reproduces EV-0002 to EV-0005 at their recorded hashes. Comparator against independent Challenges has not run for these declarations, so no Comparator acceptance is claimed. The audit file of that run is survey/lean-bridges/Audit.lean at commit 58d810f (sha256 6dcef42dad00b7024424deff62d5fdcf61337f3e41c7c3f196064e33ebe66ed6); Audit.lean grows with each bridge, so its hash is pinned here by commit."
+  },
+  {
+   "id": "EV-0008",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-ADM-4",
+    "LIFT-ADM-5",
+    "SPEC-admissible-omits-residue",
+    "SPEC-admissible-card-lt",
+    "OBJ-residue-image"
+   ],
+   "kind": "kernel-check",
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyBridges/ResidueImage.lean",
+     "sha256": "91e79f6b088e32d6c228d3de9e11130fc12dcd2b5c4bd0e5fdc86ec51c48d91a"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/AdmissibleZMod.lean",
+     "sha256": "15add2ed18fcd1b3fa5f9766a122edd6a914280266d5cc95ab39851265bd73aa"
+    },
+    {
+     "path": "survey/evidence/kernel/bridges-zmod-2.log",
+     "sha256": "cc10a372fa8387dfe555aace21c8a78c984726e4b6757646777cd928a3fdf34b"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.mem_residueImage",
+    "Survey.PrimeBridges.dvd_sub_iff_intCast_eq",
+    "Survey.PrimeBridges.intCast_cast_residue",
+    "Survey.PrimeBridges.admissibleZ_iff_omits_residue",
+    "Survey.PrimeBridges.omits_residue_iff_card_lt",
+    "Survey.PrimeBridges.admissibleZ_iff_card_lt",
+    "Survey.PrimeBridges.card_lt_residueImage_empty",
+    "Survey.PrimeBridges.card_lt_residueImage_singleton",
+    "Survey.PrimeBridges.omits_residue_pair_self",
+    "Survey.PrimeBridges.card_lt_residueImage_twin",
+    "Survey.PrimeBridges.not_card_lt_residueImage_zero_one",
+    "Survey.PrimeBridges.omits_residue_neg_three_neg_one"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "survey/scripts/check_bridges.sh ~/lean-bgp212 2>&1 | tee ~/bridges-zmod-2.log (on survey/prime-bridges 58d810f plus the uncommitted ZMod modules); lean-bgp212 89b43fa019337645b4c2c66ae917bcb1fe76450f, clean",
+   "tool": "Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+   "result": "All eight bridge modules compiled in order; the six earlier ones at their recorded sha256. Audit sha256 f34452cacba252276ed683231780ad34c4f15cfb24eaa8b00b254bc1ef0ffb78. Audit signatures: def residueImage : (p : ℕ) → Finset ℤ → Finset (ZMod p) := fun p H => Finset.image (fun h => ↑h) H; admissibleZ_iff_omits_residue : ∀ (H : Finset ℤ), BGP212.Gap.AdmissibleZ H ↔ ∀ (p : ℕ), Nat.Prime p → ∃ r, r ∉ residueImage p H; omits_residue_iff_card_lt : ∀ {p : ℕ}, Nat.Prime p → ∀ (H : Finset ℤ), (∃ r, r ∉ residueImage p H) ↔ (residueImage p H).card < p; admissibleZ_iff_card_lt : ∀ (H : Finset ℤ), BGP212.Gap.AdmissibleZ H ↔ ∀ (p : ℕ), Nat.Prime p → (residueImage p H).card < p. intCast_cast_residue depends on [propext, Quot.sound]; every other declaration on [propext, Classical.choice, Quot.sound]. One style-linter warning, AdmissibleZMod.lean:48:2 (haveI where have is preferred), no errors. Script ended: 'axiom audit: only propext, Classical.choice, Quot.sound'. Full output: survey/evidence/kernel/bridges-zmod-2.log.",
+   "axioms": {
+    "Survey.PrimeBridges.mem_residueImage": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.dvd_sub_iff_intCast_eq": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.intCast_cast_residue": [
+     "propext",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissibleZ_iff_omits_residue": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.omits_residue_iff_card_lt": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissibleZ_iff_card_lt": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.card_lt_residueImage_empty": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.card_lt_residueImage_singleton": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.omits_residue_pair_self": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.card_lt_residueImage_twin": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.not_card_lt_residueImage_zero_one": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.omits_residue_neg_three_neg_one": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-25",
+   "machine": "Dan Hawkley's MacBook Pro (arm64-apple-darwin24.6.0); user-reported run; Claude inspected the complete 104-line log",
+   "notes": "User-reported kernel check with axiom audit; exit status 0 user-reported (echoed outside the log). The audit file of this run is survey/lean-bridges/Audit.lean sha256 f34452cacba252276ed683231780ad34c4f15cfb24eaa8b00b254bc1ef0ffb78, printed in the log and committed with this record; pinned by commit because Audit.lean grows with each bridge. The first attempt (~/bridges-zmod.log, ResidueImage.lean cf74deb8…) failed on two elaboration errors in residueImage and mem_residueImage; the typed-lambda fix gives the hashes above. The same run reproduces EV-0002 to EV-0005 and EV-0007. Comparator against independent Challenges has not run for these declarations, so no Comparator acceptance is claimed. The definition Survey.PrimeBridges.residueImage is printed by the audit (#print), and its axiom content enters through the theorems above."
   }
  ]
 }

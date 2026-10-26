@@ -1028,6 +1028,120 @@
    "evidence": [
     "EV-0007"
    ]
+  },
+  {
+   "id": "LIFT-ADM-4",
+   "from": "OBJ-admissible-z",
+   "to": "SPEC-admissible-omits-residue",
+   "relation": "equivalent",
+   "strength": "direct-application",
+   "statement": {
+    "math": "AdmissibleZ H, stated with integer representatives r and divisibility, is equivalent to an omitted residue r ∈ ZMod p for every prime p.",
+    "lean_name": "Survey.PrimeBridges.admissibleZ_iff_omits_residue",
+    "lean": "theorem admissibleZ_iff_omits_residue (H : Finset ℤ) : BGP212.Gap.AdmissibleZ H ↔ ∀ p : ℕ, p.Prime → ∃ r : ZMod p, r ∉ residueImage p H"
+   },
+   "uses": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissibleZ_iff_omits_residue",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissibleZMod.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.dvd_sub_iff_intCast_eq",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueImage.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.intCast_cast_residue",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueImage.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.mem_residueImage",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueImage.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [],
+   "source": "Survey.PrimeBridges.admissibleZ_iff_omits_residue over BGP212.Gap.AdmissibleZ at lean-bgp212 89b43fa; Mathlib 85e3a25: ZMod.intCast_eq_intCast_iff_dvd_sub, ZMod.intCast_zmod_cast, Finset.mem_image",
+   "state": {
+    "mathematical": "established",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "obligation": "open",
+   "notes": "Kernel-checked on the user's MBP (EV-0008). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "evidence": [
+    "EV-0008"
+   ]
+  },
+  {
+   "id": "LIFT-ADM-5",
+   "from": "SPEC-admissible-omits-residue",
+   "to": "SPEC-admissible-card-lt",
+   "relation": "equivalent",
+   "strength": "direct-application",
+   "statement": {
+    "math": "For prime p, an omitted residue class is equivalent to (residueImage p H).card < p = Fintype.card (ZMod p); hence AdmissibleZ H ↔ ∀ p prime, (residueImage p H).card < p.",
+    "lean_name": "Survey.PrimeBridges.admissibleZ_iff_card_lt",
+    "lean": "theorem admissibleZ_iff_card_lt (H : Finset ℤ) : BGP212.Gap.AdmissibleZ H ↔ ∀ p : ℕ, p.Prime → (residueImage p H).card < p"
+   },
+   "uses": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissibleZ_iff_card_lt",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissibleZMod.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.omits_residue_iff_card_lt",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissibleZMod.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissibleZ_iff_omits_residue",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissibleZMod.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "prime",
+     "statement": "p is prime, so NeZero p and Fintype.card (ZMod p) = p",
+     "role": "side-condition",
+     "status": "discharged",
+     "lean": "hp : p.Prime; haveI : NeZero p := ⟨hp.ne_zero⟩"
+    }
+   ],
+   "source": "Survey.PrimeBridges.omits_residue_iff_card_lt and admissibleZ_iff_card_lt; Mathlib 85e3a25: ZMod.card, Finset.card_lt_iff_ne_univ, Finset.eq_univ_iff_forall, Finset.mem_univ, Nat.Prime.ne_zero; core: forall_congr'",
+   "state": {
+    "mathematical": "established",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "obligation": "open",
+   "notes": "Kernel-checked on the user's MBP (EV-0008). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Applications in the same module reuse kernel-checked results: empty set (admissibleZ_subset, admissibleZ_singleton), singletons, duplicate shifts (admissibleZ_pair_self), {0, 2} (admissible_twin), {0, 1} (not_admissibleZ_zero_one), negative shifts {-3, -1} (admissibleZ_pair_iff_even).",
+   "evidence": [
+    "EV-0008"
+   ]
   }
  ]
 }

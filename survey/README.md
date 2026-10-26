@@ -131,5 +131,12 @@ general distinction, shared reading, and boundary.
   `AdmissibleZ {a, b} ↔ Even (b - a)`), with corollaries `admissibleZ_pair_self`,
   `admissibleZ_singleton`, `not_admissibleZ_zero_one` and `admissible_twin_of_pair` (LIFT-009-6,
   `{0, 2}` from the classification; the kernel-checked `admissible_twin` stays as it is).
-- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 25 edges in total.
-  Lift states: Compiled 9, Specified 13, Proposed 3; Verified 0.
+- Admissibility in `ZMod p`, kernel-checked on the user's MBP (EV-0008; Compiled, Comparator
+  pending): `residueImage p H`
+  (OBJ-residue-image, the image of `H` in `ZMod p`), `admissibleZ_iff_omits_residue`
+  (LIFT-ADM-4, SPEC-admissible-omits-residue: an omitted residue for every prime) and
+  `admissibleZ_iff_card_lt` (LIFT-ADM-5, SPEC-admissible-card-lt: `(residueImage p H).card < p`),
+  applied to the empty set, singletons, duplicate shifts, `{0, 2}`, `{0, 1}` and `{-3, -1}` through
+  the kernel-checked results.
+- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 27 edges in total.
+  Lift states: Compiled 11, Specified 13, Proposed 3; Verified 0.

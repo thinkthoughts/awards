@@ -187,6 +187,29 @@
     "verification": "unverified"
    },
    "notes": "formal-conjectures builds these in its own CI; the survey holds no verification record for them yet."
+  },
+  {
+   "id": "OBJ-residue-image",
+   "layer": "L0",
+   "name": "Residue image of a shift set",
+   "definition": "residueImage p H is the set of residue classes in ZMod p met by the shifts h ∈ H, the image of H under ℤ → ZMod p.",
+   "lean": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.residueImage",
+     "kind": "def",
+     "file": "lean-bridges/SurveyBridges/ResidueImage.lean"
+    }
+   ],
+   "state": {
+    "mathematical": "defined",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "notes": "def residueImage (p : ℕ) (H : Finset ℤ) : Finset (ZMod p) := H.image (fun (h : ℤ) => (h : ZMod p)). Kernel-checked on the user's MBP (EV-0008).",
+   "evidence": [
+    "EV-0008"
+   ]
   }
  ]
 }
