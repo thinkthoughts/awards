@@ -1,0 +1,12 @@
+{
+    "challenge_module": "SurveyChallenge.AdmissibleSubset",
+    "solution_module": "SurveySolution.AdmissibleSubset",
+    "theorem_names": [
+        "Survey.PrimeBridges.admissibleZ_subset"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

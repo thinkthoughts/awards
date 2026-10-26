@@ -45,7 +45,8 @@ survey/scripts/check_bridges.sh ~/lean-bgp212                    # bridge module
 survey/scripts/compare_bridges.sh ~/lean-bgp212 ~/comparator-v4.34.0-rc2   # Comparator on the pairs
 ```
 
-`compare_bridges.sh` runs Lean Comparator on each config in `lean-bridges/Comparator/`: the Challenge
+`compare_bridges.sh` runs Lean Comparator on each config in `lean-bridges/Comparator/`
+(`h1le_mono`, `admissibleZ_subset`, `admissibleZ_pair_iff_even`, `admissibleZ_iff_nu_lt`): the Challenge
 (`lean-bridges/SurveyChallenge/`, statement only, importing only lean-bgp212) against the Solution
 (`lean-bridges/SurveySolution/`, importing the kernel-checked bridge module unchanged). It needs a
 Comparator checkout built for Lean 4.34.0-rc2 (commit `19e111e`, lean4export `cacf989`), assembles a
@@ -155,5 +156,8 @@ general distinction, shared reading, and boundary.
   (LIFT-GDT-5: `0 < N → localCount N m {a} = φ(R N m)`), through `R_eq_prod_sdiff`
   (`R N m = ∏ p ∈ N.primeFactors \ (gcd m N).primeFactors, p`) and `totient_prod_primes`;
   `localCount_singleton_at_zero` shows `0 < N` is needed.
+- Comparator without sandbox isolation on macOS (EV-0012, `comparator-nonisolated`): `admissibleZ_subset`,
+  `admissibleZ_pair_iff_even` and `admissibleZ_iff_nu_lt` accepted against independent Challenges;
+  LIFT-ADM-2, LIFT-ADM-3 and LIFT-ADM-7 stay Compiled pending the landrun run on Linux.
 - Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 34 edges in total.
   Lift states: Compiled 18, Specified 13, Proposed 3; Verified 0.

@@ -1,0 +1,12 @@
+{
+    "challenge_module": "SurveyChallenge.AdmissibleNu",
+    "solution_module": "SurveySolution.AdmissibleNu",
+    "theorem_names": [
+        "Survey.PrimeBridges.admissibleZ_iff_nu_lt"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

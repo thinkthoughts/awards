@@ -86,6 +86,36 @@ for f in "$HERE"/SurveySolution/*.lean "$HERE"/SurveyBridges/*.lean; do
   if grep -nwE 'sorry|admit|native_decide' "$f"; then fail "$f uses sorry, admit or native_decide"; fi
 done
 
+# 3b. Each config names one Challenge and one Solution. The Challenge imports only lean-bgp212
+#     (BGP212.*), so its statement is written against the foundational definitions alone; the
+#     Solution imports only kernel-checked SurveyBridges modules. Every config permits exactly
+#     the three standard axioms and leaves no definition holes.
+python3 - "$HERE" "${CONFIGS[@]}" <<'PY' || fail "a Comparator config or its pair breaks the independence rules"
+import json, re, sys
+from pathlib import Path
+here = Path(sys.argv[1])
+ok = True
+for cfg_path in sys.argv[2:]:
+    cfg = json.loads(Path(cfg_path).read_text(encoding="utf-8"))
+    def imports(mod):
+        text = (here / (mod.replace(".", "/") + ".lean")).read_text(encoding="utf-8")
+        return re.findall(r"^import\s+(\S+)", text, re.M)
+    chal, sol = imports(cfg["challenge_module"]), imports(cfg["solution_module"])
+    checks = {
+        "challenge imports only BGP212.*": bool(chal) and all(i.startswith("BGP212.") for i in chal),
+        "solution imports only SurveyBridges.*": bool(sol) and all(i.startswith("SurveyBridges.") for i in sol),
+        "three standard axioms": sorted(cfg["permitted_axioms"]) == ["Classical.choice", "Quot.sound", "propext"],
+        "no definition holes": not cfg.get("definition_names"),
+        "theorem names given": bool(cfg.get("theorem_names")),
+    }
+    for what, good in checks.items():
+        if not good:
+            print(f"compare_bridges: {cfg_path}: {what} fails", file=sys.stderr); ok = False
+    print(f"pair {Path(cfg_path).name}: {cfg['challenge_module']} imports {chal}; "
+          f"{cfg['solution_module']} imports {sol}; theorems {cfg['theorem_names']}")
+sys.exit(0 if ok else 1)
+PY
+
 # 4. A fresh workspace: survey/lean-bridges sources plus copies of the pinned packages.
 WORK="$(mktemp -d)"
 trap 'rm -rf "$WORK"' EXIT

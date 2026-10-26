@@ -243,6 +243,44 @@ class RegistryTests(unittest.TestCase):
                         if any(str(pf).endswith(f["path"].split("survey/", 1)[1]) for pf in proof_files):
                             self.assertEqual(sha256(ROOT / f["path"]), f["sha256"])
 
+    def test_comparator_pairs_cover_the_admissibility_lifts(self):
+        import re
+        bridges = SURVEY / "lean-bridges"
+        expected = {
+            "h1le_mono.json": ("H1LeMono", "h1Le_mono", "LIFT-041-2", "H1LeMono"),
+            "admissibleZ_subset.json": ("AdmissibleSubset", "admissibleZ_subset", "LIFT-ADM-2", "AdmissibleSubset"),
+            "admissibleZ_pair_iff_even.json": ("AdmissiblePair", "admissibleZ_pair_iff_even", "LIFT-ADM-3", "AdmissiblePair"),
+            "admissibleZ_iff_nu_lt.json": ("AdmissibleNu", "admissibleZ_iff_nu_lt", "LIFT-ADM-7", "ResidueNu"),
+        }
+        self.assertEqual(sorted(p.name for p in (bridges / "Comparator").glob("*.json")), sorted(expected))
+        for cfg_name, (mod, thm, eid, proof_mod) in expected.items():
+            cfg = json.loads((bridges / "Comparator" / cfg_name).read_text(encoding="utf-8"))
+            self.assertEqual(cfg["challenge_module"], f"SurveyChallenge.{mod}")
+            self.assertEqual(cfg["solution_module"], f"SurveySolution.{mod}")
+            self.assertEqual(cfg["theorem_names"], [f"Survey.PrimeBridges.{thm}"])
+            self.assertEqual(self.edge(self.reg, eid)["statement"]["lean_name"], f"Survey.PrimeBridges.{thm}")
+            sol = (bridges / "SurveySolution" / f"{mod}.lean").read_text(encoding="utf-8")
+            self.assertEqual(re.findall(r"^import\s+(\S+)", sol, re.M), [f"SurveyBridges.{proof_mod}"])
+            # the Solution header pins the kernel-checked source by its current sha256
+            proof_hash = sha256(bridges / "SurveyBridges" / f"{proof_mod}.lean")
+            self.assertTrue(proof_hash in sol or proof_hash[:8] in sol, cfg_name)
+            chal = (bridges / "SurveyChallenge" / f"{mod}.lean").read_text(encoding="utf-8")
+            self.assertNotIn("SurveyBridges", re.sub(r"/-.*?-/", "", chal, flags=re.S))
+        # non-isolated acceptance (EV-0012): Compiled, obligation open until isolated landrun acceptance
+        ev12 = next(v for v in self.reg["evidence"]["evidence"] if v["id"] == "EV-0012")
+        self.assertEqual(ev12["isolation"], "non-isolating")
+        for path, h in ev12["comparator"]["configs"].items():
+            self.assertEqual(sha256(ROOT / path), h, path)
+        log = (ROOT / ev12["comparator"]["log"]).read_text(encoding="utf-8")
+        self.assertEqual(log.count("Your solution is okay!"), 3)
+        self.assertIn("comparator: all configs accepted (isolation: non-isolating)", log)
+        for eid in ("LIFT-ADM-2", "LIFT-ADM-3", "LIFT-ADM-7"):
+            e = self.edge(self.reg, eid)
+            self.assertEqual(e["state"]["verification"], "comparator-nonisolated", eid)
+            self.assertEqual(validate_registry.lift_state(e), "Compiled", eid)
+            self.assertEqual(e["obligation"], "open", eid)
+            self.assertIn("EV-0012", e["evidence"])
+
     def test_only_isolated_comparator_acceptance_verifies(self):
         cmp_ev = {"id": "EV-TEST-CMP", "layer": "L4", "subjects": ["LIFT-041-2"], "kind": "comparator",
                   "isolation": "non-isolating", "declarations": ["Survey.PrimeBridges.h1Le_mono"],

@@ -922,12 +922,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-nonisolated"
    },
    "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Comparator accepted it without sandbox isolation on macOS (EV-0012, survey/lean-bridges/Comparator/admissibleZ_subset.json): comparator-nonisolated, still Compiled, obligation open until the isolated landrun run on Linux.",
    "evidence": [
-    "EV-0007"
+    "EV-0007",
+    "EV-0012"
    ],
    "closure": {
     "property": "BGP212.Gap.AdmissibleZ",
@@ -969,12 +970,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-nonisolated"
    },
    "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Corollaries in the same module, also in EV-0007: admissibleZ_pair_self, admissibleZ_singleton (via LIFT-ADM-2), not_admissibleZ_zero_one.",
+   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Corollaries in the same module, also in EV-0007: admissibleZ_pair_self, admissibleZ_singleton (via LIFT-ADM-2), not_admissibleZ_zero_one. Comparator accepted it without sandbox isolation on macOS (EV-0012, survey/lean-bridges/Comparator/admissibleZ_pair_iff_even.json): comparator-nonisolated, still Compiled, obligation open until the isolated landrun run on Linux.",
    "evidence": [
-    "EV-0007"
+    "EV-0007",
+    "EV-0012"
    ]
   },
   {
@@ -1290,12 +1292,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-nonisolated"
    },
    "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0009). A logical equivalence specifying admissibility by the local factor: the statement of LIFT-ADM-1 by a survey-local route on Finset ℤ directly, with no list-to-finset bridge. Application nu_twin_lt reuses admissible_twin. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "notes": "Kernel-checked on the user's MBP (EV-0009). A logical equivalence specifying admissibility by the local factor: the statement of LIFT-ADM-1 by a survey-local route on Finset ℤ directly, with no list-to-finset bridge. Application nu_twin_lt reuses admissible_twin. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Comparator accepted it without sandbox isolation on macOS (EV-0012, survey/lean-bridges/Comparator/admissibleZ_iff_nu_lt.json): comparator-nonisolated, still Compiled, obligation open until the isolated landrun run on Linux.",
    "evidence": [
-    "EV-0009"
+    "EV-0009",
+    "EV-0012"
    ],
    "characterizes": {
     "object": "OBJ-admissible-z",

@@ -831,6 +831,137 @@
    "date": "2026-10-25",
    "machine": "Dan Hawkley's MacBook Pro (arm64-apple-darwin24.6.0); user-reported run; Claude inspected the complete 195-line log",
    "notes": "User-reported kernel check with axiom audit; exit status user-reported. The audit file of this run is survey/lean-bridges/Audit.lean sha256 074c3fbaaea5587a852c73ebb7470f2d18beab47c08a94a2b01742e4cf0ad3de, printed in the log and committed with this record; pinned by commit because Audit.lean grows with each bridge. The same run reproduces EV-0002 to EV-0005 and EV-0007 to EV-0010. Comparator against independent Challenges has not run for these declarations, so no Comparator acceptance is claimed."
+  },
+  {
+   "id": "EV-0012",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-ADM-2",
+    "LIFT-ADM-3",
+    "LIFT-ADM-7"
+   ],
+   "kind": "comparator",
+   "isolation": "non-isolating",
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/AdmissibleSubset.lean",
+     "sha256": "c04499bd1b6a796a015a0ba77f47d26f1425dfe225be0d65c0686b1b28f50f18"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/AdmissiblePair.lean",
+     "sha256": "d685ef25efc44f558ade5d9382b671027d95c8b683147466dd1c36c8f01c9e4c"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/AdmissibleNu.lean",
+     "sha256": "51de6172b78d220b6feaa1f7b2d3d719a3ac4b829f78e9db7ce2d518dee81618"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/AdmissibleSubset.lean",
+     "sha256": "c965f839ac6418b2e89dc667028c5a625312e91f094406821c854ea1020a7c19"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/AdmissiblePair.lean",
+     "sha256": "c553006d8363e250cc7bbf7d65f5624de14bbe9c9e93092e02b67b3a8ceb9f84"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/AdmissibleNu.lean",
+     "sha256": "f05c7686198849ea8481b722c35d68d15d5710c0bfda4973640753715a3b3e57"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/AdmissibleSubset.lean",
+     "sha256": "f0870786ed0f9572cd93fdac0dc6fc61cb88a18e25f62c318406fbbaa1dba246"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/AdmissiblePair.lean",
+     "sha256": "00c1090cbf6ffea1d1d0c6cfe27b8981156dd6625d97d7c7ac54782d66a65d83"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/ResidueNu.lean",
+     "sha256": "76c20ab6d9404c514c39941610e53bc6195928dc4c033cb570948598086aed53"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/admissibleZ_subset.json",
+     "sha256": "81d8eab20adaf4fd788ca8d35bb7bb4ff0ea6b1cdfeb99ee7eaecb84da0a3ce0"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/admissibleZ_pair_iff_even.json",
+     "sha256": "5255ac954388baca83bef76047bb73d8bdf498532504d8d76a551d0226b88160"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/admissibleZ_iff_nu_lt.json",
+     "sha256": "c33624e2db91a3daf6b244cf74a94a9a9bd68c25790c360a40ee5fba8a6e676a"
+    },
+    {
+     "path": "survey/scripts/landrun-noisolate.sh",
+     "sha256": "3ed80c9de685eb7565dc8db993ff7098027ac237bf2296ec74fdcc27f6da3253"
+    },
+    {
+     "path": "survey/evidence/comparator/admissibility-macos-nonisolated.log",
+     "sha256": "16d40a8b13ffcd56d8a6aca04cf4b4e2196d0d45cf3b1a55c127625c0903f4b8"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.admissibleZ_subset",
+    "Survey.PrimeBridges.admissibleZ_pair_iff_even",
+    "Survey.PrimeBridges.admissibleZ_iff_nu_lt"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "COMPARATOR_LANDRUN=\"$HOME/awards/survey/scripts/landrun-noisolate.sh\" survey/scripts/compare_bridges.sh ~/lean-bgp212 ~/comparator-v4.34.0-rc2 survey/lean-bridges/Comparator/admissibleZ_subset.json survey/lean-bridges/Comparator/admissibleZ_pair_iff_even.json survey/lean-bridges/Comparator/admissibleZ_iff_nu_lt.json 2>&1 | tee ~/comparator-runs/admissibility-macos-nonisolated.log",
+   "tool": "Lean Comparator 19e111e2141cf333c7daff0f64c5f24acc91dd2e with lean4export cacf989bd75f608700820f6afc595f32e7a99a4d; Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+   "result": "For each of admissibleZ_subset.json, admissibleZ_pair_iff_even.json, admissibleZ_iff_nu_lt.json: the independence check passed (Challenges import only BGP212.Gap, plus BGP212.MultiShift for AdmissibleNu; Solutions import only SurveyBridges.AdmissibleSubset, SurveyBridges.AdmissiblePair, SurveyBridges.ResidueNu); Challenge built with its expected `sorry` warning; both sides exported; then 'Running Lean default kernel on solution. / Lean default kernel accepts the solution / Your solution is okay!'. Final line: 'comparator: all configs accepted (isolation: non-isolating)'. The Solution builds print each theorem with axioms [propext, Classical.choice, Quot.sound]. Full output: survey/evidence/comparator/admissibility-macos-nonisolated.log.",
+   "axioms": {
+    "Survey.PrimeBridges.admissibleZ_subset": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissibleZ_pair_iff_even": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissibleZ_iff_nu_lt": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-25",
+   "machine": "Dan Hawkley's Mac (host Darwin 25.2.0 arm64); run by the user; Claude inspected the complete 126-line log",
+   "comparator": {
+    "comparator_commit": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+    "comparator_tree": "clean",
+    "comparator_binary_sha256": "5337a210c48cc4f008aa3f6725cc93100c1370de8ece20d3244f9e3ff1199d1c",
+    "lean4export_commit": "cacf989bd75f608700820f6afc595f32e7a99a4d",
+    "lean4export_tree": "clean",
+    "lean4export_binary_sha256": "86ac903a8d040bc79a3a59ee4816e0a0a961f7f864100f1a8e154820297e756a",
+    "toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "lean_commit": "6a10ac8c22beadecabdbb0919c2b50214762f91d",
+    "lean_bgp212": "89b43fa019337645b4c2c66ae917bcb1fe76450f (clean)",
+    "host": "Darwin 25.2.0 arm64",
+    "runner": "/Users/danhawkley/awards/survey/scripts/landrun-noisolate.sh",
+    "runner_sha256": "3ed80c9de685eb7565dc8db993ff7098027ac237bf2296ec74fdcc27f6da3253",
+    "runner_description": "survey non-isolating runner (no sandbox)",
+    "systemd_unit": "none",
+    "configs": {
+     "survey/lean-bridges/Comparator/admissibleZ_subset.json": "81d8eab20adaf4fd788ca8d35bb7bb4ff0ea6b1cdfeb99ee7eaecb84da0a3ce0",
+     "survey/lean-bridges/Comparator/admissibleZ_pair_iff_even.json": "5255ac954388baca83bef76047bb73d8bdf498532504d8d76a551d0226b88160",
+     "survey/lean-bridges/Comparator/admissibleZ_iff_nu_lt.json": "c33624e2db91a3daf6b244cf74a94a9a9bd68c25790c360a40ee5fba8a6e676a"
+    },
+    "compare_script_sha256": "4bde79bb936750c7ddb3d23b274d7ddfa80bb6cd7e1b4d59043e8d1e03f12553",
+    "log": "survey/evidence/comparator/admissibility-macos-nonisolated.log",
+    "log_sha256": "16d40a8b13ffcd56d8a6aca04cf4b4e2196d0d45cf3b1a55c127625c0903f4b8",
+    "exit_status": "user-reported success (echoed outside the log)"
+   },
+   "notes": "Non-isolated Comparator acceptance: the runner provided no sandbox, so this records comparator-nonisolated; the three lifts stay Compiled with their obligations open until a Comparator run under landrun on Linux (survey/docs/COMPARATOR_RUNS.md). compare_script_sha256 is the committed script of this run (the log prints its independence-check output, not the script hash). Solution sources are the kernel-checked modules of EV-0007 (AdmissibleSubset, AdmissiblePair) and EV-0009 (ResidueNu), unchanged."
   }
  ]
 }

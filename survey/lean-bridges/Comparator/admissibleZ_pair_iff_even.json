@@ -1,0 +1,12 @@
+{
+    "challenge_module": "SurveyChallenge.AdmissiblePair",
+    "solution_module": "SurveySolution.AdmissiblePair",
+    "theorem_names": [
+        "Survey.PrimeBridges.admissibleZ_pair_iff_even"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}
