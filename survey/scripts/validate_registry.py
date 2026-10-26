@@ -34,7 +34,7 @@ LAYERS = ["sources", "objects", "specs", "readings", "edges", "evidence"]
 #   comparator-accepted     Comparator acceptance under Linux landrun isolation  -> Verified
 LOCAL_VERIFIED = {"kernel-checked", "comparator-nonisolated", "comparator-accepted"}   # checks run for the survey
 VERIFIED = {"comparator-accepted"}
-LIFT_RELATIONS = {"reading-of", "equivalent", "implies", "special-case", "closure", "supplies-hypothesis"}
+LIFT_RELATIONS = {"reading-of", "equivalent", "implies", "special-case", "closure", "cardinality-equality", "supplies-hypothesis"}
 
 
 # ---------------------------------------------------------------- schema subset
@@ -223,6 +223,19 @@ def validate(reg: dict, records: dict) -> list[str]:
             errors.append(f"{eid}: relation 'closure' and the closure record go together")
         if relation == "closure" and e["from"] != e["to"]:
             errors.append(f"{eid}: a closure relates a property to itself (from equals to)")
+        if (relation == "cardinality-equality") != ("count" in e):
+            errors.append(f"{eid}: relation 'cardinality-equality' and the count record go together")
+        if "characterizes" in e:
+            ch = e["characterizes"]
+            if relation != "equivalent":
+                errors.append(f"{eid}: a characterization is a logical equivalence (relation 'equivalent')")
+            if ch["object"] not in (e["from"], e["to"]):
+                errors.append(f"{eid}: characterizes {ch['object']}, which is neither endpoint")
+            for via in ch.get("via", []):
+                if via not in edges:
+                    errors.append(f"{eid}: characterization via unknown edge {via}")
+            if "↔" not in ch["lean"]:
+                errors.append(f"{eid}: a characterization states an equivalence (↔)")
         if (strength == "boundary") != (relation == "scope-boundary"):
             errors.append(f"{eid}: strength 'boundary' and relation 'scope-boundary' go together")
         if relation in LIFT_RELATIONS and strength not in {"direct-application", "conditional-implication"}:

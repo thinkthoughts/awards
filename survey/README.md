@@ -138,5 +138,11 @@ general distinction, shared reading, and boundary.
   `admissibleZ_iff_card_lt` (LIFT-ADM-5, SPEC-admissible-card-lt: `(residueImage p H).card < p`),
   applied to the empty set, singletons, duplicate shifts, `{0, 2}`, `{0, 1}` and `{-3, -1}` through
   the kernel-checked results.
-- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 27 edges in total.
-  Lift states: Compiled 11, Specified 13, Proposed 3; Verified 0.
+- Residue image and the multi-shift local factor, kernel-checked on the user's MBP (EV-0009;
+  Compiled, Comparator pending): `residueImage_card_eq_nu_of_modulus` (LIFT-ADM-6, relation
+  `cardinality-equality`: `(residueImage p H).card = ν_p(H)` for every
+  natural `p`, through `negRep p : x ↦ ZMod.cast (-x)`), its prime form `residueImage_card_eq_nu`,
+  and `admissibleZ_iff_nu_lt` (LIFT-ADM-7, an equivalence characterizing OBJ-admissible-z:
+  `AdmissibleZ H ↔ ∀ p prime, ν_p(H) < p`).
+- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 29 edges in total.
+  Lift states: Compiled 13, Specified 13, Proposed 3; Verified 0.

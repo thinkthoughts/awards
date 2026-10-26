@@ -323,6 +323,43 @@ class RegistryTests(unittest.TestCase):
         log = (ROOT / "survey/evidence/kernel/bridges-zmod-2.log").read_text(encoding="utf-8")
         self.assertIn("== Audit sha256 f34452cacba252276ed683231780ad34c4f15cfb24eaa8b00b254bc1ef0ffb78", log)
 
+    def test_residue_nu_statements_match_lean_source(self):
+        import re
+        src = (SURVEY / "lean-bridges" / "SurveyBridges" / "ResidueNu.lean").read_text(encoding="utf-8")
+        norm = lambda s: " ".join(s.replace("BGP212.Gap.", "").split())
+        for eid in ("LIFT-ADM-6", "LIFT-ADM-7"):
+            e = self.edge(self.reg, eid)
+            name = e["statement"]["lean_name"].rsplit(".", 1)[-1]
+            decl = re.search(rf"theorem {name}\b.*?:=", src, re.S).group(0)[:-2]
+            self.assertEqual(norm(decl), norm(e["statement"]["lean"]), eid)
+            self.assertEqual(validate_registry.lift_state(e), "Compiled", eid)
+            self.assertEqual(e["obligation"], "open", eid)
+        # the prime form keeps the requested signature
+        self.assertIn("theorem residueImage_card_eq_nu\n    (p : ℕ) (hp : p.Prime) (H : Finset ℤ) :", src)
+        # LIFT-ADM-1 keeps its upstream route and open bridge
+        adm1 = self.edge(self.reg, "LIFT-ADM-1")
+        self.assertEqual(adm1["state"]["formalization"], "specified")
+        self.assertEqual([h["status"] for h in adm1["hypotheses"]], ["open"])
+
+    def test_residue_nu_relations_are_typed(self):
+        e6, e7 = self.edge(self.reg, "LIFT-ADM-6"), self.edge(self.reg, "LIFT-ADM-7")
+        self.assertEqual(e6["relation"], "cardinality-equality")
+        self.assertEqual(e6["count"]["lean"], "(residueImage p H).card = BGP212.MultiShift.nu p H")
+        self.assertIn("p = 0 included", e6["count"]["moduli"])
+        self.assertEqual(e7["relation"], "equivalent")
+        self.assertEqual(e7["characterizes"]["object"], "OBJ-admissible-z")
+        self.assertEqual(e7["characterizes"]["via"], ["LIFT-ADM-4", "LIFT-ADM-5", "LIFT-ADM-6"])
+        self.assertRejected(lambda r: self.edge(r, "LIFT-ADM-6").pop("count"), "count record go together")
+        self.assertRejected(lambda r: self.edge(r, "LIFT-ADM-7").update(relation="implies"),
+                            "a characterization is a logical equivalence")
+        self.assertRejected(lambda r: self.edge(r, "LIFT-ADM-7")["characterizes"].update(object="OBJ-prime-z"),
+                            "neither endpoint")
+        ev = {v["id"]: v for v in self.reg["evidence"]["evidence"]}
+        self.assertIn("9cc05336370922aac8d862633b8d3f826879d0e140e3894619b4f34e8a807acd", ev["EV-0009"]["notes"])
+        log = (ROOT / "survey/evidence/kernel/bridges-nu.log").read_text(encoding="utf-8")
+        self.assertIn("== Audit sha256 9cc05336370922aac8d862633b8d3f826879d0e140e3894619b4f34e8a807acd", log)
+        self.assertIn("f34452cacba252276ed683231780ad34c4f15cfb24eaa8b00b254bc1ef0ffb78", ev["EV-0008"]["notes"])
+
     def test_foundation_package_stays_core_only(self):
         lakefile = (SURVEY / "lean" / "lakefile.toml").read_text(encoding="utf-8")
         manifest = json.loads((SURVEY / "lean" / "lake-manifest.json").read_text(encoding="utf-8"))

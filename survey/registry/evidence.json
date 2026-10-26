@@ -602,6 +602,85 @@
    "date": "2026-10-25",
    "machine": "Dan Hawkley's MacBook Pro (arm64-apple-darwin24.6.0); user-reported run; Claude inspected the complete 104-line log",
    "notes": "User-reported kernel check with axiom audit; exit status 0 user-reported (echoed outside the log). The audit file of this run is survey/lean-bridges/Audit.lean sha256 f34452cacba252276ed683231780ad34c4f15cfb24eaa8b00b254bc1ef0ffb78, printed in the log and committed with this record; pinned by commit because Audit.lean grows with each bridge. The first attempt (~/bridges-zmod.log, ResidueImage.lean cf74deb8…) failed on two elaboration errors in residueImage and mem_residueImage; the typed-lambda fix gives the hashes above. The same run reproduces EV-0002 to EV-0005 and EV-0007. Comparator against independent Challenges has not run for these declarations, so no Comparator acceptance is claimed. The definition Survey.PrimeBridges.residueImage is printed by the audit (#print), and its axiom content enters through the theorems above."
+  },
+  {
+   "id": "EV-0009",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-ADM-6",
+    "LIFT-ADM-7"
+   ],
+   "kind": "kernel-check",
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyBridges/ResidueNu.lean",
+     "sha256": "76c20ab6d9404c514c39941610e53bc6195928dc4c033cb570948598086aed53"
+    },
+    {
+     "path": "survey/evidence/kernel/bridges-nu.log",
+     "sha256": "910806b083ad869c4319d1c375909068eb3c68a92adff5c89f43de32a6a009c4"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.negRep_intCast",
+    "Survey.PrimeBridges.negRep_injective",
+    "Survey.PrimeBridges.image_neg_emod_eq_image_negRep",
+    "Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus",
+    "Survey.PrimeBridges.residueImage_card_eq_nu",
+    "Survey.PrimeBridges.admissibleZ_iff_nu_lt",
+    "Survey.PrimeBridges.nu_twin_lt"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "survey/scripts/check_bridges.sh ~/lean-bgp212 2>&1 | tee ~/bridges-nu.log (on survey/prime-bridges b635086 plus the uncommitted ResidueNu module); lean-bgp212 89b43fa019337645b4c2c66ae917bcb1fe76450f, clean",
+   "tool": "Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+   "result": "All nine bridge modules compiled in order; the eight earlier ones at their recorded sha256. Audit sha256 9cc05336370922aac8d862633b8d3f826879d0e140e3894619b4f34e8a807acd. Audit signatures: residueImage_card_eq_nu_of_modulus : ∀ (p : ℕ) (H : Finset ℤ), (residueImage p H).card = BGP212.MultiShift.nu p H; residueImage_card_eq_nu : ∀ (p : ℕ), Nat.Prime p → ∀ (H : Finset ℤ), (residueImage p H).card = BGP212.MultiShift.nu p H; admissibleZ_iff_nu_lt : ∀ (H : Finset ℤ), BGP212.Gap.AdmissibleZ H ↔ ∀ (p : ℕ), Nat.Prime p → BGP212.MultiShift.nu p H < p; nu_twin_lt : ∀ (p : ℕ), Nat.Prime p → BGP212.MultiShift.nu p {0, 2} < p. negRep_injective depends on [propext, Quot.sound]; the other six on [propext, Classical.choice, Quot.sound]. Warnings only: AdmissibleZMod.lean:48:2 (haveI, as in EV-0008) and ResidueNu.lean:74:13 (hp unreferenced in the prime form, which delegates to the all-moduli theorem). Script ended: 'axiom audit: only propext, Classical.choice, Quot.sound'. Full output: survey/evidence/kernel/bridges-nu.log.",
+   "axioms": {
+    "Survey.PrimeBridges.negRep_intCast": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.negRep_injective": [
+     "propext",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.image_neg_emod_eq_image_negRep": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.residueImage_card_eq_nu": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissibleZ_iff_nu_lt": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.nu_twin_lt": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-25",
+   "machine": "Dan Hawkley's MacBook Pro (arm64-apple-darwin24.6.0); user-reported run; Claude inspected the complete 140-line log",
+   "notes": "User-reported kernel check with axiom audit; exit status 0 user-reported (echoed outside the log). The audit file of this run is survey/lean-bridges/Audit.lean sha256 9cc05336370922aac8d862633b8d3f826879d0e140e3894619b4f34e8a807acd, printed in the log and committed with this record; pinned by commit because Audit.lean grows with each bridge. The definition negRep and BGP212.MultiShift.nu are printed by the audit (#print). The same run reproduces EV-0002 to EV-0005, EV-0007 and EV-0008. Comparator against independent Challenges has not run for these declarations, so no Comparator acceptance is claimed."
   }
  ]
 }

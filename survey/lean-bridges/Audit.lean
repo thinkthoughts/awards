@@ -10,6 +10,7 @@ import SurveyBridges.AdmissibleSubset
 import SurveyBridges.AdmissiblePair
 import SurveyBridges.ResidueImage
 import SurveyBridges.AdmissibleZMod
+import SurveyBridges.ResidueNu
 
 #check @Survey.PrimeBridges.h1Le_mono
 #print axioms Survey.PrimeBridges.h1Le_mono
@@ -59,3 +60,19 @@ import SurveyBridges.AdmissibleZMod
 #print axioms Survey.PrimeBridges.not_card_lt_residueImage_zero_one
 #check @Survey.PrimeBridges.omits_residue_neg_three_neg_one
 #print axioms Survey.PrimeBridges.omits_residue_neg_three_neg_one
+#print BGP212.MultiShift.nu
+#print Survey.PrimeBridges.negRep
+#check @Survey.PrimeBridges.negRep_intCast
+#print axioms Survey.PrimeBridges.negRep_intCast
+#check @Survey.PrimeBridges.negRep_injective
+#print axioms Survey.PrimeBridges.negRep_injective
+#check @Survey.PrimeBridges.image_neg_emod_eq_image_negRep
+#print axioms Survey.PrimeBridges.image_neg_emod_eq_image_negRep
+#check @Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus
+#print axioms Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus
+#check @Survey.PrimeBridges.residueImage_card_eq_nu
+#print axioms Survey.PrimeBridges.residueImage_card_eq_nu
+#check @Survey.PrimeBridges.admissibleZ_iff_nu_lt
+#print axioms Survey.PrimeBridges.admissibleZ_iff_nu_lt
+#check @Survey.PrimeBridges.nu_twin_lt
+#print axioms Survey.PrimeBridges.nu_twin_lt

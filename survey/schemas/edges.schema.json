@@ -57,6 +57,7 @@
        "implies",
        "special-case",
        "closure",
+       "cardinality-equality",
        "supplies-hypothesis",
        "analogy",
        "membership",
@@ -241,6 +242,96 @@
        "witness": {
         "type": "string",
         "minLength": 1
+       }
+      }
+     },
+     "count": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "lhs",
+       "lhs_carrier",
+       "rhs",
+       "rhs_carrier",
+       "map",
+       "injectivity",
+       "moduli",
+       "lean"
+      ],
+      "description": "Relation 'cardinality-equality' only: the two counted sets, the map carrying one onto the other, why it is injective, and the moduli covered.",
+      "properties": {
+       "lhs": {
+        "type": "string",
+        "minLength": 1
+       },
+       "lhs_carrier": {
+        "type": "string",
+        "minLength": 1
+       },
+       "rhs": {
+        "type": "string",
+        "minLength": 1
+       },
+       "rhs_carrier": {
+        "type": "string",
+        "minLength": 1
+       },
+       "map": {
+        "type": "string",
+        "minLength": 1
+       },
+       "injectivity": {
+        "type": "string",
+        "minLength": 1
+       },
+       "moduli": {
+        "type": "string",
+        "minLength": 1
+       },
+       "lean": {
+        "type": "string",
+        "minLength": 1
+       }
+      }
+     },
+     "characterizes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "object",
+       "defined_by",
+       "criterion",
+       "connective",
+       "lean"
+      ],
+      "description": "Relation 'equivalent' only: the object whose definition the equivalence restates, its definition, the equivalent criterion, and the edges it composes.",
+      "properties": {
+       "object": {
+        "type": "string",
+        "minLength": 1
+       },
+       "defined_by": {
+        "type": "string",
+        "minLength": 1
+       },
+       "criterion": {
+        "type": "string",
+        "minLength": 1
+       },
+       "connective": {
+        "type": "string",
+        "minLength": 1
+       },
+       "lean": {
+        "type": "string",
+        "minLength": 1
+       },
+       "via": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        }
        }
       }
      }

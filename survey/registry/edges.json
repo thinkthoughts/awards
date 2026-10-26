@@ -122,7 +122,8 @@
     "formalization": "specified",
     "verification": "unverified"
    },
-   "obligation": "open"
+   "obligation": "open",
+   "notes": "LIFT-ADM-7 proves this statement as Survey.PrimeBridges.admissibleZ_iff_nu_lt by a survey-local route on Finset ℤ; this edge keeps the upstream B2 route through BGP212.Challenge.admissible_iff_local_factors and its open list-to-finset bridge."
   },
   {
    "id": "LIFT-009-1",
@@ -1142,6 +1143,172 @@
    "evidence": [
     "EV-0008"
    ]
+  },
+  {
+   "id": "LIFT-ADM-6",
+   "from": "OBJ-residue-image",
+   "to": "OBJ-local-factor-nu",
+   "relation": "cardinality-equality",
+   "strength": "direct-application",
+   "statement": {
+    "math": "For every natural modulus p, (residueImage p H).card = ν_p(H). The remainders (−h) % p counted by ν are the images of the residues (h : ZMod p) under negRep p : x ↦ ZMod.cast (−x), and negRep p is injective because negation permutes ZMod p and ZMod.cast is a section of ℤ → ZMod p.",
+    "lean_name": "Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus",
+    "lean": "theorem residueImage_card_eq_nu_of_modulus (p : ℕ) (H : Finset ℤ) : (residueImage p H).card = BGP212.MultiShift.nu p H"
+   },
+   "uses": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueNu.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.residueImage_card_eq_nu",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueNu.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.negRep",
+     "kind": "def",
+     "file": "lean-bridges/SurveyBridges/ResidueNu.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.negRep_intCast",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueNu.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.negRep_injective",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueNu.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.image_neg_emod_eq_image_negRep",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueNu.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.residueImage",
+     "kind": "def",
+     "file": "lean-bridges/SurveyBridges/ResidueImage.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.MultiShift.nu",
+     "kind": "def",
+     "file": "BGP212/MultiShift.lean"
+    }
+   ],
+   "hypotheses": [],
+   "source": "Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus over BGP212.MultiShift.nu at lean-bgp212 89b43fa; Mathlib 85e3a25: ZMod.coe_intCast, ZMod.intCast_zmod_cast, Int.cast_neg, neg_injective, Finset.image_image, Finset.image_congr, Finset.card_image_of_injective",
+   "state": {
+    "mathematical": "established",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "obligation": "open",
+   "notes": "Kernel-checked on the user's MBP (EV-0009). A cardinality equality between two residue-counting representations, valid for every natural modulus; the prime form residueImage_card_eq_nu (p) (hp : p.Prime) (H) is kept for the admissibility specification. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "evidence": [
+    "EV-0009"
+   ],
+   "count": {
+    "lhs": "(residueImage p H).card",
+    "lhs_carrier": "Finset (ZMod p): residues (h : ZMod p), h ∈ H",
+    "rhs": "BGP212.MultiShift.nu p H",
+    "rhs_carrier": "Finset ℤ: canonical remainders (-h) % (p : ℤ), h ∈ H",
+    "map": "negRep p : ZMod p → ℤ, x ↦ ZMod.cast (-x), carrying the left set onto the right (image_neg_emod_eq_image_negRep)",
+    "injectivity": "negRep_injective p: negation permutes ZMod p, and ZMod.cast is a section of ℤ → ZMod p",
+    "moduli": "every natural p (p = 0 included); prime form residueImage_card_eq_nu",
+    "lean": "(residueImage p H).card = BGP212.MultiShift.nu p H"
+   }
+  },
+  {
+   "id": "LIFT-ADM-7",
+   "from": "OBJ-local-factor-nu",
+   "to": "OBJ-admissible-z",
+   "relation": "equivalent",
+   "strength": "direct-application",
+   "statement": {
+    "math": "H is admissible exactly when ν_p(H) < p for every prime p, derived from admissibleZ_iff_card_lt (LIFT-ADM-5) and residueImage_card_eq_nu (LIFT-ADM-6).",
+    "lean_name": "Survey.PrimeBridges.admissibleZ_iff_nu_lt",
+    "lean": "theorem admissibleZ_iff_nu_lt (H : Finset ℤ) : BGP212.Gap.AdmissibleZ H ↔ ∀ p : ℕ, p.Prime → BGP212.MultiShift.nu p H < p"
+   },
+   "uses": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissibleZ_iff_nu_lt",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueNu.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.residueImage_card_eq_nu",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueNu.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissibleZ_iff_card_lt",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissibleZMod.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.nu_twin_lt",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/ResidueNu.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.MultiShift.nu",
+     "kind": "def",
+     "file": "BGP212/MultiShift.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "prime",
+     "statement": "p is prime, as in admissibleZ_iff_card_lt",
+     "role": "side-condition",
+     "status": "discharged",
+     "lean": "hp : p.Prime"
+    }
+   ],
+   "source": "Survey.PrimeBridges.admissibleZ_iff_nu_lt: admissibleZ_iff_card_lt (EV-0008) rewritten with residueImage_card_eq_nu; core forall_congr'",
+   "state": {
+    "mathematical": "established",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "obligation": "open",
+   "notes": "Kernel-checked on the user's MBP (EV-0009). A logical equivalence specifying admissibility by the local factor: the statement of LIFT-ADM-1 by a survey-local route on Finset ℤ directly, with no list-to-finset bridge. Application nu_twin_lt reuses admissible_twin. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "evidence": [
+    "EV-0009"
+   ],
+   "characterizes": {
+    "object": "OBJ-admissible-z",
+    "defined_by": "BGP212.Gap.AdmissibleZ H := ∀ p : ℕ, p.Prime → ∃ r : ℤ, ∀ h ∈ H, ¬ ((p : ℤ) ∣ h - r)",
+    "criterion": "∀ p : ℕ, p.Prime → BGP212.MultiShift.nu p H < p",
+    "connective": "↔ (logical equivalence, for every H : Finset ℤ)",
+    "via": [
+     "LIFT-ADM-4",
+     "LIFT-ADM-5",
+     "LIFT-ADM-6"
+    ],
+    "lean": "BGP212.Gap.AdmissibleZ H ↔ ∀ p : ℕ, p.Prime → BGP212.MultiShift.nu p H < p"
+   }
   }
  ]
 }
