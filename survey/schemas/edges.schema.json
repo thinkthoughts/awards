@@ -56,6 +56,7 @@
        "equivalent",
        "implies",
        "special-case",
+       "closure",
        "supplies-hypothesis",
        "analogy",
        "membership",
@@ -197,6 +198,51 @@
      "notes": {
       "type": "string",
       "minLength": 1
+     },
+     "closure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "property",
+       "carrier",
+       "order",
+       "direction",
+       "transfer",
+       "lean"
+      ],
+      "description": "Relation 'closure' only: the property, the order or operation it is closed under, and the direction of transfer.",
+      "properties": {
+       "property": {
+        "type": "string",
+        "minLength": 1
+       },
+       "carrier": {
+        "type": "string",
+        "minLength": 1
+       },
+       "order": {
+        "type": "string",
+        "minLength": 1
+       },
+       "direction": {
+        "enum": [
+         "downward",
+         "upward"
+        ]
+       },
+       "transfer": {
+        "type": "string",
+        "minLength": 1
+       },
+       "lean": {
+        "type": "string",
+        "minLength": 1
+       },
+       "witness": {
+        "type": "string",
+        "minLength": 1
+       }
+      }
      }
     }
    }

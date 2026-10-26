@@ -26,7 +26,7 @@ Leading specifications first. Admissible generalizations trail leading specifica
 | `lean-bridges/` | Lean project requiring lean-bgp212 at `89b43fa`: `SurveyBridges/H1LeMono.lean`, `SurveyBridges/AdmissibleTwin.lean`, `SurveyBridges/TwinPrimeEquiv.lean`, `SurveyBridges/TwinPrimeTo186.lean` and their audit |
 | `scripts/` | Parser, classifier, provenance, registry validator, Lean check |
 | `docs/COMPARATOR_RUNS.md` | Verification policy and the pinned macOS and Linux Comparator procedures |
-| `evidence/comparator/` | Complete Comparator run logs cited by evidence records |
+| `evidence/kernel/`, `evidence/comparator/` | Complete kernel-check and Comparator run logs cited by evidence records |
 | `tests/test_survey.py` | Regression tests (standard library only) |
 
 ## Commands
@@ -123,5 +123,13 @@ general distinction, shared reading, and boundary.
   BGP212.Gap.H1Le 186` (LIFT-041-3, `SurveyBridges/TwinPrimeTo186.lean`), kernel-checked on the user's
   MBP (EV-0005; Compiled, Comparator pending). It is the implication JSP-000009 ⇒ JSP-000041 and
   proves neither conjecture.
-- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 22 edges in total.
-  Lift states: Compiled 6, Specified 13, Proposed 3; Verified 0.
+- Admissibility, general results, kernel-checked on the user's MBP against lean-bgp212 `89b43fa`
+  (EV-0007, axioms propext, Classical.choice, Quot.sound; Compiled, Comparator pending):
+  `Survey.PrimeBridges.admissibleZ_subset` (LIFT-ADM-2, relation `closure`: AdmissibleZ is closed
+  downward under `K ⊆ H`) and
+  `Survey.PrimeBridges.admissibleZ_pair_iff_even` (LIFT-ADM-3, SPEC-admissible-pair:
+  `AdmissibleZ {a, b} ↔ Even (b - a)`), with corollaries `admissibleZ_pair_self`,
+  `admissibleZ_singleton`, `not_admissibleZ_zero_one` and `admissible_twin_of_pair` (LIFT-009-6,
+  `{0, 2}` from the classification; the kernel-checked `admissible_twin` stays as it is).
+- Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 25 edges in total.
+  Lift states: Compiled 9, Specified 13, Proposed 3; Verified 0.

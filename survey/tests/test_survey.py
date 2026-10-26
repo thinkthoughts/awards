@@ -285,6 +285,19 @@ class RegistryTests(unittest.TestCase):
                               "--", sys.executable, "-c", "print('ran')"], capture_output=True, text=True, check=True)
         self.assertEqual(out.stdout.strip(), "ran")
 
+    def test_subset_closure_is_typed(self):
+        e = self.edge(self.reg, "LIFT-ADM-2")
+        self.assertEqual(e["relation"], "closure")
+        self.assertEqual((e["from"], e["to"]), ("OBJ-admissible-z", "OBJ-admissible-z"))
+        self.assertEqual(e["closure"]["direction"], "downward")
+        self.assertIn("K ⊆ H", e["closure"]["lean"])
+        self.assertIn("hKH : K ⊆ H", [h.get("lean") for h in e["hypotheses"]])
+        self.assertRejected(lambda r: self.edge(r, "LIFT-ADM-2").pop("closure"), "closure record go together")
+        self.assertRejected(lambda r: self.edge(r, "LIFT-ADM-2").update(to="SPEC-admissible-pair"),
+                            "relates a property to itself")
+        self.assertRejected(lambda r: self.edge(r, "LIFT-ADM-3").update(closure=e["closure"]),
+                            "closure record go together")
+
     def test_foundation_package_stays_core_only(self):
         lakefile = (SURVEY / "lean" / "lakefile.toml").read_text(encoding="utf-8")
         manifest = json.loads((SURVEY / "lean" / "lake-manifest.json").read_text(encoding="utf-8"))

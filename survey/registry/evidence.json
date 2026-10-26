@@ -406,6 +406,90 @@
     "exit_status": "0 (user-reported; echoed after tee, outside the log)"
    },
    "notes": "Non-isolated Comparator acceptance: the runner provided no sandbox, so this records comparator-nonisolated and LIFT-041-2 stays Compiled with its obligation open. compare_script_sha256 is the committed script (last modified before the run; the log itself prints no hash for it). Verified needs a Comparator run under landrun on Linux (survey/docs/COMPARATOR_RUNS.md)."
+  },
+  {
+   "id": "EV-0007",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-ADM-2",
+    "LIFT-ADM-3",
+    "LIFT-009-6",
+    "SPEC-admissible-pair"
+   ],
+   "kind": "kernel-check",
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyBridges/AdmissibleSubset.lean",
+     "sha256": "f0870786ed0f9572cd93fdac0dc6fc61cb88a18e25f62c318406fbbaa1dba246"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/AdmissiblePair.lean",
+     "sha256": "00c1090cbf6ffea1d1d0c6cfe27b8981156dd6625d97d7c7ac54782d66a65d83"
+    },
+    {
+     "path": "survey/lean-bridges/Audit.lean",
+     "sha256": "6dcef42dad00b7024424deff62d5fdcf61337f3e41c7c3f196064e33ebe66ed6"
+    },
+    {
+     "path": "survey/evidence/kernel/bridges-admissible.log",
+     "sha256": "0f63679dfa712cfa6f9ae7ef38c11d64fc9c97c667938cb1323d8e4cfa9ca4c3"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.admissibleZ_subset",
+    "Survey.PrimeBridges.admissibleZ_pair_iff_even",
+    "Survey.PrimeBridges.admissibleZ_pair_self",
+    "Survey.PrimeBridges.admissibleZ_singleton",
+    "Survey.PrimeBridges.admissible_twin_of_pair",
+    "Survey.PrimeBridges.not_admissibleZ_zero_one"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "survey/scripts/check_bridges.sh ~/lean-bgp212 2>&1 | tee ~/bridges-admissible.log (on survey/prime-bridges bc8b0bf plus the uncommitted admissibility modules); lean-bgp212 89b43fa019337645b4c2c66ae917bcb1fe76450f, clean",
+   "tool": "Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+   "result": "All six bridge modules compiled in order (AdmissibleTwin, H1LeMono, TwinPrimeEquiv, TwinPrimeTo186, AdmissibleSubset, AdmissiblePair), each existing module at its recorded sha256. Audit signatures: admissibleZ_subset : ∀ {H K : Finset ℤ}, K ⊆ H → BGP212.Gap.AdmissibleZ H → BGP212.Gap.AdmissibleZ K; admissibleZ_pair_iff_even : ∀ (a b : ℤ), BGP212.Gap.AdmissibleZ {a, b} ↔ Even (b - a); admissibleZ_pair_self : ∀ (a : ℤ), BGP212.Gap.AdmissibleZ {a, a}; admissibleZ_singleton : ∀ (a : ℤ), BGP212.Gap.AdmissibleZ {a}; admissible_twin_of_pair : BGP212.Gap.AdmissibleZ {0, 2}; not_admissibleZ_zero_one : ¬BGP212.Gap.AdmissibleZ {0, 1}. Each depends on axioms: [propext, Classical.choice, Quot.sound]. Script ended: 'axiom audit: only propext, Classical.choice, Quot.sound'. Full output: survey/evidence/kernel/bridges-admissible.log.",
+   "axioms": {
+    "Survey.PrimeBridges.admissibleZ_subset": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissibleZ_pair_iff_even": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissibleZ_pair_self": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissibleZ_singleton": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissible_twin_of_pair": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.not_admissibleZ_zero_one": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-25",
+   "machine": "Dan Hawkley's MacBook Pro (arm64-apple-darwin24.6.0); user-reported run; Claude inspected the complete 45-line log",
+   "notes": "User-reported kernel check with axiom audit. Exit status 0 is user-reported (echoed outside the log). The same run reproduces EV-0002 to EV-0005 at their recorded hashes. Comparator against independent Challenges has not run for these declarations, so no Comparator acceptance is claimed."
   }
  ]
 }

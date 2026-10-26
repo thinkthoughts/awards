@@ -1,0 +1,45 @@
+lean-bgp212 89b43fa019337645b4c2c66ae917bcb1fe76450f (clean)
+Lean (version 4.34.0-rc2, arm64-apple-darwin24.6.0, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)
+== SurveyBridges.AdmissibleTwin sha256 8a89082d81ee646c62a6118392fa645e67ec40e0c1c321e66ba3f3b59d1ab5c8
+'Survey.PrimeBridges.admissible_twin' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.H1LeMono sha256 3be3ce313a06fcbb4438ff43bae0afeb42f7a737c7761f9e5c78f60e1dca4ded
+'Survey.PrimeBridges.h1Le_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.TwinPrimeEquiv sha256 4c269741a5de637d43d26a015aedbb0f2f892db2085095c60c6163f9e0cf72e9
+'Survey.PrimeBridges.twin_primes_iff_h1Le_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.TwinPrimeTo186 sha256 808cbc0282e497710f843ce9ec75e8a6b26dab5a89c17dce5f50d9512f7f3617
+'Survey.PrimeBridges.twin_primes_implies_h1Le_186' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.AdmissibleSubset sha256 f0870786ed0f9572cd93fdac0dc6fc61cb88a18e25f62c318406fbbaa1dba246
+'Survey.PrimeBridges.admissibleZ_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
+== SurveyBridges.AdmissiblePair sha256 00c1090cbf6ffea1d1d0c6cfe27b8981156dd6625d97d7c7ac54782d66a65d83
+'Survey.PrimeBridges.admissibleZ_pair_iff_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.admissibleZ_pair_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.admissibleZ_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.admissible_twin_of_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.not_admissibleZ_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+== Audit
+@Survey.PrimeBridges.h1Le_mono : ∀ {D₁ D₂ : ℕ}, D₁ ≤ D₂ → BGP212.Gap.H1Le D₁ → BGP212.Gap.H1Le D₂
+'Survey.PrimeBridges.h1Le_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissible_twin : BGP212.Gap.AdmissibleZ {0, 2}
+'Survey.PrimeBridges.admissible_twin' depends on axioms: [propext, Classical.choice, Quot.sound]
+def Survey.PrimeBridges.InfinitelyManyTwinPrimes : Prop :=
+{p | Nat.Prime p ∧ Nat.Prime (p + 2)}.Infinite
+Survey.PrimeBridges.twin_primes_iff_h1Le_two : Survey.PrimeBridges.InfinitelyManyTwinPrimes ↔ BGP212.Gap.H1Le 2
+'Survey.PrimeBridges.twin_primes_iff_h1Le_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.h1Le_two_of_twin_primes' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Survey.PrimeBridges.twin_primes_of_h1Le_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.twin_primes_implies_h1Le_186 : Survey.PrimeBridges.InfinitelyManyTwinPrimes → BGP212.Gap.H1Le 186
+'Survey.PrimeBridges.twin_primes_implies_h1Le_186' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Survey.PrimeBridges.admissibleZ_subset : ∀ {H K : Finset ℤ},
+  K ⊆ H → BGP212.Gap.AdmissibleZ H → BGP212.Gap.AdmissibleZ K
+'Survey.PrimeBridges.admissibleZ_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissibleZ_pair_iff_even : ∀ (a b : ℤ), BGP212.Gap.AdmissibleZ {a, b} ↔ Even (b - a)
+'Survey.PrimeBridges.admissibleZ_pair_iff_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissibleZ_pair_self : ∀ (a : ℤ), BGP212.Gap.AdmissibleZ {a, a}
+'Survey.PrimeBridges.admissibleZ_pair_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissibleZ_singleton : ∀ (a : ℤ), BGP212.Gap.AdmissibleZ {a}
+'Survey.PrimeBridges.admissibleZ_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.admissible_twin_of_pair : BGP212.Gap.AdmissibleZ {0, 2}
+'Survey.PrimeBridges.admissible_twin_of_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+Survey.PrimeBridges.not_admissibleZ_zero_one : ¬BGP212.Gap.AdmissibleZ {0, 1}
+'Survey.PrimeBridges.not_admissibleZ_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+axiom audit: only propext, Classical.choice, Quot.sound

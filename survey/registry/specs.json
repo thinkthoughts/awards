@@ -315,6 +315,59 @@
     "verification": "unverified"
    },
    "notes": "Stated with sorry in formal-conjectures; the survey records the statement only."
+  },
+  {
+   "id": "SPEC-admissible-pair",
+   "layer": "L1",
+   "name": "Admissible pairs of integer shifts",
+   "parameters": [
+    {
+     "name": "a",
+     "type": "ℤ"
+    },
+    {
+     "name": "b",
+     "type": "ℤ"
+    }
+   ],
+   "statement": {
+    "math": "{a, b} is admissible exactly when b − a is even. Modulo 2 both shifts must share one class; modulo a prime p ≥ 3 two shifts meet at most two of the p classes. Duplicate shifts (a = b) and negative integers are included.",
+    "lean_name": "Survey.PrimeBridges.admissibleZ_pair_iff_even",
+    "lean": "theorem admissibleZ_pair_iff_even (a b : ℤ) : BGP212.Gap.AdmissibleZ ({a, b} : Finset ℤ) ↔ Even (b - a)"
+   },
+   "objects": [
+    "OBJ-admissible-z"
+   ],
+   "lean": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissibleZ_pair_iff_even",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissiblePair.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "leading_constraints": [
+    "Two shifts; the parity of b − a is the only local obstruction, arising at p = 2."
+   ],
+   "excluded_generalizations": [
+    "Shift sets of any size: AdmissibleZ H ↔ for every prime p the reduction of H in ZMod p misses a class (the next target).",
+    "Shifts with leading coefficients other than 1 (Dickson, SPEC-dickson-linear)."
+   ],
+   "state": {
+    "mathematical": "proved",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "notes": "Kernel-checked on the user's MBP against lean-bgp212 89b43fa (EV-0007). Comparator acceptance is a separate obligation.",
+   "evidence": [
+    "EV-0007"
+   ]
   }
  ]
 }

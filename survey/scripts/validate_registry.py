@@ -34,7 +34,7 @@ LAYERS = ["sources", "objects", "specs", "readings", "edges", "evidence"]
 #   comparator-accepted     Comparator acceptance under Linux landrun isolation  -> Verified
 LOCAL_VERIFIED = {"kernel-checked", "comparator-nonisolated", "comparator-accepted"}   # checks run for the survey
 VERIFIED = {"comparator-accepted"}
-LIFT_RELATIONS = {"reading-of", "equivalent", "implies", "special-case", "supplies-hypothesis"}
+LIFT_RELATIONS = {"reading-of", "equivalent", "implies", "special-case", "closure", "supplies-hypothesis"}
 
 
 # ---------------------------------------------------------------- schema subset
@@ -219,6 +219,10 @@ def validate(reg: dict, records: dict) -> list[str]:
             errors.append(f"{eid}: {strength} transfers structure only, so its relation is 'analogy'")
         if strength == "general-distinction" and relation != "membership":
             errors.append(f"{eid}: a general distinction records membership")
+        if (relation == "closure") != ("closure" in e):
+            errors.append(f"{eid}: relation 'closure' and the closure record go together")
+        if relation == "closure" and e["from"] != e["to"]:
+            errors.append(f"{eid}: a closure relates a property to itself (from equals to)")
         if (strength == "boundary") != (relation == "scope-boundary"):
             errors.append(f"{eid}: strength 'boundary' and relation 'scope-boundary' go together")
         if relation in LIFT_RELATIONS and strength not in {"direct-application", "conditional-implication"}:

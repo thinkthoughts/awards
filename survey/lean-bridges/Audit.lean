@@ -6,6 +6,8 @@ import SurveyBridges.AdmissibleTwin
 import SurveyBridges.H1LeMono
 import SurveyBridges.TwinPrimeEquiv
 import SurveyBridges.TwinPrimeTo186
+import SurveyBridges.AdmissibleSubset
+import SurveyBridges.AdmissiblePair
 
 #check @Survey.PrimeBridges.h1Le_mono
 #print axioms Survey.PrimeBridges.h1Le_mono
@@ -18,3 +20,15 @@ import SurveyBridges.TwinPrimeTo186
 #print axioms Survey.PrimeBridges.twin_primes_of_h1Le_two
 #check @Survey.PrimeBridges.twin_primes_implies_h1Le_186
 #print axioms Survey.PrimeBridges.twin_primes_implies_h1Le_186
+#check @Survey.PrimeBridges.admissibleZ_subset
+#print axioms Survey.PrimeBridges.admissibleZ_subset
+#check @Survey.PrimeBridges.admissibleZ_pair_iff_even
+#print axioms Survey.PrimeBridges.admissibleZ_pair_iff_even
+#check @Survey.PrimeBridges.admissibleZ_pair_self
+#print axioms Survey.PrimeBridges.admissibleZ_pair_self
+#check @Survey.PrimeBridges.admissibleZ_singleton
+#print axioms Survey.PrimeBridges.admissibleZ_singleton
+#check @Survey.PrimeBridges.admissible_twin_of_pair
+#print axioms Survey.PrimeBridges.admissible_twin_of_pair
+#check @Survey.PrimeBridges.not_admissibleZ_zero_one
+#print axioms Survey.PrimeBridges.not_admissibleZ_zero_one

@@ -881,6 +881,153 @@
    },
    "obligation": "open",
    "notes": "Unverified candidate: the exact statement of JSP-001009 still needs a manual read."
+  },
+  {
+   "id": "LIFT-ADM-2",
+   "from": "OBJ-admissible-z",
+   "to": "OBJ-admissible-z",
+   "relation": "closure",
+   "strength": "direct-application",
+   "statement": {
+    "math": "Subset closure (downward): AdmissibleZ is closed under passing to subsets. For K ⊆ H, AdmissibleZ H gives AdmissibleZ K, with the same omitted residue class for each prime.",
+    "lean_name": "Survey.PrimeBridges.admissibleZ_subset",
+    "lean": "theorem admissibleZ_subset {H K : Finset ℤ} (hKH : K ⊆ H) (hH : BGP212.Gap.AdmissibleZ H) : BGP212.Gap.AdmissibleZ K",
+    "proof_term": "by intro p hp; obtain ⟨r, hr⟩ := hH p hp; exact ⟨r, fun h hh => hr h (hKH hh)⟩"
+   },
+   "uses": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissibleZ_subset",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissibleSubset.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "sub",
+     "statement": "K ⊆ H, taken as the theorem's argument hKH",
+     "role": "side-condition",
+     "status": "discharged",
+     "lean": "hKH : K ⊆ H"
+    }
+   ],
+   "source": "Survey.PrimeBridges.admissibleZ_subset over BGP212.Gap.AdmissibleZ at lean-bgp212 89b43fa; uses only the definition and Finset subset membership (hKH hh : h ∈ H for hh : h ∈ K)",
+   "state": {
+    "mathematical": "established",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "obligation": "open",
+   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "evidence": [
+    "EV-0007"
+   ],
+   "closure": {
+    "property": "BGP212.Gap.AdmissibleZ",
+    "carrier": "Finset ℤ",
+    "order": "⊆ (Finset.Subset)",
+    "direction": "downward",
+    "transfer": "from H to every K with K ⊆ H",
+    "lean": "K ⊆ H → BGP212.Gap.AdmissibleZ H → BGP212.Gap.AdmissibleZ K",
+    "witness": "for each prime p, the residue class omitted by H also serves K"
+   }
+  },
+  {
+   "id": "LIFT-ADM-3",
+   "from": "OBJ-admissible-z",
+   "to": "SPEC-admissible-pair",
+   "relation": "equivalent",
+   "strength": "direct-application",
+   "statement": {
+    "math": "For a two-element shift set, AdmissibleZ {a, b} is equivalent to Even (b − a).",
+    "lean_name": "Survey.PrimeBridges.admissibleZ_pair_iff_even",
+    "lean": "theorem admissibleZ_pair_iff_even (a b : ℤ) : BGP212.Gap.AdmissibleZ ({a, b} : Finset ℤ) ↔ Even (b - a)"
+   },
+   "uses": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissibleZ_pair_iff_even",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissiblePair.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [],
+   "source": "Survey.PrimeBridges.admissibleZ_pair_iff_even over BGP212.Gap.AdmissibleZ at lean-bgp212 89b43fa; Mathlib 85e3a25: Int.even_iff, dvd_neg, dvd_sub, Nat.prime_two, Nat.Prime.two_le, Finset.mem_insert, Finset.mem_singleton; core: Nat.le_of_dvd, omega",
+   "state": {
+    "mathematical": "established",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "obligation": "open",
+   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Corollaries in the same module, also in EV-0007: admissibleZ_pair_self, admissibleZ_singleton (via LIFT-ADM-2), not_admissibleZ_zero_one.",
+   "evidence": [
+    "EV-0007"
+   ]
+  },
+  {
+   "id": "LIFT-009-6",
+   "from": "SPEC-admissible-pair",
+   "to": "RP-JSP-000009",
+   "relation": "special-case",
+   "strength": "direct-application",
+   "statement": {
+    "math": "The twin-prime shifts {0, 2} are admissible as the pair case a = 0, b = 2, since 2 − 0 = 1 + 1 is even. The kernel-checked admissible_twin (LIFT-009-5) stays as it is.",
+    "lean_name": "Survey.PrimeBridges.admissible_twin_of_pair",
+    "lean": "theorem admissible_twin_of_pair : BGP212.Gap.AdmissibleZ ({0, 2} : Finset ℤ)",
+    "proof_term": "(admissibleZ_pair_iff_even 0 2).mpr ⟨1, by omega⟩"
+   },
+   "uses": [
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissible_twin_of_pair",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissiblePair.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.admissibleZ_pair_iff_even",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/AdmissiblePair.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Gap.AdmissibleZ",
+     "kind": "def",
+     "file": "BGP212/Gap.lean"
+    }
+   ],
+   "hypotheses": [
+    {
+     "id": "even",
+     "statement": "Even (2 − 0), witnessed by 1",
+     "role": "side-condition",
+     "status": "discharged",
+     "lean": "⟨1, by omega⟩ : Even ((2 : ℤ) - 0)"
+    }
+   ],
+   "source": "Survey.PrimeBridges.admissible_twin_of_pair, derived from LIFT-ADM-3",
+   "state": {
+    "mathematical": "established",
+    "formalization": "compiled",
+    "verification": "kernel-checked"
+   },
+   "obligation": "open",
+   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "evidence": [
+    "EV-0007"
+   ]
   }
  ]
 }
