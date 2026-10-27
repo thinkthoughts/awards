@@ -172,7 +172,10 @@ class RegistryTests(unittest.TestCase):
             if e["state"]["verification"] == "kernel-checked":
                 self.assertEqual(validate_registry.lift_state(e), "Compiled", e["id"])
                 self.assertEqual(e["obligation"], "open", e["id"])
-        self.assertRejected(lambda r: self.edge(r, "LIFT-009-5").update(obligation="discharged"),
+        # a lift still kernel-checked (LIFT-009-5 served here until its isolated acceptance, EV-0020)
+        sample = next(e["id"] for e in self.reg["edges"]["edges"]
+                      if e["state"]["verification"] == "kernel-checked" and e["id"].startswith("LIFT-"))
+        self.assertRejected(lambda r: self.edge(r, sample).update(obligation="discharged"),
                             "discharged exactly when it is Verified")
 
     def test_bridge_package_pins_the_registered_commit(self):
@@ -263,6 +266,10 @@ class RegistryTests(unittest.TestCase):
             "localCount_pos_of_admissibleZ.json": ("LocalCountAdmissible", "localCount_pos_of_admissibleZ", "LIFT-GDT-3", "LocalFactor"),
             "localCount_singleton.json": ("LocalCountSingleton", "localCount_singleton", "LIFT-GDT-4", "LocalFactor"),
             "localCount_singleton_eq_totient.json": ("SingleShiftTotient", "localCount_singleton_eq_totient", "LIFT-GDT-5", "SingleShiftTotient"),
+            "admissible_twin.json": ("AdmissibleTwin", "admissible_twin", "LIFT-009-5", "AdmissibleTwin"),
+            "admissible_twin_of_pair.json": ("AdmissibleTwinPair", "admissible_twin_of_pair", "LIFT-009-6", "AdmissiblePair"),
+            "twin_primes_iff_h1Le_two.json": ("TwinPrimeEquiv", "twin_primes_iff_h1Le_two", "LIFT-009-3", "TwinPrimeEquiv"),
+            "twin_primes_implies_h1Le_186.json": ("TwinPrimeTo186", "twin_primes_implies_h1Le_186", "LIFT-041-3", "TwinPrimeTo186"),
         }
         self.assertEqual(sorted(p.name for p in (bridges / "Comparator").glob("*.json")), sorted(expected))
         for cfg_name, (mod, thm, eid, proof_mod) in expected.items():
@@ -337,7 +344,11 @@ class RegistryTests(unittest.TestCase):
             # the definition precedes `open`, as in SurveyBridges.ResidueImage (no `open` there)
             if "def residueImage" in text:
                 self.assertLess(text.index("def residueImage"), text.index("open BGP212.Gap"))
-        self.assertEqual(restated, 3)
+            # InfinitelyManyTwinPrimes follows `open BGP212.Gap Filter`, as in SurveyBridges.TwinPrimeEquiv
+            if "def InfinitelyManyTwinPrimes" in text:
+                self.assertLess(text.index("open BGP212.Gap Filter"), text.index("def InfinitelyManyTwinPrimes"))
+        # residueImage in three ZMod Challenges, InfinitelyManyTwinPrimes in two twin-prime Challenges
+        self.assertEqual(restated, 5)
         # no definition holes anywhere
         for cfg in (bridges / "Comparator").glob("*.json"):
             self.assertNotIn("definition_names", json.loads(cfg.read_text(encoding="utf-8")))
@@ -407,6 +418,81 @@ class RegistryTests(unittest.TestCase):
         for mod in ("LocalFactor", "SingleShiftTotient"):
             stated = set(re.findall(r"^theorem (\S+)", (bridges / "SurveyBridges" / f"{mod}.lean").read_text(encoding="utf-8"), re.M))
             self.assertEqual(stated - covered, set(), mod)
+
+    def test_twin_prime_pairs_are_independent_and_verified(self):
+        """The four twin-prime pairs (LIFT-009-3, LIFT-009-5, LIFT-009-6, LIFT-041-3): Challenges import
+        only BGP212.Gap; the `open` context matches the bridge module; every theorem in
+        TwinPrimeEquiv and AdmissibleTwin is covered; steps that are other lifts' statements keep
+        their own configs; the lifts are Verified by isolated Comparator acceptance (EV-0020 to
+        EV-0022), obligations discharged."""
+        import re
+        bridges = SURVEY / "lean-bridges"
+        pairs = {"LIFT-009-5": ("admissible_twin", "AdmissibleTwin", "open BGP212.Gap\n"),
+                 "LIFT-009-6": ("admissible_twin_of_pair", "AdmissiblePair", "open BGP212.Gap\n"),
+                 "LIFT-009-3": ("twin_primes_iff_h1Le_two", "TwinPrimeEquiv", "open BGP212.Gap Filter\n"),
+                 "LIFT-041-3": ("twin_primes_implies_h1Le_186", "TwinPrimeTo186", None)}
+        evidence_of = {"LIFT-009-5": "EV-0020", "LIFT-009-6": "EV-0020", "LIFT-009-3": "EV-0021", "LIFT-041-3": "EV-0022"}
+        logs = {"EV-0020": "4268ae2ce0edb9ecbd3184bdbb26c77f5a675914e4d30c3f2bfb65c285dbd376",
+                "EV-0021": "7d10b2ec36dbc2743b3251dbeee605490cf39597ad3f9857e287b0dd56a3da27",
+                "EV-0022": "34587b22f831ee12562ddc4f9d93573758d41863cd6c4ee04412af19c97fbcb2"}
+        own_configs = {}
+        for cfg_path in (bridges / "Comparator").glob("*.json"):
+            own_configs[json.loads(cfg_path.read_text(encoding="utf-8"))["theorem_names"][0]] = cfg_path.name
+        covered = set()
+        for eid, (cfg_name, bridge_mod, open_line) in pairs.items():
+            cfg = json.loads((bridges / "Comparator" / f"{cfg_name}.json").read_text(encoding="utf-8"))
+            chal = (bridges / (cfg["challenge_module"].replace(".", "/") + ".lean")).read_text(encoding="utf-8")
+            body = re.sub(r"/-.*?-/", "", chal, flags=re.S)
+            self.assertEqual(re.findall(r"^import\s+(\S+)", chal, re.M), ["BGP212.Gap"], cfg_name)
+            bridge = (bridges / "SurveyBridges" / f"{bridge_mod}.lean").read_text(encoding="utf-8")
+            if open_line:
+                self.assertIn(open_line, bridge)
+                self.assertIn(open_line, body, cfg_name)
+            else:
+                # TwinPrimeTo186 opens nothing; only the restated definition carries TwinPrimeEquiv's `open`
+                self.assertNotRegex(bridge, r"(?m)^open ")
+                self.assertNotRegex(body, r"(?m)^open (?!BGP212\.Gap Filter in$)")
+                self.assertIn("open BGP212.Gap Filter in\n", body)
+            # restated definitions only where the statement mentions a survey definition
+            self.assertEqual("def InfinitelyManyTwinPrimes" in body, "InfinitelyManyTwinPrimes" in self.edge(self.reg, eid)["statement"]["lean"], cfg_name)
+            covered |= {n.rsplit(".", 1)[-1] for n in cfg["theorem_names"]}
+            # cited steps that are another lift's statement are checked by that lift's own config
+            for u in self.edge(self.reg, eid)["uses"]:
+                if u["kind"] == "theorem" and u["name"] not in cfg["theorem_names"]:
+                    self.assertIn(u["name"], own_configs, f"{eid}: {u['name']} has no config")
+            e = self.edge(self.reg, eid)
+            self.assertEqual((e["state"]["verification"], validate_registry.lift_state(e), e["obligation"]),
+                             ("comparator-accepted", "Verified", "discharged"), eid)
+            self.assertIn(f"Comparator/{cfg_name}.json", e["notes"])
+            # isolated acceptance (EV-0020 to EV-0022): one per config, audit verbatim in the log
+            rec = next(v for v in self.reg["evidence"]["evidence"] if v["id"] == evidence_of[eid])
+            self.assertIn(rec["id"], e["evidence"])
+            self.assertEqual(rec["isolation"], "landrun-linux")
+            self.assertEqual(validate_registry.isolation_policy.audit_errors("landrun-linux", rec["isolation_audit"]), [])
+            self.assertIn("/home/dan/awards-twin/survey/lean-bridges", rec["isolation_audit"]["readonly_mounts"])
+            log = (ROOT / rec["comparator"]["log"]).read_text(encoding="utf-8")
+            self.assertEqual(sha256(ROOT / rec["comparator"]["log"]), logs[rec["id"]], rec["id"])
+            self.assertIn("isolation-audit: " + json.dumps(rec["isolation_audit"], sort_keys=True), log)
+            section = log.split(f"== Comparator/{cfg_name}.json ")[1].split("\n== Comparator/")[0]
+            self.assertTrue(section.startswith("sha256 " + sha256(bridges / "Comparator" / f"{cfg_name}.json") + "\n"), cfg_name)
+            self.assertEqual(section.count("Your solution is okay!"), 1, cfg_name)
+            self.assertNotIn("does not match", section)
+            self.assertNotIn("Illegal axiom", section)
+            # every Comparator target is recorded; exact axiom lists only where the log prints them
+            for th in cfg["theorem_names"]:
+                self.assertIn(th, rec["comparator"]["theorems"])
+                self.assertEqual(th in rec["axioms"], f"'{th}' depends on axioms" in section, th)
+            for th, used in rec["axioms"].items():
+                self.assertIn(f"'{th}' depends on axioms: [{', '.join(used)}]", log)
+        for mod in ("TwinPrimeEquiv", "AdmissibleTwin", "TwinPrimeTo186"):
+            stated = set(re.findall(r"^theorem (\S+)", (bridges / "SurveyBridges" / f"{mod}.lean").read_text(encoding="utf-8"), re.M))
+            self.assertEqual(stated - covered, set(), mod)
+        # the side conditions LIFT-009-3 discharges are cited as uses, and their statements are its hypotheses
+        e = self.edge(self.reg, "LIFT-009-3")
+        for h in e["hypotheses"]:
+            name = re.match(r"theorem (\S+)", h["lean"]).group(1)
+            self.assertIn(f"Survey.PrimeBridges.{name}", [u["name"] for u in e["uses"]])
+            self.assertIn(f"Survey.PrimeBridges.{name}", json.loads((bridges / "Comparator/twin_primes_iff_h1Le_two.json").read_text(encoding="utf-8"))["theorem_names"])
 
     def test_linux_runner_shares_builds_read_only(self):
         import os, re

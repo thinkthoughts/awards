@@ -1,0 +1,12 @@
+{
+    "challenge_module": "SurveyChallenge.AdmissibleTwinPair",
+    "solution_module": "SurveySolution.AdmissibleTwinPair",
+    "theorem_names": [
+        "Survey.PrimeBridges.admissible_twin_of_pair"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

@@ -224,6 +224,18 @@
      "file": "lean-bridges/SurveyBridges/TwinPrimeEquiv.lean"
     },
     {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.nth_succ_eq_add_two",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/TwinPrimeEquiv.lean"
+    },
+    {
+     "source": "survey-local",
+     "name": "Survey.PrimeBridges.primeGap_count_le",
+     "kind": "theorem",
+     "file": "lean-bridges/SurveyBridges/TwinPrimeEquiv.lean"
+    },
+    {
      "source": "lean-bgp212-89b43fa",
      "name": "BGP212.Gap.H1Le",
      "kind": "def",
@@ -256,12 +268,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0004, axioms propext, Classical.choice, Quot.sound). Compiled, not Verified: the obligation stays open until Comparator accepts it against an independent Challenge.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0004, axioms propext, Classical.choice, Quot.sound). Compiled, not Verified: the obligation stays open until Comparator accepts it against an independent Challenge. Comparator pair prepared (survey/lean-bridges/Comparator/twin_primes_iff_h1Le_two.json, with the two directions and the side conditions primeGap_count_le and nth_succ_eq_add_two; InfinitelyManyTwinPrimes restated verbatim and compared in full); it stays Compiled with the obligation open until Comparator accepts it under landrun on Linux. Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/twin_primes_iff_h1Le_two.json, with both directions and the side conditions primeGap_count_le and nth_succ_eq_add_two; InfinitelyManyTwinPrimes restated verbatim and compared in full) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0021); obligation discharged.",
    "evidence": [
-    "EV-0004"
+    "EV-0004",
+    "EV-0021"
    ]
   },
   {
@@ -355,12 +368,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0003, axioms propext, Classical.choice, Quot.sound). Compiled, not Verified: the obligation stays open until Comparator accepts it against an independent Challenge.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0003, axioms propext, Classical.choice, Quot.sound). Compiled, not Verified: the obligation stays open until Comparator accepts it against an independent Challenge. Comparator pair prepared (survey/lean-bridges/Comparator/admissible_twin.json, over lean-bgp212's own AdmissibleZ); it stays Compiled with the obligation open until Comparator accepts it under landrun on Linux. Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/admissible_twin.json, statement over lean-bgp212's own AdmissibleZ) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0020); obligation discharged.",
    "evidence": [
-    "EV-0003"
+    "EV-0003",
+    "EV-0020"
    ]
   },
   {
@@ -695,12 +709,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0005, axioms propext, Classical.choice, Quot.sound); both side conditions discharged. This proves the implication JSP-000009 ⇒ JSP-000041 outright, with no added assumption; it proves neither conjecture, and both readings stay open. Compiled, not Verified: the only remaining obligation is Comparator acceptance against an independent Challenge.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0005, axioms propext, Classical.choice, Quot.sound); both side conditions discharged. This proves the implication JSP-000009 ⇒ JSP-000041 outright, with no added assumption; it proves neither conjecture, and both readings stay open. Compiled, not Verified: the only remaining obligation is Comparator acceptance against an independent Challenge. Comparator pair prepared (survey/lean-bridges/Comparator/twin_primes_implies_h1Le_186.json, InfinitelyManyTwinPrimes restated verbatim and compared in full; the cited steps have their own configs, twin_primes_iff_h1Le_two.json and h1le_mono.json); it stays Compiled with the obligation open until Comparator accepts it under landrun on Linux. Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/twin_primes_implies_h1Le_186.json, InfinitelyManyTwinPrimes restated verbatim and compared in full; cited steps accepted in EV-0021 and EV-0013) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0022); obligation discharged.",
    "evidence": [
-    "EV-0005"
+    "EV-0005",
+    "EV-0022"
    ]
   },
   {
@@ -1027,12 +1042,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Comparator pair prepared (survey/lean-bridges/Comparator/admissible_twin_of_pair.json, over lean-bgp212's own AdmissibleZ; the cited step admissibleZ_pair_iff_even is LIFT-ADM-3, Verified in EV-0014); it stays Compiled with the obligation open until Comparator accepts it under landrun on Linux. Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/admissible_twin_of_pair.json, statement over lean-bgp212's own AdmissibleZ) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0020); obligation discharged.",
    "evidence": [
-    "EV-0007"
+    "EV-0007",
+    "EV-0020"
    ]
   },
   {

@@ -1,0 +1,12 @@
+{
+    "challenge_module": "SurveyChallenge.TwinPrimeTo186",
+    "solution_module": "SurveySolution.TwinPrimeTo186",
+    "theorem_names": [
+        "Survey.PrimeBridges.twin_primes_implies_h1Le_186"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

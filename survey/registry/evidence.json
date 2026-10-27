@@ -1962,6 +1962,413 @@
     "exit_status": "0 (systemd: Main processes terminated with: code=exited/status=0, in the log)"
    },
    "notes": "Isolated Comparator acceptance under landrun on Linux (landrun-linux, Landlock ABI 4); the isolation_audit line is copied verbatim from the log and meets survey/scripts/isolation_policy.py. The statements use only lean-bgp212's own definitions, which Comparator compared in full (no definition holes, nothing restated). Every Challenge, Solution, bridge and config hash printed in the log matches the repository. Run from the separate checkout ~/awards-localfactor (its survey/lean-bridges mounted read-only)."
+  },
+  {
+   "id": "EV-0020",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-009-5",
+    "LIFT-009-6"
+   ],
+   "kind": "comparator",
+   "isolation": "landrun-linux",
+   "isolation_audit": {
+    "go_landlock": "v0.10.1",
+    "kernel": "6.8.0-138-generic",
+    "landlock_abi": 4,
+    "landlock_probes": {
+     "read_outside_grants": "denied",
+     "write_outside_work_lake": "denied",
+     "write_through_shared_build_symlinks": "denied",
+     "write_work_lake": "allowed"
+    },
+    "landrun_flags": "--best-effort --ro / --rw /dev -ldd -add-exec --rwx WORK/.lake",
+    "landrun_modified": false,
+    "landrun_network_rules": "landrun TCP rules (Landlock ABI >= 4)",
+    "landrun_revision": "ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a",
+    "readonly_mounts": [
+     "/home/dan/lean-bgp212",
+     "/home/dan/comparator-19e111e",
+     "/home/dan/awards-twin/survey/lean-bridges"
+    ],
+    "sockets_denied": [
+     "AF_UNIX",
+     "AF_INET",
+     "AF_INET6"
+    ],
+    "systemd_unit": "4c23cff614e84accbbb7c6f9afee5624"
+   },
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/AdmissibleTwin.lean",
+     "sha256": "80e9ff4beb3a68d4c96e9b92bff21780f4042e1bbd1fc06ee7f77e0beaf13b30"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/AdmissibleTwin.lean",
+     "sha256": "ecc9db8a8aaf4c6cebdc2ffe547669f9ea5009079aae4eb414513cc30db32d8f"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/AdmissibleTwinPair.lean",
+     "sha256": "cac29a9d62682da8446b8f98d990578bc2063773767eed5c440c13a8bf692979"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/AdmissibleTwinPair.lean",
+     "sha256": "f871f216a0605f07aadaea7a65ced1919667d5857329886638f1dcc95e8b74a6"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/AdmissibleTwin.lean",
+     "sha256": "8a89082d81ee646c62a6118392fa645e67ec40e0c1c321e66ba3f3b59d1ab5c8"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/AdmissiblePair.lean",
+     "sha256": "00c1090cbf6ffea1d1d0c6cfe27b8981156dd6625d97d7c7ac54782d66a65d83"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/AdmissibleSubset.lean",
+     "sha256": "f0870786ed0f9572cd93fdac0dc6fc61cb88a18e25f62c318406fbbaa1dba246"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/admissible_twin.json",
+     "sha256": "bd9ff55ab3a01c34657a09a2a9ae5f3bf88081673ff7a3974be4cbf11bf4db05"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/admissible_twin_of_pair.json",
+     "sha256": "9ee7ba3b7719ac7c8e582d1aad9e9449bc77eb9abef713b0cfe4d3a3779dcc10"
+    },
+    {
+     "path": "survey/scripts/compare_bridges_linux.sh",
+     "sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c"
+    },
+    {
+     "path": "survey/scripts/isolation_policy.py",
+     "sha256": "f76b705fba4d624a7231b76ab34b592ca51106350e327f37047bcdf1e23670b8"
+    },
+    {
+     "path": "survey/evidence/comparator/twin-admissible-linux-landrun.log",
+     "sha256": "4268ae2ce0edb9ecbd3184bdbb26c77f5a675914e4d30c3f2bfb65c285dbd376"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.admissible_twin",
+    "Survey.PrimeBridges.admissible_twin_of_pair"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "systemd-run --user --pipe --same-dir --wait --collect -p PrivateUsers=yes -p ReadOnlyPaths=$HOME/lean-bgp212 -p ReadOnlyPaths=$HOME/comparator-19e111e -p ReadOnlyPaths=$HOME/awards-twin -p 'RestrictAddressFamilies=~AF_UNIX AF_INET AF_INET6' -E PATH=$PATH -E HOME=$HOME -E COMPARATOR_LANDRUN=$HOME/landrun-verified/landrun -E COMPARE_WORKDIR_BASE=$HOME/survey-compare -- survey/scripts/compare_bridges_linux.sh ~/lean-bgp212 ~/comparator-19e111e survey/lean-bridges/Comparator/admissible_twin.json survey/lean-bridges/Comparator/admissible_twin_of_pair.json 2>&1 | tee ~/comparator-runs/twin-admissible-linux-landrun.log (in ~/awards-twin: dfac2007d26eba6a7e5f50cd44d108660d824aef plus survey-comparator-twin-pairs.patch 52ee910b…)",
+   "tool": "Lean Comparator 19e111e2141cf333c7daff0f64c5f24acc91dd2e with lean4export cacf989bd75f608700820f6afc595f32e7a99a4d; Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release); landrun ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a (go-landlock v0.10.1)",
+   "result": "For each config (admissible_twin.json, admissible_twin_of_pair.json): independence check passed; the Challenge built with one expected `sorry` warning per theorem and no other warning; Challenge and Solution each exported exactly the named theorems (admissible_twin, admissible_twin_of_pair), with identical export lists; the Solution build printed 'admissible_twin' depends on axioms: [propext, Classical.choice, Quot.sound]; 'admissible_twin_of_pair' depends on axioms: [propext, Classical.choice, Quot.sound]; then 'Running Lean default kernel on solution. / Lean default kernel accepts the solution / Your solution is okay!' (one acceptance per config). Isolation established before Comparator ran: Landlock ABI 4, the three denial probes denied and the WORK/.lake write allowed, provider/Comparator/survey trees read-only mounts, AF_UNIX/AF_INET/AF_INET6 denied, inside systemd unit 4c23cff614e84accbbb7c6f9afee5624. Post-run: 'shared builds unchanged; workspace 204M, no hardlinks'; final 'comparator: all configs accepted (isolation: landrun-linux)'; systemd 'Main processes terminated with: code=exited/status=0'. Full output: survey/evidence/comparator/twin-admissible-linux-landrun.log.",
+   "axioms": {
+    "Survey.PrimeBridges.admissible_twin": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissible_twin_of_pair": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-26",
+   "machine": "User's Linux VPS (Linux 6.8.0-138-generic x86_64, ext4 /dev/sda1); run by the user under run-u10.service; Claude audited the complete 123-line log line by line",
+   "comparator": {
+    "comparator_commit": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+    "comparator_tree": "clean",
+    "comparator_binary_sha256": "514de8d2acbd6e0102575cd2c575e336b7c4a40daf3ae66abe97cef5e1e6b02a",
+    "lean4export_commit": "cacf989bd75f608700820f6afc595f32e7a99a4d",
+    "lean4export_tree": "clean",
+    "lean4export_binary_sha256": "4fa9e14cada304109e85da5048bcd411cf781a03539b3e50953e5c537074bd9e",
+    "toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "lean_commit": "6a10ac8c22beadecabdbb0919c2b50214762f91d",
+    "lake_launcher": "/home/dan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lake",
+    "lake_launcher_sha256": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+    "lake_version": "Lake version 5.0.0-src+6a10ac8 (Lean version 4.34.0-rc2)",
+    "lean_bgp212": "89b43fa019337645b4c2c66ae917bcb1fe76450f (workspace checkout from provider f779ea70c7d57570c57bca18aeab9ce0ede215a9, which descends from it; BGP212 modules compiled in the sandbox)",
+    "dependencies": "mathlib, plausible, LeanSearchClient, importGraph, proofwidgets, aesop, Qq, batteries at the survey manifest revisions, provider builds shared read-only; Cli source-only",
+    "host": "Linux 6.8.0-138-generic x86_64",
+    "runner": "/home/dan/landrun-verified/landrun",
+    "runner_sha256": "c0a1e7285fd5f9359e02564b6df1d2508fccfb6b4d8e7c1c0003561bad69cc00",
+    "runner_description": "landrun 0.1.18, vcs.revision ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a, vcs.modified false, go-landlock v0.10.1",
+    "systemd_unit": "run-u10.service (invocation 4c23cff614e84accbbb7c6f9afee5624)",
+    "configs": {
+     "survey/lean-bridges/Comparator/admissible_twin.json": "bd9ff55ab3a01c34657a09a2a9ae5f3bf88081673ff7a3974be4cbf11bf4db05",
+     "survey/lean-bridges/Comparator/admissible_twin_of_pair.json": "9ee7ba3b7719ac7c8e582d1aad9e9449bc77eb9abef713b0cfe4d3a3779dcc10"
+    },
+    "compare_script_sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c",
+    "compare_script_path": "/home/dan/awards-twin/survey/scripts/compare_bridges_linux.sh",
+    "log": "survey/evidence/comparator/twin-admissible-linux-landrun.log",
+    "log_sha256": "4268ae2ce0edb9ecbd3184bdbb26c77f5a675914e4d30c3f2bfb65c285dbd376",
+    "exit_status": "0 (systemd: Main processes terminated with: code=exited/status=0, in the log)",
+    "theorems": [
+     "Survey.PrimeBridges.admissible_twin",
+     "Survey.PrimeBridges.admissible_twin_of_pair"
+    ],
+    "axiom_check": "Comparator checkAxioms over every theorem target, transitively: only propext, Quot.sound, Classical.choice (no 'Illegal axiom detected')"
+   },
+   "notes": "Isolated Comparator acceptance under landrun on Linux (landrun-linux, Landlock ABI 4); the isolation_audit line is copied verbatim from the log and meets survey/scripts/isolation_policy.py. Statements over lean-bgp212's own AdmissibleZ only; no survey definition, nothing restated. No definition holes. Every Challenge, Solution, bridge and config hash printed in the log (43 sources) matches the repository; dependency revisions match the survey manifest. Run from the separate checkout ~/awards-twin (its survey/lean-bridges mounted read-only); ~/awards-localfactor and ~/awards-zmod were left as they were."
+  },
+  {
+   "id": "EV-0021",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-009-3"
+   ],
+   "kind": "comparator",
+   "isolation": "landrun-linux",
+   "isolation_audit": {
+    "go_landlock": "v0.10.1",
+    "kernel": "6.8.0-138-generic",
+    "landlock_abi": 4,
+    "landlock_probes": {
+     "read_outside_grants": "denied",
+     "write_outside_work_lake": "denied",
+     "write_through_shared_build_symlinks": "denied",
+     "write_work_lake": "allowed"
+    },
+    "landrun_flags": "--best-effort --ro / --rw /dev -ldd -add-exec --rwx WORK/.lake",
+    "landrun_modified": false,
+    "landrun_network_rules": "landrun TCP rules (Landlock ABI >= 4)",
+    "landrun_revision": "ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a",
+    "readonly_mounts": [
+     "/home/dan/lean-bgp212",
+     "/home/dan/comparator-19e111e",
+     "/home/dan/awards-twin/survey/lean-bridges"
+    ],
+    "sockets_denied": [
+     "AF_UNIX",
+     "AF_INET",
+     "AF_INET6"
+    ],
+    "systemd_unit": "2559381bc3ef454fafcb6367a209f0d0"
+   },
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/TwinPrimeEquiv.lean",
+     "sha256": "9a510a37fb5562d74d7c7a73f5b56a019c3c4bb7709bfa399e1cb56734f33074"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/TwinPrimeEquiv.lean",
+     "sha256": "1bb87f31ea980021a7cdeb454fd19c02c9d4d4d2b2fd679df814ac6d8aa16193"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/TwinPrimeEquiv.lean",
+     "sha256": "4c269741a5de637d43d26a015aedbb0f2f892db2085095c60c6163f9e0cf72e9"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/twin_primes_iff_h1Le_two.json",
+     "sha256": "8bac53a36c04a291674cc3ac6a8f729eaee63a3fa52e900b0d84ab774b706748"
+    },
+    {
+     "path": "survey/scripts/compare_bridges_linux.sh",
+     "sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c"
+    },
+    {
+     "path": "survey/scripts/isolation_policy.py",
+     "sha256": "f76b705fba4d624a7231b76ab34b592ca51106350e327f37047bcdf1e23670b8"
+    },
+    {
+     "path": "survey/evidence/comparator/twin-h1le2-linux-landrun.log",
+     "sha256": "7d10b2ec36dbc2743b3251dbeee605490cf39597ad3f9857e287b0dd56a3da27"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.twin_primes_iff_h1Le_two"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "systemd-run --user --pipe --same-dir --wait --collect -p PrivateUsers=yes -p ReadOnlyPaths=$HOME/lean-bgp212 -p ReadOnlyPaths=$HOME/comparator-19e111e -p ReadOnlyPaths=$HOME/awards-twin -p 'RestrictAddressFamilies=~AF_UNIX AF_INET AF_INET6' -E PATH=$PATH -E HOME=$HOME -E COMPARATOR_LANDRUN=$HOME/landrun-verified/landrun -E COMPARE_WORKDIR_BASE=$HOME/survey-compare -- survey/scripts/compare_bridges_linux.sh ~/lean-bgp212 ~/comparator-19e111e survey/lean-bridges/Comparator/twin_primes_iff_h1Le_two.json 2>&1 | tee ~/comparator-runs/twin-h1le2-linux-landrun.log (in ~/awards-twin: dfac2007d26eba6a7e5f50cd44d108660d824aef plus survey-comparator-twin-pairs.patch 52ee910b…)",
+   "tool": "Lean Comparator 19e111e2141cf333c7daff0f64c5f24acc91dd2e with lean4export cacf989bd75f608700820f6afc595f32e7a99a4d; Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release); landrun ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a (go-landlock v0.10.1)",
+   "result": "For each config (twin_primes_iff_h1Le_two.json): independence check passed; the Challenge built with one expected `sorry` warning per theorem and no other warning; Challenge and Solution each exported exactly the named theorems (twin_primes_iff_h1Le_two, h1Le_two_of_twin_primes, twin_primes_of_h1Le_two, primeGap_count_le, nth_succ_eq_add_two), with identical export lists; the Solution build printed 'twin_primes_iff_h1Le_two' depends on axioms: [propext, Classical.choice, Quot.sound]; the other targets (h1Le_two_of_twin_primes, twin_primes_of_h1Le_two, primeGap_count_le, nth_succ_eq_add_two) have no #print axioms line in the bridge module, and Comparator's checkAxioms (19e111e, Comparator/Axioms.lean) walked every constant they use and found only permitted axioms; then 'Running Lean default kernel on solution. / Lean default kernel accepts the solution / Your solution is okay!' (one acceptance per config). Isolation established before Comparator ran: Landlock ABI 4, the three denial probes denied and the WORK/.lake write allowed, provider/Comparator/survey trees read-only mounts, AF_UNIX/AF_INET/AF_INET6 denied, inside systemd unit 2559381bc3ef454fafcb6367a209f0d0. Post-run: 'shared builds unchanged; workspace 200M, no hardlinks'; final 'comparator: all configs accepted (isolation: landrun-linux)'; systemd 'Main processes terminated with: code=exited/status=0'. Full output: survey/evidence/comparator/twin-h1le2-linux-landrun.log.",
+   "axioms": {
+    "Survey.PrimeBridges.twin_primes_iff_h1Le_two": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-26",
+   "machine": "User's Linux VPS (Linux 6.8.0-138-generic x86_64, ext4 /dev/sda1); run by the user under run-u11.service; Claude audited the complete 105-line log line by line",
+   "comparator": {
+    "comparator_commit": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+    "comparator_tree": "clean",
+    "comparator_binary_sha256": "514de8d2acbd6e0102575cd2c575e336b7c4a40daf3ae66abe97cef5e1e6b02a",
+    "lean4export_commit": "cacf989bd75f608700820f6afc595f32e7a99a4d",
+    "lean4export_tree": "clean",
+    "lean4export_binary_sha256": "4fa9e14cada304109e85da5048bcd411cf781a03539b3e50953e5c537074bd9e",
+    "toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "lean_commit": "6a10ac8c22beadecabdbb0919c2b50214762f91d",
+    "lake_launcher": "/home/dan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lake",
+    "lake_launcher_sha256": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+    "lake_version": "Lake version 5.0.0-src+6a10ac8 (Lean version 4.34.0-rc2)",
+    "lean_bgp212": "89b43fa019337645b4c2c66ae917bcb1fe76450f (workspace checkout from provider f779ea70c7d57570c57bca18aeab9ce0ede215a9, which descends from it; BGP212 modules compiled in the sandbox)",
+    "dependencies": "mathlib, plausible, LeanSearchClient, importGraph, proofwidgets, aesop, Qq, batteries at the survey manifest revisions, provider builds shared read-only; Cli source-only",
+    "host": "Linux 6.8.0-138-generic x86_64",
+    "runner": "/home/dan/landrun-verified/landrun",
+    "runner_sha256": "c0a1e7285fd5f9359e02564b6df1d2508fccfb6b4d8e7c1c0003561bad69cc00",
+    "runner_description": "landrun 0.1.18, vcs.revision ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a, vcs.modified false, go-landlock v0.10.1",
+    "systemd_unit": "run-u11.service (invocation 2559381bc3ef454fafcb6367a209f0d0)",
+    "configs": {
+     "survey/lean-bridges/Comparator/twin_primes_iff_h1Le_two.json": "8bac53a36c04a291674cc3ac6a8f729eaee63a3fa52e900b0d84ab774b706748"
+    },
+    "compare_script_sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c",
+    "compare_script_path": "/home/dan/awards-twin/survey/scripts/compare_bridges_linux.sh",
+    "log": "survey/evidence/comparator/twin-h1le2-linux-landrun.log",
+    "log_sha256": "7d10b2ec36dbc2743b3251dbeee605490cf39597ad3f9857e287b0dd56a3da27",
+    "exit_status": "0 (systemd: Main processes terminated with: code=exited/status=0, in the log)",
+    "theorems": [
+     "Survey.PrimeBridges.twin_primes_iff_h1Le_two",
+     "Survey.PrimeBridges.h1Le_two_of_twin_primes",
+     "Survey.PrimeBridges.twin_primes_of_h1Le_two",
+     "Survey.PrimeBridges.primeGap_count_le",
+     "Survey.PrimeBridges.nth_succ_eq_add_two"
+    ],
+    "axiom_check": "Comparator checkAxioms over every theorem target, transitively: only propext, Quot.sound, Classical.choice (no 'Illegal axiom detected')"
+   },
+   "notes": "Isolated Comparator acceptance under landrun on Linux (landrun-linux, Landlock ABI 4); the isolation_audit line is copied verbatim from the log and meets survey/scripts/isolation_policy.py. Statements over lean-bgp212's own H1Le and primeGap; the survey definition InfinitelyManyTwinPrimes is restated verbatim in the Challenge (under the bridge module's open BGP212.Gap Filter), and Comparator compared it, body included, with the Solution's constant. No definition holes. Every Challenge, Solution, bridge and config hash printed in the log (43 sources) matches the repository; dependency revisions match the survey manifest. Run from the separate checkout ~/awards-twin (its survey/lean-bridges mounted read-only); ~/awards-localfactor and ~/awards-zmod were left as they were."
+  },
+  {
+   "id": "EV-0022",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-041-3"
+   ],
+   "kind": "comparator",
+   "isolation": "landrun-linux",
+   "isolation_audit": {
+    "go_landlock": "v0.10.1",
+    "kernel": "6.8.0-138-generic",
+    "landlock_abi": 4,
+    "landlock_probes": {
+     "read_outside_grants": "denied",
+     "write_outside_work_lake": "denied",
+     "write_through_shared_build_symlinks": "denied",
+     "write_work_lake": "allowed"
+    },
+    "landrun_flags": "--best-effort --ro / --rw /dev -ldd -add-exec --rwx WORK/.lake",
+    "landrun_modified": false,
+    "landrun_network_rules": "landrun TCP rules (Landlock ABI >= 4)",
+    "landrun_revision": "ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a",
+    "readonly_mounts": [
+     "/home/dan/lean-bgp212",
+     "/home/dan/comparator-19e111e",
+     "/home/dan/awards-twin/survey/lean-bridges"
+    ],
+    "sockets_denied": [
+     "AF_UNIX",
+     "AF_INET",
+     "AF_INET6"
+    ],
+    "systemd_unit": "90c52c0ddc754e50b89f06ea3aad9e22"
+   },
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/TwinPrimeTo186.lean",
+     "sha256": "121d2a8f26bea7dbfc0752a56dbed5ebd5c7efd0a9450ad2baee85d5676a16e7"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/TwinPrimeTo186.lean",
+     "sha256": "6b596629255698c410779520a40291c2d0bad616dfc50739a18f8372d1237cff"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/TwinPrimeTo186.lean",
+     "sha256": "808cbc0282e497710f843ce9ec75e8a6b26dab5a89c17dce5f50d9512f7f3617"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/TwinPrimeEquiv.lean",
+     "sha256": "4c269741a5de637d43d26a015aedbb0f2f892db2085095c60c6163f9e0cf72e9"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/H1LeMono.lean",
+     "sha256": "3be3ce313a06fcbb4438ff43bae0afeb42f7a737c7761f9e5c78f60e1dca4ded"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/twin_primes_implies_h1Le_186.json",
+     "sha256": "23fefcd9907d889eedfc76a9ae3ad0715d1655cfbc6304200c63ac8bccd33f4b"
+    },
+    {
+     "path": "survey/scripts/compare_bridges_linux.sh",
+     "sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c"
+    },
+    {
+     "path": "survey/scripts/isolation_policy.py",
+     "sha256": "f76b705fba4d624a7231b76ab34b592ca51106350e327f37047bcdf1e23670b8"
+    },
+    {
+     "path": "survey/evidence/comparator/twin-186-linux-landrun.log",
+     "sha256": "34587b22f831ee12562ddc4f9d93573758d41863cd6c4ee04412af19c97fbcb2"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.twin_primes_implies_h1Le_186"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "systemd-run --user --pipe --same-dir --wait --collect -p PrivateUsers=yes -p ReadOnlyPaths=$HOME/lean-bgp212 -p ReadOnlyPaths=$HOME/comparator-19e111e -p ReadOnlyPaths=$HOME/awards-twin -p 'RestrictAddressFamilies=~AF_UNIX AF_INET AF_INET6' -E PATH=$PATH -E HOME=$HOME -E COMPARATOR_LANDRUN=$HOME/landrun-verified/landrun -E COMPARE_WORKDIR_BASE=$HOME/survey-compare -- survey/scripts/compare_bridges_linux.sh ~/lean-bgp212 ~/comparator-19e111e survey/lean-bridges/Comparator/twin_primes_implies_h1Le_186.json 2>&1 | tee ~/comparator-runs/twin-186-linux-landrun.log (in ~/awards-twin: dfac2007d26eba6a7e5f50cd44d108660d824aef plus survey-comparator-twin-pairs.patch 52ee910b…)",
+   "tool": "Lean Comparator 19e111e2141cf333c7daff0f64c5f24acc91dd2e with lean4export cacf989bd75f608700820f6afc595f32e7a99a4d; Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release); landrun ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a (go-landlock v0.10.1)",
+   "result": "For each config (twin_primes_implies_h1Le_186.json): independence check passed; the Challenge built with one expected `sorry` warning per theorem and no other warning; Challenge and Solution each exported exactly the named theorems (twin_primes_implies_h1Le_186), with identical export lists; the Solution build printed 'twin_primes_implies_h1Le_186' depends on axioms: [propext, Classical.choice, Quot.sound]; then 'Running Lean default kernel on solution. / Lean default kernel accepts the solution / Your solution is okay!' (one acceptance per config). Isolation established before Comparator ran: Landlock ABI 4, the three denial probes denied and the WORK/.lake write allowed, provider/Comparator/survey trees read-only mounts, AF_UNIX/AF_INET/AF_INET6 denied, inside systemd unit 90c52c0ddc754e50b89f06ea3aad9e22. Post-run: 'shared builds unchanged; workspace 202M, no hardlinks'; final 'comparator: all configs accepted (isolation: landrun-linux)'; systemd 'Main processes terminated with: code=exited/status=0'. Full output: survey/evidence/comparator/twin-186-linux-landrun.log.",
+   "axioms": {
+    "Survey.PrimeBridges.twin_primes_implies_h1Le_186": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-26",
+   "machine": "User's Linux VPS (Linux 6.8.0-138-generic x86_64, ext4 /dev/sda1); run by the user under run-u12.service; Claude audited the complete 105-line log line by line",
+   "comparator": {
+    "comparator_commit": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+    "comparator_tree": "clean",
+    "comparator_binary_sha256": "514de8d2acbd6e0102575cd2c575e336b7c4a40daf3ae66abe97cef5e1e6b02a",
+    "lean4export_commit": "cacf989bd75f608700820f6afc595f32e7a99a4d",
+    "lean4export_tree": "clean",
+    "lean4export_binary_sha256": "4fa9e14cada304109e85da5048bcd411cf781a03539b3e50953e5c537074bd9e",
+    "toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "lean_commit": "6a10ac8c22beadecabdbb0919c2b50214762f91d",
+    "lake_launcher": "/home/dan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lake",
+    "lake_launcher_sha256": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+    "lake_version": "Lake version 5.0.0-src+6a10ac8 (Lean version 4.34.0-rc2)",
+    "lean_bgp212": "89b43fa019337645b4c2c66ae917bcb1fe76450f (workspace checkout from provider f779ea70c7d57570c57bca18aeab9ce0ede215a9, which descends from it; BGP212 modules compiled in the sandbox)",
+    "dependencies": "mathlib, plausible, LeanSearchClient, importGraph, proofwidgets, aesop, Qq, batteries at the survey manifest revisions, provider builds shared read-only; Cli source-only",
+    "host": "Linux 6.8.0-138-generic x86_64",
+    "runner": "/home/dan/landrun-verified/landrun",
+    "runner_sha256": "c0a1e7285fd5f9359e02564b6df1d2508fccfb6b4d8e7c1c0003561bad69cc00",
+    "runner_description": "landrun 0.1.18, vcs.revision ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a, vcs.modified false, go-landlock v0.10.1",
+    "systemd_unit": "run-u12.service (invocation 90c52c0ddc754e50b89f06ea3aad9e22)",
+    "configs": {
+     "survey/lean-bridges/Comparator/twin_primes_implies_h1Le_186.json": "23fefcd9907d889eedfc76a9ae3ad0715d1655cfbc6304200c63ac8bccd33f4b"
+    },
+    "compare_script_sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c",
+    "compare_script_path": "/home/dan/awards-twin/survey/scripts/compare_bridges_linux.sh",
+    "log": "survey/evidence/comparator/twin-186-linux-landrun.log",
+    "log_sha256": "34587b22f831ee12562ddc4f9d93573758d41863cd6c4ee04412af19c97fbcb2",
+    "exit_status": "0 (systemd: Main processes terminated with: code=exited/status=0, in the log)",
+    "theorems": [
+     "Survey.PrimeBridges.twin_primes_implies_h1Le_186"
+    ],
+    "axiom_check": "Comparator checkAxioms over every theorem target, transitively: only propext, Quot.sound, Classical.choice (no 'Illegal axiom detected')"
+   },
+   "notes": "Isolated Comparator acceptance under landrun on Linux (landrun-linux, Landlock ABI 4); the isolation_audit line is copied verbatim from the log and meets survey/scripts/isolation_policy.py. Statement over lean-bgp212's own H1Le; InfinitelyManyTwinPrimes restated verbatim in the Challenge (open BGP212.Gap Filter in) and compared by Comparator, body included. The cited steps were accepted in their own configs: twin_primes_iff_h1Le_two (EV-0021) and h1Le_mono (EV-0013). No definition holes. Every Challenge, Solution, bridge and config hash printed in the log (43 sources) matches the repository; dependency revisions match the survey manifest. Run from the separate checkout ~/awards-twin (its survey/lean-bridges mounted read-only); ~/awards-localfactor and ~/awards-zmod were left as they were."
   }
  ]
 }

@@ -50,8 +50,9 @@ survey/scripts/compare_bridges_linux.sh ~/lean-bgp212 ~/comparator-19e111e   # L
 (`h1le_mono`, `admissibleZ_subset`, `admissibleZ_pair_iff_even`, `admissibleZ_iff_nu_lt`,
 `admissibleZ_iff_omits_residue`, `admissibleZ_iff_card_lt`, `residueImage_card_eq_nu_of_modulus`,
 `admissibleZ_iff_local_factor_pos`, `localCount_pos_iff`, `localCount_pos_of_admissibleZ`, `localCount_singleton`,
-`localCount_singleton_eq_totient`; Challenges that
-mention `residueImage` restate it verbatim, and Comparator compares it in full): the Challenge
+`localCount_singleton_eq_totient`, `admissible_twin`, `admissible_twin_of_pair`, `twin_primes_iff_h1Le_two`,
+`twin_primes_implies_h1Le_186`; Challenges that mention `residueImage` or `InfinitelyManyTwinPrimes`
+restate it verbatim, and Comparator compares it in full): the Challenge
 (`lean-bridges/SurveyChallenge/`, statement only, importing only lean-bgp212) against the Solution
 (`lean-bridges/SurveySolution/`, importing the kernel-checked bridge module unchanged). It needs a
 Comparator checkout built for Lean 4.34.0-rc2 (commit `19e111e`, lean4export `cacf989`), assembles a
@@ -169,7 +170,9 @@ general distinction, shared reading, and boundary.
   `admissibleZ_pair_iff_even`, `admissibleZ_iff_nu_lt`, EV-0014), LIFT-ADM-4 (`admissibleZ_iff_omits_residue`,
   EV-0015), LIFT-ADM-5 and LIFT-ADM-6 (`admissibleZ_iff_card_lt` with `omits_residue_iff_card_lt`,
   `residueImage_card_eq_nu_of_modulus`, EV-0016), LIFT-ADM-8 and LIFT-GDT-2 (EV-0017), LIFT-GDT-3 (EV-0018),
-  LIFT-GDT-4 and LIFT-GDT-5 (EV-0019); obligations discharged. Logs in
+  LIFT-GDT-4 and LIFT-GDT-5 (EV-0019), LIFT-009-5 and LIFT-009-6 (`admissible_twin`, `admissible_twin_of_pair`, EV-0020),
+  LIFT-009-3 (`twin_primes_iff_h1Le_two` with its directions and side conditions, EV-0021), LIFT-041-3
+  (`twin_primes_implies_h1Le_186`, EV-0022); obligations discharged. Logs in
   `evidence/comparator/`.
 - Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 34 edges in total.
-  Lift states: Compiled 6, Specified 13, Proposed 3; Verified 12.
+  Lift states: Compiled 2, Specified 13, Proposed 3; Verified 16.

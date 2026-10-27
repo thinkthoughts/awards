@@ -271,3 +271,15 @@ The admissibility configs follow the same way (`admissibleZ_subset.json`,
 `comparator: all configs accepted (isolation: landrun-fs-systemd)` on ABI 2–3 (`landrun-linux`
 on ABI ≥ 4) after `shared builds unchanged;
 … no hardlinks`.
+
+The twin-prime configs run in three groups, ordered by mathematical dependency so that each
+failure points at one layer:
+
+1. **Admissibility of `{0, 2}`** (`admissible_twin.json`, LIFT-009-5; `admissible_twin_of_pair.json`,
+   LIFT-009-6): statements over lean-bgp212's `AdmissibleZ` only; no survey definition restated.
+2. **Twin primes and `H1Le 2`** (`twin_primes_iff_h1Le_two.json`, LIFT-009-3): the equivalence, its
+   two directions and its two side conditions; `InfinitelyManyTwinPrimes` restated verbatim under
+   `open BGP212.Gap Filter`.
+3. **Twin primes ⇒ `H1Le 186`** (`twin_primes_implies_h1Le_186.json`, LIFT-041-3): the composition,
+   whose steps are group 2 and `h1le_mono.json` (LIFT-041-2, EV-0013). A failure here with group 2
+   accepted isolates the composition.
