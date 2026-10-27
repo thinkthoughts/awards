@@ -137,13 +137,85 @@
      "isolation": {
       "enum": [
        "landrun-linux",
+       "landrun-fs-systemd",
        "non-isolating"
       ],
-      "description": "Comparator runs only: landrun-linux when Comparator's commands ran under landrun (Linux Landlock); non-isolating when a runner without sandboxing stood in for it."
+      "description": "Comparator runs only: landrun-linux when Comparator's commands ran under landrun with Landlock ABI >= 4; landrun-fs-systemd when Landlock ABI 2-3 kept landrun's filesystem rules only and the systemd unit supplied read-only mounts of the shared trees and denial of AF_UNIX, AF_INET and AF_INET6 sockets; both Linux configurations require isolation_audit, and Landlock ABI 1 is rejected (survey/scripts/isolation_policy.py); non-isolating when a runner without sandboxing stood in for it."
      },
      "comparator": {
       "type": "object",
       "description": "Comparator runs only: Comparator and lean4export commits and binary hashes, sandbox runner and its hash, config hash."
+     },
+     "isolation_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "kernel",
+       "landlock_abi",
+       "landrun_flags",
+       "landlock_probes",
+       "landrun_network_rules",
+       "readonly_mounts",
+       "sockets_denied",
+       "systemd_unit",
+       "landrun_revision",
+       "landrun_modified",
+       "go_landlock"
+      ],
+      "description": "Linux Comparator runs (landrun-linux, landrun-fs-systemd): the isolation-audit line printed by compare_bridges_linux.sh, verbatim.",
+      "properties": {
+       "kernel": {
+        "type": "string",
+        "minLength": 1
+       },
+       "landlock_abi": {
+        "type": "integer",
+        "minimum": 1
+       },
+       "landrun_flags": {
+        "type": "string",
+        "minLength": 1
+       },
+       "landlock_probes": {
+        "type": "object"
+       },
+       "landrun_network_rules": {
+        "type": "string",
+        "minLength": 1
+       },
+       "readonly_mounts": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        },
+        "minItems": 1
+       },
+       "sockets_denied": {
+        "type": "array",
+        "items": {
+         "type": "string",
+         "minLength": 1
+        }
+       },
+       "systemd_unit": {
+        "type": [
+         "string",
+         "null"
+        ]
+       },
+       "landrun_revision": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{40}$"
+       },
+       "landrun_modified": {
+        "type": "boolean"
+       },
+       "go_landlock": {
+        "type": "string",
+        "minLength": 1
+       }
+      }
      }
     }
    }

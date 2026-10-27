@@ -962,6 +962,292 @@
     "exit_status": "user-reported success (echoed outside the log)"
    },
    "notes": "Non-isolated Comparator acceptance: the runner provided no sandbox, so this records comparator-nonisolated; the three lifts stay Compiled with their obligations open until a Comparator run under landrun on Linux (survey/docs/COMPARATOR_RUNS.md). compare_script_sha256 is the committed script of this run (the log prints its independence-check output, not the script hash). Solution sources are the kernel-checked modules of EV-0007 (AdmissibleSubset, AdmissiblePair) and EV-0009 (ResidueNu), unchanged."
+  },
+  {
+   "id": "EV-0013",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-041-2"
+   ],
+   "kind": "comparator",
+   "isolation": "landrun-linux",
+   "isolation_audit": {
+    "go_landlock": "v0.10.1",
+    "kernel": "6.8.0-138-generic",
+    "landlock_abi": 4,
+    "landlock_probes": {
+     "read_outside_grants": "denied",
+     "write_outside_work_lake": "denied",
+     "write_through_shared_build_symlinks": "denied",
+     "write_work_lake": "allowed"
+    },
+    "landrun_flags": "--best-effort --ro / --rw /dev -ldd -add-exec --rwx WORK/.lake",
+    "landrun_modified": false,
+    "landrun_network_rules": "landrun TCP rules (Landlock ABI >= 4)",
+    "landrun_revision": "ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a",
+    "readonly_mounts": [
+     "/home/dan/lean-bgp212",
+     "/home/dan/comparator-19e111e",
+     "/home/dan/awards/survey/lean-bridges"
+    ],
+    "sockets_denied": [
+     "AF_UNIX",
+     "AF_INET",
+     "AF_INET6"
+    ],
+    "systemd_unit": "29cee59a586642dfae31e25d2c537e67"
+   },
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/H1LeMono.lean",
+     "sha256": "a94992d6f4e7115309a7f27999e8cc351620dd756c6a2f1c10ad025c371f3176"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/H1LeMono.lean",
+     "sha256": "fd7e963e2fce1bd486905b3f51447c9ea1d4f6b5053883c9ef921e7dbede2c0c"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/H1LeMono.lean",
+     "sha256": "3be3ce313a06fcbb4438ff43bae0afeb42f7a737c7761f9e5c78f60e1dca4ded"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/h1le_mono.json",
+     "sha256": "a7c668c88e56554f800c8efe7f84529afc812ccd214a02cb8a3586c65291780f"
+    },
+    {
+     "path": "survey/scripts/compare_bridges_linux.sh",
+     "sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c"
+    },
+    {
+     "path": "survey/scripts/isolation_policy.py",
+     "sha256": "f76b705fba4d624a7231b76ab34b592ca51106350e327f37047bcdf1e23670b8"
+    },
+    {
+     "path": "survey/evidence/comparator/h1le_mono-linux-landrun.log",
+     "sha256": "9bef502360610f10f85d995ac358415946ac98fbd96688e3a8e76327ac73b5e6"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.h1Le_mono"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "systemd-run --user --pipe --same-dir --wait --collect -p PrivateUsers=yes -p ReadOnlyPaths=$HOME/lean-bgp212 -p ReadOnlyPaths=$HOME/comparator-19e111e -p ReadOnlyPaths=$HOME/awards -p 'RestrictAddressFamilies=~AF_UNIX AF_INET AF_INET6' -E PATH -E HOME -E COMPARATOR_LANDRUN=$HOME/landrun-verified/landrun -E COMPARE_WORKDIR_BASE=$HOME/survey-compare -- survey/scripts/compare_bridges_linux.sh ~/lean-bgp212 ~/comparator-19e111e survey/lean-bridges/Comparator/h1le_mono.json 2>&1 | tee ~/comparator-runs/h1le_mono-linux-landrun.log",
+   "tool": "Lean Comparator 19e111e2141cf333c7daff0f64c5f24acc91dd2e with lean4export cacf989bd75f608700820f6afc595f32e7a99a4d; Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release); landrun ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a (go-landlock v0.10.1)",
+   "result": "For each config (h1le_mono.json): independence check passed; the Challenge built with its expected `sorry` warning; Challenge and Solution each exported the named theorem; then 'Running Lean default kernel on solution. / Lean default kernel accepts the solution / Your solution is okay!' (one acceptance per config). Isolation established before Comparator ran: Landlock ABI 4, the three denial probes denied and the WORK/.lake write allowed, provider/Comparator/survey trees read-only mounts, AF_UNIX/AF_INET/AF_INET6 denied, inside systemd unit 29cee59a586642dfae31e25d2c537e67. Post-run: 'shared builds unchanged; workspace 200M, no hardlinks'; final 'comparator: all configs accepted (isolation: landrun-linux)'; systemd 'Main processes terminated with: code=exited/status=0'. Full output: survey/evidence/comparator/h1le_mono-linux-landrun.log.",
+   "axioms": {
+    "Survey.PrimeBridges.h1Le_mono": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-26",
+   "machine": "User's Linux VPS (Linux 6.8.0-138-generic x86_64, ext4 /dev/sda1); run by the user under run-u3.service; Claude audited the complete 77-line log line by line",
+   "comparator": {
+    "comparator_commit": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+    "comparator_tree": "clean",
+    "comparator_binary_sha256": "514de8d2acbd6e0102575cd2c575e336b7c4a40daf3ae66abe97cef5e1e6b02a",
+    "lean4export_commit": "cacf989bd75f608700820f6afc595f32e7a99a4d",
+    "lean4export_tree": "clean",
+    "lean4export_binary_sha256": "4fa9e14cada304109e85da5048bcd411cf781a03539b3e50953e5c537074bd9e",
+    "toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "lean_commit": "6a10ac8c22beadecabdbb0919c2b50214762f91d",
+    "lake_launcher": "/home/dan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lake",
+    "lake_launcher_sha256": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+    "lake_version": "Lake version 5.0.0-src+6a10ac8 (Lean version 4.34.0-rc2)",
+    "lean_bgp212": "89b43fa019337645b4c2c66ae917bcb1fe76450f (workspace checkout from provider f779ea70c7d57570c57bca18aeab9ce0ede215a9, which descends from it; BGP212 modules compiled in the sandbox)",
+    "dependencies": "mathlib, plausible, LeanSearchClient, importGraph, proofwidgets, aesop, Qq, batteries at the survey manifest revisions, provider builds shared read-only; Cli source-only",
+    "host": "Linux 6.8.0-138-generic x86_64",
+    "runner": "/home/dan/landrun-verified/landrun",
+    "runner_sha256": "c0a1e7285fd5f9359e02564b6df1d2508fccfb6b4d8e7c1c0003561bad69cc00",
+    "runner_description": "landrun 0.1.18, vcs.revision ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a, vcs.modified false, go-landlock v0.10.1",
+    "systemd_unit": "run-u3.service (invocation 29cee59a586642dfae31e25d2c537e67)",
+    "configs": {
+     "survey/lean-bridges/Comparator/h1le_mono.json": "a7c668c88e56554f800c8efe7f84529afc812ccd214a02cb8a3586c65291780f"
+    },
+    "compare_script_sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c",
+    "log": "survey/evidence/comparator/h1le_mono-linux-landrun.log",
+    "log_sha256": "9bef502360610f10f85d995ac358415946ac98fbd96688e3a8e76327ac73b5e6",
+    "exit_status": "0 (systemd: Main processes terminated with: code=exited/status=0, in the log)",
+    "preflight_log": "survey/evidence/comparator/linux-preflight-4.log",
+    "preflight_log_sha256": "4c41481101bfa6c5befe362711b3d1036283734913dea75b898ae23a296ef20b"
+   },
+   "notes": "Isolated Comparator acceptance under landrun on Linux (landrun-linux, Landlock ABI 4), with the systemd read-only mounts and socket filter; the isolation_audit line is copied verbatim from the log and meets survey/scripts/isolation_policy.py. Every Challenge, Solution, bridge and config hash printed in the log matches the repository. The runner script (89d89c24…) and policy are the files listed above."
+  },
+  {
+   "id": "EV-0014",
+   "layer": "L4",
+   "subjects": [
+    "LIFT-ADM-2",
+    "LIFT-ADM-3",
+    "LIFT-ADM-7"
+   ],
+   "kind": "comparator",
+   "isolation": "landrun-linux",
+   "isolation_audit": {
+    "go_landlock": "v0.10.1",
+    "kernel": "6.8.0-138-generic",
+    "landlock_abi": 4,
+    "landlock_probes": {
+     "read_outside_grants": "denied",
+     "write_outside_work_lake": "denied",
+     "write_through_shared_build_symlinks": "denied",
+     "write_work_lake": "allowed"
+    },
+    "landrun_flags": "--best-effort --ro / --rw /dev -ldd -add-exec --rwx WORK/.lake",
+    "landrun_modified": false,
+    "landrun_network_rules": "landrun TCP rules (Landlock ABI >= 4)",
+    "landrun_revision": "ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a",
+    "readonly_mounts": [
+     "/home/dan/lean-bgp212",
+     "/home/dan/comparator-19e111e",
+     "/home/dan/awards/survey/lean-bridges"
+    ],
+    "sockets_denied": [
+     "AF_UNIX",
+     "AF_INET",
+     "AF_INET6"
+    ],
+    "systemd_unit": "52c723366ad245db89925332f60a3ca2"
+   },
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/AdmissibleSubset.lean",
+     "sha256": "c04499bd1b6a796a015a0ba77f47d26f1425dfe225be0d65c0686b1b28f50f18"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/AdmissibleSubset.lean",
+     "sha256": "c965f839ac6418b2e89dc667028c5a625312e91f094406821c854ea1020a7c19"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/AdmissibleSubset.lean",
+     "sha256": "f0870786ed0f9572cd93fdac0dc6fc61cb88a18e25f62c318406fbbaa1dba246"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/admissibleZ_subset.json",
+     "sha256": "81d8eab20adaf4fd788ca8d35bb7bb4ff0ea6b1cdfeb99ee7eaecb84da0a3ce0"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/AdmissiblePair.lean",
+     "sha256": "d685ef25efc44f558ade5d9382b671027d95c8b683147466dd1c36c8f01c9e4c"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/AdmissiblePair.lean",
+     "sha256": "c553006d8363e250cc7bbf7d65f5624de14bbe9c9e93092e02b67b3a8ceb9f84"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/AdmissiblePair.lean",
+     "sha256": "00c1090cbf6ffea1d1d0c6cfe27b8981156dd6625d97d7c7ac54782d66a65d83"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/admissibleZ_pair_iff_even.json",
+     "sha256": "5255ac954388baca83bef76047bb73d8bdf498532504d8d76a551d0226b88160"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/AdmissibleNu.lean",
+     "sha256": "51de6172b78d220b6feaa1f7b2d3d719a3ac4b829f78e9db7ce2d518dee81618"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/AdmissibleNu.lean",
+     "sha256": "f05c7686198849ea8481b722c35d68d15d5710c0bfda4973640753715a3b3e57"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/ResidueNu.lean",
+     "sha256": "76c20ab6d9404c514c39941610e53bc6195928dc4c033cb570948598086aed53"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/admissibleZ_iff_nu_lt.json",
+     "sha256": "c33624e2db91a3daf6b244cf74a94a9a9bd68c25790c360a40ee5fba8a6e676a"
+    },
+    {
+     "path": "survey/scripts/compare_bridges_linux.sh",
+     "sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c"
+    },
+    {
+     "path": "survey/scripts/isolation_policy.py",
+     "sha256": "f76b705fba4d624a7231b76ab34b592ca51106350e327f37047bcdf1e23670b8"
+    },
+    {
+     "path": "survey/evidence/comparator/admissibility-linux-landrun.log",
+     "sha256": "88be84d8c2b62ada42d9558b090295e39647eb337ccf08b46515d3663cf77096"
+    }
+   ],
+   "declarations": [
+    "Survey.PrimeBridges.admissibleZ_subset",
+    "Survey.PrimeBridges.admissibleZ_pair_iff_even",
+    "Survey.PrimeBridges.admissibleZ_iff_nu_lt"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "systemd-run --user --pipe --same-dir --wait --collect -p PrivateUsers=yes -p ReadOnlyPaths=$HOME/lean-bgp212 -p ReadOnlyPaths=$HOME/comparator-19e111e -p ReadOnlyPaths=$HOME/awards -p 'RestrictAddressFamilies=~AF_UNIX AF_INET AF_INET6' -E PATH -E HOME -E COMPARATOR_LANDRUN=$HOME/landrun-verified/landrun -E COMPARE_WORKDIR_BASE=$HOME/survey-compare -- survey/scripts/compare_bridges_linux.sh ~/lean-bgp212 ~/comparator-19e111e survey/lean-bridges/Comparator/admissibleZ_subset.json survey/lean-bridges/Comparator/admissibleZ_pair_iff_even.json survey/lean-bridges/Comparator/admissibleZ_iff_nu_lt.json 2>&1 | tee ~/comparator-runs/admissibility-linux-landrun.log",
+   "tool": "Lean Comparator 19e111e2141cf333c7daff0f64c5f24acc91dd2e with lean4export cacf989bd75f608700820f6afc595f32e7a99a4d; Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release); landrun ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a (go-landlock v0.10.1)",
+   "result": "For each config (admissibleZ_subset.json, admissibleZ_pair_iff_even.json, admissibleZ_iff_nu_lt.json): independence check passed; the Challenge built with its expected `sorry` warning; Challenge and Solution each exported the named theorem; then 'Running Lean default kernel on solution. / Lean default kernel accepts the solution / Your solution is okay!' (one acceptance per config). Isolation established before Comparator ran: Landlock ABI 4, the three denial probes denied and the WORK/.lake write allowed, provider/Comparator/survey trees read-only mounts, AF_UNIX/AF_INET/AF_INET6 denied, inside systemd unit 52c723366ad245db89925332f60a3ca2. Post-run: 'shared builds unchanged; workspace 209M, no hardlinks'; final 'comparator: all configs accepted (isolation: landrun-linux)'; systemd 'Main processes terminated with: code=exited/status=0'. Full output: survey/evidence/comparator/admissibility-linux-landrun.log.",
+   "axioms": {
+    "Survey.PrimeBridges.admissibleZ_subset": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissibleZ_pair_iff_even": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "Survey.PrimeBridges.admissibleZ_iff_nu_lt": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-26",
+   "machine": "User's Linux VPS (Linux 6.8.0-138-generic x86_64, ext4 /dev/sda1); run by the user under run-u4.service; Claude audited the complete 159-line log line by line",
+   "comparator": {
+    "comparator_commit": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+    "comparator_tree": "clean",
+    "comparator_binary_sha256": "514de8d2acbd6e0102575cd2c575e336b7c4a40daf3ae66abe97cef5e1e6b02a",
+    "lean4export_commit": "cacf989bd75f608700820f6afc595f32e7a99a4d",
+    "lean4export_tree": "clean",
+    "lean4export_binary_sha256": "4fa9e14cada304109e85da5048bcd411cf781a03539b3e50953e5c537074bd9e",
+    "toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "lean_commit": "6a10ac8c22beadecabdbb0919c2b50214762f91d",
+    "lake_launcher": "/home/dan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lake",
+    "lake_launcher_sha256": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+    "lake_version": "Lake version 5.0.0-src+6a10ac8 (Lean version 4.34.0-rc2)",
+    "lean_bgp212": "89b43fa019337645b4c2c66ae917bcb1fe76450f (workspace checkout from provider f779ea70c7d57570c57bca18aeab9ce0ede215a9, which descends from it; BGP212 modules compiled in the sandbox)",
+    "dependencies": "mathlib, plausible, LeanSearchClient, importGraph, proofwidgets, aesop, Qq, batteries at the survey manifest revisions, provider builds shared read-only; Cli source-only",
+    "host": "Linux 6.8.0-138-generic x86_64",
+    "runner": "/home/dan/landrun-verified/landrun",
+    "runner_sha256": "c0a1e7285fd5f9359e02564b6df1d2508fccfb6b4d8e7c1c0003561bad69cc00",
+    "runner_description": "landrun 0.1.18, vcs.revision ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a, vcs.modified false, go-landlock v0.10.1",
+    "systemd_unit": "run-u4.service (invocation 52c723366ad245db89925332f60a3ca2)",
+    "configs": {
+     "survey/lean-bridges/Comparator/admissibleZ_subset.json": "81d8eab20adaf4fd788ca8d35bb7bb4ff0ea6b1cdfeb99ee7eaecb84da0a3ce0",
+     "survey/lean-bridges/Comparator/admissibleZ_pair_iff_even.json": "5255ac954388baca83bef76047bb73d8bdf498532504d8d76a551d0226b88160",
+     "survey/lean-bridges/Comparator/admissibleZ_iff_nu_lt.json": "c33624e2db91a3daf6b244cf74a94a9a9bd68c25790c360a40ee5fba8a6e676a"
+    },
+    "compare_script_sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c",
+    "log": "survey/evidence/comparator/admissibility-linux-landrun.log",
+    "log_sha256": "88be84d8c2b62ada42d9558b090295e39647eb337ccf08b46515d3663cf77096",
+    "exit_status": "0 (systemd: Main processes terminated with: code=exited/status=0, in the log)",
+    "preflight_log": "survey/evidence/comparator/linux-preflight-4.log",
+    "preflight_log_sha256": "4c41481101bfa6c5befe362711b3d1036283734913dea75b898ae23a296ef20b"
+   },
+   "notes": "Isolated Comparator acceptance under landrun on Linux (landrun-linux, Landlock ABI 4), with the systemd read-only mounts and socket filter; the isolation_audit line is copied verbatim from the log and meets survey/scripts/isolation_policy.py. Every Challenge, Solution, bridge and config hash printed in the log matches the repository. The runner script (89d89c24…) and policy are the files listed above."
   }
  ]
 }

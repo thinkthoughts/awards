@@ -1,0 +1,41 @@
+Running as unit: run-u2.service
+pair admissibleZ_iff_nu_lt.json: SurveyChallenge.AdmissibleNu imports ['BGP212.Gap', 'BGP212.MultiShift']; SurveySolution.AdmissibleNu imports ['SurveyBridges.ResidueNu']; theorems ['Survey.PrimeBridges.admissibleZ_iff_nu_lt']
+pair admissibleZ_pair_iff_even.json: SurveyChallenge.AdmissiblePair imports ['BGP212.Gap']; SurveySolution.AdmissiblePair imports ['SurveyBridges.AdmissiblePair']; theorems ['Survey.PrimeBridges.admissibleZ_pair_iff_even']
+pair admissibleZ_subset.json: SurveyChallenge.AdmissibleSubset imports ['BGP212.Gap']; SurveySolution.AdmissibleSubset imports ['SurveyBridges.AdmissibleSubset']; theorems ['Survey.PrimeBridges.admissibleZ_subset']
+pair h1le_mono.json: SurveyChallenge.H1LeMono imports ['BGP212.Gap']; SurveySolution.H1LeMono imports ['SurveyBridges.H1LeMono']; theorems ['Survey.PrimeBridges.h1Le_mono']
+provider lean-bgp212 f779ea70c7d57570c57bca18aeab9ce0ede215a9 (descends from the pin 89b43fa019337645b4c2c66ae917bcb1fe76450f); workspace bgp212 checkout 89b43fa019337645b4c2c66ae917bcb1fe76450f
+dependency mathlib 85e3a25e006c35636f0e53b0e9296caca2685bc0 (https://github.com/leanprover-community/mathlib4, lakefile.lean): shared read-only build /home/dan/lean-bgp212/.lake/packages/mathlib/.lake/build
+dependency plausible d9598f07b1bc701f1e3aae163d2681c1fd978793 (https://github.com/leanprover-community/plausible, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/plausible/.lake/build
+dependency LeanSearchClient ba67e212be1197b84c1f1f6299488a10a3002713 (https://github.com/leanprover-community/LeanSearchClient, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/LeanSearchClient/.lake/build
+dependency importGraph d8823026ac7ef130c253089d95685f9877b95323 (https://github.com/leanprover-community/import-graph, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/importGraph/.lake/build
+dependency proofwidgets a8acbfd87375ff4abe14ce09db5b7664d383bc7f (https://github.com/leanprover-community/ProofWidgets4, lakefile.lean): shared read-only build /home/dan/lean-bgp212/.lake/packages/proofwidgets/.lake/build
+dependency aesop 18889deb9e83ea7420ef51c160d6f88552e744e3 (https://github.com/leanprover-community/aesop, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/aesop/.lake/build
+dependency Qq 507746ab8f4b643ccdacb2ec4cdb5853fa9f8ab3 (https://github.com/leanprover-community/quote4, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/Qq/.lake/build
+dependency batteries d54dddc581e08be364c278052863524bff7a99a9 (https://github.com/leanprover-community/batteries, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/batteries/.lake/build
+dependency Cli ab3a82db9fea14cf0fd7f5a2de650f4b534640af (https://github.com/leanprover/lean4-cli, lakefile.toml): source-only checkout; any build happens in WORK/.lake
+workspace /home/dan/survey-compare/survey-compare.mzFxtz on /dev/sda1: sources 154 MiB, estimate 666 MiB, available 3384 MiB
+host Linux 6.8.0-138-generic x86_64
+lsm lockdown,capability,landlock,yama,apparmor
+runner /home/dan/landrun-verified/landrun sha256 c0a1e7285fd5f9359e02564b6df1d2508fccfb6b4d8e7c1c0003561bad69cc00: landrun landrun version 0.1.18, vcs.revision ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a, vcs.modified false, go-landlock v0.10.1
+landlock abi 4: reads outside grants denied, writes outside WORK/.lake denied, shared builds write-denied
+mounts: provider, Comparator and survey trees read-only; sockets: AF_UNIX, AF_INET, AF_INET6 denied
+systemd unit: 96b3a649ddd24f449ca9c32056ad8e2b
+isolation-audit: {"go_landlock": "v0.10.1", "kernel": "6.8.0-138-generic", "landlock_abi": 4, "landlock_probes": {"read_outside_grants": "denied", "write_outside_work_lake": "denied", "write_through_shared_build_symlinks": "denied", "write_work_lake": "allowed"}, "landrun_flags": "--best-effort --ro / --rw /dev -ldd -add-exec --rwx WORK/.lake", "landrun_modified": false, "landrun_network_rules": "landrun TCP rules (Landlock ABI >= 4)", "landrun_revision": "ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a", "readonly_mounts": ["/home/dan/lean-bgp212", "/home/dan/comparator-19e111e", "/home/dan/awards/survey/lean-bridges"], "sockets_denied": ["AF_UNIX", "AF_INET", "AF_INET6"], "systemd_unit": "96b3a649ddd24f449ca9c32056ad8e2b"}
+isolation: landrun-linux
+lake launcher /home/dan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lake sha256 6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d: Lake version 5.0.0-src+6a10ac8 (Lean version 4.34.0-rc2)
+== sandboxed dependency build: lake build BGP212.Gap BGP212.MultiShift
+✔ [1/13] Built BGP212.Basic (550ms)
+✔ [1242/1247] Built BGP212.GDTv1Basic (20s)
+✔ [1244/1257] Built BGP212.MultiShift (2.1s)
+✔ [1316/1323] Built BGP212.Params (531ms)
+✔ [1318/1324] Built BGP212.Ledger (669ms)
+✔ [1320/1326] Built BGP212.Packing (1.7s)
+✔ [1322/1329] Built BGP212.Theorem711 (1.0s)
+✔ [1324/1331] Built BGP212.WTrick (2.8s)
+✔ [1365/1365] Built BGP212.Gap (2.7s)
+Build completed successfully (1365 jobs).
+preflight: isolation established, dependency build replayed shared artifacts, shared builds unchanged; workspace 197M
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 59.959s
+CPU time consumed: 33.491s

@@ -172,7 +172,7 @@ class RegistryTests(unittest.TestCase):
             if e["state"]["verification"] == "kernel-checked":
                 self.assertEqual(validate_registry.lift_state(e), "Compiled", e["id"])
                 self.assertEqual(e["obligation"], "open", e["id"])
-        self.assertRejected(lambda r: self.edge(r, "LIFT-041-2").update(obligation="discharged"),
+        self.assertRejected(lambda r: self.edge(r, "LIFT-009-5").update(obligation="discharged"),
                             "discharged exactly when it is Verified")
 
     def test_bridge_package_pins_the_registered_commit(self):
@@ -274,12 +274,62 @@ class RegistryTests(unittest.TestCase):
         log = (ROOT / ev12["comparator"]["log"]).read_text(encoding="utf-8")
         self.assertEqual(log.count("Your solution is okay!"), 3)
         self.assertIn("comparator: all configs accepted (isolation: non-isolating)", log)
+        # isolated acceptance (EV-0014, landrun-linux) verifies; the macOS record EV-0012 stays as history
+        ev14 = next(v for v in self.reg["evidence"]["evidence"] if v["id"] == "EV-0014")
+        self.assertEqual(ev14["isolation"], "landrun-linux")
+        self.assertEqual(validate_registry.isolation_policy.audit_errors("landrun-linux", ev14["isolation_audit"]), [])
+        log14 = (ROOT / ev14["comparator"]["log"]).read_text(encoding="utf-8")
+        self.assertEqual(sha256(ROOT / ev14["comparator"]["log"]), "88be84d8c2b62ada42d9558b090295e39647eb337ccf08b46515d3663cf77096")
+        for cfg in ("admissibleZ_subset.json", "admissibleZ_pair_iff_even.json", "admissibleZ_iff_nu_lt.json"):
+            section = log14.split(f"== Comparator/{cfg} ")[1].split("\n== Comparator/")[0]
+            self.assertEqual(section.count("Your solution is okay!"), 1, cfg)
+        self.assertIn("isolation-audit: " + json.dumps(ev14["isolation_audit"], sort_keys=True), log14)
         for eid in ("LIFT-ADM-2", "LIFT-ADM-3", "LIFT-ADM-7"):
             e = self.edge(self.reg, eid)
-            self.assertEqual(e["state"]["verification"], "comparator-nonisolated", eid)
-            self.assertEqual(validate_registry.lift_state(e), "Compiled", eid)
-            self.assertEqual(e["obligation"], "open", eid)
+            self.assertEqual(e["state"]["verification"], "comparator-accepted", eid)
+            self.assertEqual(validate_registry.lift_state(e), "Verified", eid)
+            self.assertEqual(e["obligation"], "discharged", eid)
             self.assertIn("EV-0012", e["evidence"])
+            self.assertIn("EV-0014", e["evidence"])
+        e = self.edge(self.reg, "LIFT-041-2")
+        self.assertEqual((validate_registry.lift_state(e), e["obligation"]), ("Verified", "discharged"))
+        ev13 = next(v for v in self.reg["evidence"]["evidence"] if v["id"] == "EV-0013")
+        self.assertEqual(sha256(ROOT / ev13["comparator"]["log"]), "9bef502360610f10f85d995ac358415946ac98fbd96688e3a8e76327ac73b5e6")
+        self.assertIn("isolation-audit: " + json.dumps(ev13["isolation_audit"], sort_keys=True),
+                      (ROOT / ev13["comparator"]["log"]).read_text(encoding="utf-8"))
+
+    def test_linux_runner_shares_builds_read_only(self):
+        import os, re
+        path = SURVEY / "scripts" / "compare_bridges_linux.sh"
+        script = path.read_text(encoding="utf-8")
+        self.assertTrue(os.access(path, os.X_OK))
+        # exact pins for formal evidence
+        self.assertIn("COMPARATOR_PIN=19e111e2141cf333c7daff0f64c5f24acc91dd2e", script)
+        self.assertIn("LEAN4EXPORT_PIN=cacf989bd75f608700820f6afc595f32e7a99a4d", script)
+        # no copies or hardlinks of builds: sources via git alternates, builds via symlink
+        code = "\n".join(l for l in script.splitlines() if not l.lstrip().startswith("#"))
+        self.assertNotRegex(code, r"--reflink|cp -c|cp -l|\bln (?!-s)|git clone|cp -R \"\$src")
+        self.assertIn("objects/info/alternates", code)
+        self.assertIn('ln -s "$src/.lake/build" "$dest/.lake/build"', code)
+        self.assertIn("-links +1", code)
+        self.assertIn("-newer", code)
+        # Comparator's own landrun flags, probed before it runs
+        cmp_main = "--best-effort --ro / --rw /dev -ldd -add-exec --rwx"
+        self.assertIn('SANDBOX=(' + cmp_main + ' "$WORK/.lake")', code)
+        for probe in ("ST_RDONLY", "AF_INET6", "syscall(444", "SURVEY-NONISOLATING-RUNNER"):
+            self.assertIn(probe, code)
+        self.assertIn('echo "isolation: $ISOLATION"', code)
+        self.assertIn('echo "isolation-audit: $AUDIT"', code)
+        self.assertIn('sha256 $(sha "$SCRIPT")', code)
+        # it refuses the non-isolating runner (or non-Linux hosts) before touching anything
+        out = subprocess.run(["bash", str(path), "--preflight", str(ROOT), str(ROOT)],
+                             env=dict(os.environ, COMPARATOR_LANDRUN=str(SURVEY / "scripts" / "landrun-noisolate.sh")),
+                             capture_output=True, text=True)
+        self.assertNotEqual(out.returncode, 0)
+        self.assertRegex(out.stderr, r"Linux only|non-isolating runner")
+        # the macOS script and its recorded hashes stay as they were
+        self.assertEqual(sha256(SURVEY / "scripts" / "compare_bridges.sh"),
+                         "4bde79bb936750c7ddb3d23b274d7ddfa80bb6cd7e1b4d59043e8d1e03f12553")
 
     def test_only_isolated_comparator_acceptance_verifies(self):
         cmp_ev = {"id": "EV-TEST-CMP", "layer": "L4", "subjects": ["LIFT-041-2"], "kind": "comparator",
@@ -288,13 +338,23 @@ class RegistryTests(unittest.TestCase):
                   ["propext", "Classical.choice", "Quot.sound"]},
                   "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"], "sorry_free": True}
 
+        pol = validate_registry.isolation_policy
+        linux_audit = {"kernel": "6.8.0", "landlock_abi": 4, "landrun_flags": "--best-effort --ro / --rw /dev -ldd -add-exec --rwx WORK/.lake",
+                       "landlock_probes": {p: "denied" for p in pol.DENIED_PROBES} | {"write_work_lake": "allowed"},
+                       "landrun_network_rules": "landrun TCP rules (Landlock ABI >= 4)", "readonly_mounts": ["/p"],
+                       "sockets_denied": ["AF_UNIX", "AF_INET", "AF_INET6"], "systemd_unit": "u",
+                       "landrun_revision": pol.LANDRUN_PIN, "landrun_modified": False, "go_landlock": pol.GO_LANDLOCK_PIN}
+
         def with_run(isolation, verification, obligation):
             def mutate(r):
                 ev = dict(cmp_ev, isolation=isolation)
+                if isolation == "landrun-linux":
+                    ev["isolation_audit"] = linux_audit
                 r["evidence"]["evidence"].append(ev)
                 e = self.edge(r, "LIFT-041-2")
                 e["state"]["verification"] = verification
-                e["evidence"] = e["evidence"] + ["EV-TEST-CMP"]
+                # only the test record: the recorded Linux run (EV-0013) is set aside
+                e["evidence"] = [x for x in e["evidence"] if x != "EV-0013"] + ["EV-TEST-CMP"]
                 e["obligation"] = obligation
             return mutate
 
@@ -370,8 +430,10 @@ class RegistryTests(unittest.TestCase):
             name = e["statement"]["lean_name"].rsplit(".", 1)[-1]
             decl = re.search(rf"theorem {name}\b.*?:=", src, re.S).group(0)[:-2]
             self.assertEqual(norm(decl), norm(e["statement"]["lean"]), eid)
-            self.assertEqual(validate_registry.lift_state(e), "Compiled", eid)
-            self.assertEqual(e["obligation"], "open", eid)
+        # LIFT-ADM-6 is kernel-checked (Compiled); LIFT-ADM-7 is Verified by EV-0014
+        self.assertEqual(validate_registry.lift_state(self.edge(self.reg, "LIFT-ADM-6")), "Compiled")
+        self.assertEqual(self.edge(self.reg, "LIFT-ADM-6")["obligation"], "open")
+        self.assertEqual(validate_registry.lift_state(self.edge(self.reg, "LIFT-ADM-7")), "Verified")
         # the prime form keeps the requested signature
         self.assertIn("theorem residueImage_card_eq_nu\n    (p : ℕ) (hp : p.Prime) (H : Finset ℤ) :", src)
         # LIFT-ADM-1 keeps its upstream route and open bridge
@@ -437,6 +499,208 @@ class RegistryTests(unittest.TestCase):
         self.assertIn("074c3fbaaea5587a852c73ebb7470f2d18beab47c08a94a2b01742e4cf0ad3de", ev["EV-0011"]["notes"])
         log = (ROOT / "survey/evidence/kernel/bridges-totient.log").read_text(encoding="utf-8")
         self.assertIn("== Audit sha256 074c3fbaaea5587a852c73ebb7470f2d18beab47c08a94a2b01742e4cf0ad3de", log)
+
+    @unittest.skipUnless(sys.platform.startswith("linux"), "the Linux runner checks out workspaces on Linux only")
+    def test_linux_runner_checks_out_source_only_dependencies(self):
+        import os
+        g = ["git", "-c", "user.name=t", "-c", "user.email=t@t", "-c", "commit.gpgsign=false",
+             "-c", "init.defaultBranch=main"]
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+
+            def repo(d, files, url):
+                d.mkdir(parents=True, exist_ok=True)
+                for name, text in files.items():
+                    (d / name).parent.mkdir(parents=True, exist_ok=True)
+                    (d / name).write_text(text)
+                subprocess.run(g + ["init", "-q", str(d)], check=True)
+                subprocess.run(g + ["-C", str(d), "add", "-A"], check=True)
+                subprocess.run(g + ["-C", str(d), "commit", "-qm", "c"], check=True)
+                subprocess.run(g + ["-C", str(d), "remote", "add", "origin", url], check=True)
+                return subprocess.run(["git", "-C", str(d), "rev-parse", "HEAD"], check=True,
+                                      capture_output=True, text=True).stdout.strip()
+
+            prov = tmp / "prov"
+            urls = {"mathlib": "https://github.com/leanprover-community/mathlib4", "Cli": "https://github.com/leanprover/lean4-cli"}
+            revs = {n: repo(prov / ".lake/packages" / n, {"README": n, ".gitignore": "/.lake\n"}, u) for n, u in urls.items()}
+            olean = prov / ".lake/packages/mathlib/.lake/build/lib/lean/Mathlib/Foo.olean"
+            olean.parent.mkdir(parents=True); olean.write_text("olean")
+            entry = lambda n, rev, url: {"url": url, "type": "git", "rev": rev, "name": n, "configFile": "lakefile.toml",
+                                         "manifestFile": "lake-manifest.json", "inputRev": rev, "inherited": True,
+                                         "scope": "", "subDir": None}
+            deps = [entry(n, revs[n], urls[n]) for n in urls]
+            tc = "leanprover/lean4:v4.34.0-rc2\n"
+            pin = repo(prov, {"lean-toolchain": tc, ".gitignore": "/.lake\n", "BGP212/Gap.lean": "-- gap\n",
+                              "lake-manifest.json": json.dumps({"version": "1.2.0", "packages": deps})},
+                       "https://github.com/thinkthoughts/lean-bgp212")
+            lb = tmp / "survey/lean-bridges"
+            for sub in ("SurveyBridges", "SurveyChallenge", "SurveySolution", "Comparator"):
+                (lb / sub).mkdir(parents=True)
+            (tmp / "survey/scripts").mkdir(parents=True)
+            shutil.copy2(SURVEY / "scripts/compare_bridges_linux.sh", tmp / "survey/scripts/")
+            (lb / "lakefile.toml").write_text(f'[[require]]\nname = "bgp212"\nrev = "{pin}"\n')
+            (lb / "lake-manifest.json").write_text(json.dumps({"version": "1.2.0", "packages":
+                [entry("bgp212", pin, "https://github.com/thinkthoughts/lean-bgp212")] + deps}))
+            (lb / "lean-toolchain").write_text(tc)
+            (lb / "SurveyBridges.lean").write_text("import SurveyBridges.A\n")
+            (lb / "SurveyBridges/A.lean").write_text("import BGP212.Gap\nimport Mathlib.Foo\ntheorem a : True := trivial\n")
+            (lb / "SurveyChallenge/A.lean").write_text("import BGP212.Gap\ntheorem a : True := sorry\n")
+            (lb / "SurveySolution/A.lean").write_text("import SurveyBridges.A\n")
+            (lb / "Comparator/a.json").write_text(json.dumps({"challenge_module": "SurveyChallenge.A",
+                "solution_module": "SurveySolution.A", "theorem_names": ["a"],
+                "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"]}))
+            (tmp / "wb").mkdir()
+            env = dict(os.environ, COMPARE_WORKDIR_BASE=str(tmp / "wb"), KEEP_WORK="1", COMPARE_PLAN_SKIP_COMPARATOR="1")
+            run = lambda: subprocess.run(["bash", str(tmp / "survey/scripts/compare_bridges_linux.sh"), "--plan",
+                                          str(prov), str(tmp)], env=env, capture_output=True, text=True)
+            out = run()
+            self.assertEqual(out.returncode, 0, out.stderr)
+            self.assertIn("dependency Cli " + revs["Cli"], out.stdout)
+            self.assertIn("source-only checkout; any build happens in WORK/.lake", out.stdout)
+            self.assertIn("shared read-only build " + str(prov / ".lake/packages/mathlib/.lake/build"), out.stdout)
+            work = next((tmp / "wb").iterdir())
+            cli, ml = work / ".lake/packages/Cli", work / ".lake/packages/mathlib"
+            self.assertFalse((cli / ".lake/build").exists())                    # nothing shared for Cli
+            self.assertTrue((ml / ".lake/build").is_symlink())                  # Mathlib shared read-only
+            self.assertEqual(os.readlink(ml / ".lake/build"), str(prov / ".lake/packages/mathlib/.lake/build"))
+            for n in urls:                                                      # exact revisions, clean trees
+                d = work / ".lake/packages" / n
+                head = subprocess.run(["git", "-C", str(d), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
+                self.assertEqual(head, revs[n])
+                self.assertEqual(subprocess.run(["git", "-C", str(d), "status", "--porcelain", "--untracked-files=no"],
+                                                capture_output=True, text=True).stdout, "")
+            shutil.rmtree(work)
+            # revision and clean-tree checks still apply to source-only packages
+            subprocess.run(g + ["-C", str(prov / ".lake/packages/Cli"), "commit", "-q", "--allow-empty", "-m", "drift"], check=True)
+            out = run()
+            self.assertNotEqual(out.returncode, 0)
+            self.assertIn("provider Cli is at", out.stderr)
+            subprocess.run(["git", "-C", str(prov / ".lake/packages/Cli"), "reset", "-q", "--hard", "HEAD~1"], check=True)
+            (prov / ".lake/packages/Cli/README").write_text("changed")
+            out = run()
+            self.assertIn("provider Cli has modified tracked files", out.stderr)
+            # Mathlib itself is never source-only
+            subprocess.run(["git", "-C", str(prov / ".lake/packages/Cli"), "checkout", "-q", "README"], check=True)
+            shutil.rmtree(prov / ".lake/packages/mathlib/.lake")
+            out = run()
+            self.assertIn("provider mathlib has no build", out.stderr)
+
+    @unittest.skipUnless(sys.platform.startswith("linux"), "ELF launcher check runs on Linux")
+    def test_linux_runner_sandboxes_the_toolchain_lake_not_the_elan_proxy(self):
+        import os, re, stat
+        script = (SURVEY / "scripts/compare_bridges_linux.sh").read_text(encoding="utf-8")
+        # both sandboxed Lake entry points start the toolchain lake through TOOLCHAIN_PATH
+        self.assertIn('BOX=(env PATH="$TOOLCHAIN_PATH" "$LANDRUN" "${SANDBOX[@]}" --rox "$LEAN_PREFIX" --rox "$GIT_BIN" --env PATH --env HOME --)', script)
+        self.assertRegex(script, r'env PATH="\$TOOLCHAIN_PATH" LEAN_PATH="\$LEAN_PATH_WS" COMPARATOR_LANDRUN="\$LANDRUN" \\\n\s+COMPARATOR_LEAN4EXPORT="\$COMPARATOR_LEAN4EXPORT" "\$COMPARATOR_BIN" "\$rel"')
+        self.assertLess(script.index("# <<< toolchain-lake"), script.index('ENV_OUT="$("${BOX[@]}" lake env)"'))
+        self.assertIn('SANDBOX=(--best-effort --ro / --rw /dev -ldd -add-exec --rwx "$WORK/.lake")', script)   # grants unchanged
+        block = script[script.index("# >>> toolchain-lake"):script.index("# <<< toolchain-lake")]
+        real = Path(os.path.realpath(sys.executable))          # a dynamically linked ELF that prints a version
+        version = subprocess.run([str(real), "--version"], capture_output=True, text=True).stdout.split()[-1]
+
+        def check(make_lake, prefix_name=None):
+            with tempfile.TemporaryDirectory() as tmp:
+                tc = f"leanprover/lean4:v{version}"
+                prefix = Path(tmp) / (prefix_name or f"leanprover--lean4---v{version}")
+                (prefix / "bin").mkdir(parents=True)
+                make_lake(prefix / "bin" / "lake")
+                harness = ('fail() { echo "FAIL: $*" >&2; exit 1; }\n'
+                           f'LEAN_PREFIX="{prefix}"; TOOLCHAIN="{tc}"\n' + block + 'echo OK "$TOOLCHAIN_PATH"\n')
+                return subprocess.run(["bash", "-c", harness], capture_output=True, text=True)
+
+        def script_lake(p):
+            p.write_text("#!/bin/sh\necho Lake\n"); p.chmod(0o755)
+
+        def static_lake(p):      # ELF without PT_INTERP, as elan's static (musl) proxy
+            p.write_bytes(b"\x7fELF\x02\x01\x01" + bytes(57)); p.chmod(0o755)
+
+        ok = check(lambda p: p.symlink_to(real))
+        self.assertEqual(ok.returncode, 0, ok.stderr)
+        self.assertTrue(ok.stdout.startswith("OK "))
+        self.assertIn("not a dynamically linked ELF", check(script_lake).stderr)
+        self.assertIn("not a dynamically linked ELF", check(static_lake).stderr)
+        self.assertIn("no toolchain lake", check(lambda p: None).stderr)
+        self.assertIn("not the elan toolchain directory", check(lambda p: p.symlink_to(real), "other").stderr)
+
+    def test_fs_systemd_isolation_is_audited(self):
+        pol = validate_registry.isolation_policy
+        audit = {"kernel": "6.1.0", "landlock_abi": 2, "landrun_flags": "--best-effort --ro / --rw /dev -ldd -add-exec --rwx WORK/.lake",
+                 "landlock_probes": {"read_outside_grants": "denied", "write_outside_work_lake": "denied",
+                                     "write_through_shared_build_symlinks": "denied", "write_work_lake": "allowed"},
+                 "landrun_network_rules": "dropped by --best-effort (Landlock ABI < 4)",
+                 "readonly_mounts": ["/home/u/lean-bgp212"], "sockets_denied": ["AF_UNIX", "AF_INET", "AF_INET6"],
+                 "systemd_unit": "0123abcd", "landrun_revision": pol.LANDRUN_PIN, "landrun_modified": False,
+                 "go_landlock": pol.GO_LANDLOCK_PIN}
+        base = {"id": "EV-TEST-FS", "layer": "L4", "subjects": ["LIFT-041-2"], "kind": "comparator",
+                "isolation": "landrun-fs-systemd", "declarations": ["Survey.PrimeBridges.h1Le_mono"],
+                "result": "Your solution is okay!", "axioms": {"Survey.PrimeBridges.h1Le_mono":
+                ["propext", "Classical.choice", "Quot.sound"]},
+                "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"], "sorry_free": True}
+
+        def verify(ev):
+            def mutate(r):
+                r["evidence"]["evidence"].append(ev)
+                e = self.edge(r, "LIFT-041-2")
+                e["state"]["verification"] = "comparator-accepted"
+                e["evidence"] = e["evidence"] + [ev["id"]]
+                e["obligation"] = "discharged"
+            return mutate
+
+        def with_audit(**changes):
+            return dict(base, isolation_audit=dict(audit, **changes))
+
+        # complete audits verify: ABI 2-3 as landrun-fs-systemd, ABI >= 4 as landrun-linux
+        self.assertEqual(self.errors_after(verify(with_audit())), [])
+        self.assertEqual(self.errors_after(verify(with_audit(landlock_abi=3))), [])
+        self.assertEqual(self.errors_after(verify(dict(with_audit(landlock_abi=4), isolation="landrun-linux"))), [])
+        # incomplete or mismatched audits cannot establish Verified
+        self.assertRejected(verify(dict(base)), "needs its isolation_audit record")
+        self.assertRejected(verify(dict(base, isolation="landrun-linux")), "needs its isolation_audit record")
+        self.assertRejected(verify(with_audit(sockets_denied=["AF_UNIX"])), "must deny AF_UNIX, AF_INET and AF_INET6")
+        self.assertRejected(verify(with_audit(readonly_mounts=[])), "readonly_mounts: fewer than 1 items")
+        self.assertRejected(verify(with_audit(systemd_unit=None)), "names no systemd unit")
+        for probe in pol.DENIED_PROBES:
+            probes = dict(audit["landlock_probes"]); probes[probe] = "allowed"
+            self.assertRejected(verify(with_audit(landlock_probes=probes)), f"lacks a denied {probe} probe")
+        probes = dict(audit["landlock_probes"]); probes.pop("write_work_lake")
+        self.assertRejected(verify(with_audit(landlock_probes=probes)), "allowed write_work_lake probe")
+        self.assertRejected(verify(with_audit(landlock_abi=4)), "is the landrun-linux configuration, not landrun-fs-systemd")
+        self.assertRejected(verify(dict(with_audit(landlock_abi=3), isolation="landrun-linux")),
+                            "is the landrun-fs-systemd configuration, not landrun-linux")
+        # the landrun build is pinned: 811cfff (go-landlock v0.9.0) and modified builds are rejected
+        self.assertRejected(verify(with_audit(landrun_revision="811cfff" + "0" * 33)), "built unmodified from")
+        self.assertRejected(verify(with_audit(landrun_modified=True)), "built unmodified from")
+        self.assertRejected(verify(with_audit(go_landlock="v0.9.0")), "must record go-landlock v0.10.1")
+        self.assertRejected(verify(dict(base, isolation="non-isolating", isolation_audit=audit)),
+                            "belongs to a Linux landrun run")
+
+    def test_landlock_abi_1_is_rejected(self):
+        pol = validate_registry.isolation_policy
+        with self.assertRaises(ValueError) as ctx:
+            pol.isolation_for_abi(1)
+        self.assertIn("refer", str(ctx.exception))
+        for bad in (0, -1, None, True):
+            with self.assertRaises(ValueError):
+                pol.isolation_for_abi(bad)
+        self.assertEqual([pol.isolation_for_abi(a) for a in (2, 3, 4, 6)],
+                         ["landrun-fs-systemd", "landrun-fs-systemd", "landrun-linux", "landrun-linux"])
+        # the command-line form used by the runner exits non-zero with the diagnosis
+        out = subprocess.run([sys.executable, "-I", str(SURVEY / "scripts/isolation_policy.py"), "1"],
+                             capture_output=True, text=True)
+        self.assertNotEqual(out.returncode, 0)
+        self.assertIn("Landlock ABI 1", out.stderr)
+        self.assertEqual(subprocess.run([sys.executable, "-I", str(SURVEY / "scripts/isolation_policy.py"), "2"],
+                                        capture_output=True, text=True).stdout.strip(), "landrun-fs-systemd")
+        # an ABI 1 audit cannot verify under either Linux label
+        audit = {"landlock_abi": 1}
+        for iso in ("landrun-fs-systemd", "landrun-linux"):
+            self.assertTrue(any("Landlock ABI 1" in e for e in pol.audit_errors(iso, audit)), iso)
+        # the runner settles the ABI in step 0: before the workspace, the probes and Comparator
+        script = (SURVEY / "scripts/compare_bridges_linux.sh").read_text(encoding="utf-8")
+        reject = script.index('ISOLATION="$(python3 -I "$POLICY" "$ABI")" || fail')
+        for later in ('WORK="$(mktemp -d', 'SANDBOX=(--best-effort', '"$COMPARATOR_BIN" "$rel"'):
+            self.assertLess(reject, script.index(later), later)
+        self.assertNotIn("ISOLATION=landrun-fs-systemd", script)   # the label comes only from the policy
 
     def test_foundation_package_stays_core_only(self):
         lakefile = (SURVEY / "lean" / "lakefile.toml").read_text(encoding="utf-8")

@@ -622,15 +622,16 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "comparator-nonisolated"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
+   "obligation": "discharged",
    "evidence": [
     "EV-0002",
     "EV-0003",
-    "EV-0006"
+    "EV-0006",
+    "EV-0013"
    ],
-   "notes": "Kernel-checked (EV-0002, reproduced from the committed file in EV-0003); Comparator accepted the Solution against the independent Challenge without sandbox isolation on macOS (EV-0006). The lift stays Compiled with its obligation open until a Comparator run under landrun on Linux."
+   "notes": "Kernel-checked (EV-0002, reproduced from the committed file in EV-0003); Comparator accepted the Solution against the independent Challenge without sandbox isolation on macOS (EV-0006). The lift stays Compiled with its obligation open until a Comparator run under landrun on Linux. Verified: Comparator accepted it against the independent Challenge under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0013); obligation discharged."
   },
   {
    "id": "LIFT-041-3",
@@ -922,13 +923,14 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "comparator-nonisolated"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Comparator accepted it without sandbox isolation on macOS (EV-0012, survey/lean-bridges/Comparator/admissibleZ_subset.json): comparator-nonisolated, still Compiled, obligation open until the isolated landrun run on Linux.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Comparator accepted it without sandbox isolation on macOS (EV-0012, survey/lean-bridges/Comparator/admissibleZ_subset.json): comparator-nonisolated, still Compiled, obligation open until the isolated landrun run on Linux. Verified: Comparator accepted it against the independent Challenge under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0014); obligation discharged.",
    "evidence": [
     "EV-0007",
-    "EV-0012"
+    "EV-0012",
+    "EV-0014"
    ],
    "closure": {
     "property": "BGP212.Gap.AdmissibleZ",
@@ -970,13 +972,14 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "comparator-nonisolated"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Corollaries in the same module, also in EV-0007: admissibleZ_pair_self, admissibleZ_singleton (via LIFT-ADM-2), not_admissibleZ_zero_one. Comparator accepted it without sandbox isolation on macOS (EV-0012, survey/lean-bridges/Comparator/admissibleZ_pair_iff_even.json): comparator-nonisolated, still Compiled, obligation open until the isolated landrun run on Linux.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0007, axioms propext, Classical.choice, Quot.sound). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Corollaries in the same module, also in EV-0007: admissibleZ_pair_self, admissibleZ_singleton (via LIFT-ADM-2), not_admissibleZ_zero_one. Comparator accepted it without sandbox isolation on macOS (EV-0012, survey/lean-bridges/Comparator/admissibleZ_pair_iff_even.json): comparator-nonisolated, still Compiled, obligation open until the isolated landrun run on Linux. Verified: Comparator accepted it against the independent Challenge under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0014); obligation discharged.",
    "evidence": [
     "EV-0007",
-    "EV-0012"
+    "EV-0012",
+    "EV-0014"
    ]
   },
   {
@@ -1292,13 +1295,14 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "comparator-nonisolated"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0009). A logical equivalence specifying admissibility by the local factor: the statement of LIFT-ADM-1 by a survey-local route on Finset ℤ directly, with no list-to-finset bridge. Application nu_twin_lt reuses admissible_twin. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Comparator accepted it without sandbox isolation on macOS (EV-0012, survey/lean-bridges/Comparator/admissibleZ_iff_nu_lt.json): comparator-nonisolated, still Compiled, obligation open until the isolated landrun run on Linux.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0009). A logical equivalence specifying admissibility by the local factor: the statement of LIFT-ADM-1 by a survey-local route on Finset ℤ directly, with no list-to-finset bridge. Application nu_twin_lt reuses admissible_twin. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Comparator accepted it without sandbox isolation on macOS (EV-0012, survey/lean-bridges/Comparator/admissibleZ_iff_nu_lt.json): comparator-nonisolated, still Compiled, obligation open until the isolated landrun run on Linux. Verified: Comparator accepted it against the independent Challenge under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0014); obligation discharged.",
    "evidence": [
     "EV-0009",
-    "EV-0012"
+    "EV-0012",
+    "EV-0014"
    ],
    "characterizes": {
     "object": "OBJ-admissible-z",

@@ -43,6 +43,7 @@ python3 -m unittest discover -s survey/tests -v
 survey/scripts/check_lean.sh <path-to-lean-4.34.0-rc2>          # kernel check + axiom audit
 survey/scripts/check_bridges.sh ~/lean-bgp212                    # bridge modules, against a built checkout
 survey/scripts/compare_bridges.sh ~/lean-bgp212 ~/comparator-v4.34.0-rc2   # Comparator on the pairs
+survey/scripts/compare_bridges_linux.sh ~/lean-bgp212 ~/comparator-19e111e   # Linux, landrun, shared read-only builds
 ```
 
 `compare_bridges.sh` runs Lean Comparator on each config in `lean-bridges/Comparator/`
@@ -89,7 +90,7 @@ An edge's lift state summarizes these: Proposed (prose), Specified, Compiled, an
 | --- | --- | --- |
 | Kernel acceptance and axiom audit | `kernel-checked` | Compiled |
 | Comparator acceptance without sandbox isolation (e.g. macOS, `landrun-noisolate.sh`) | `comparator-nonisolated` | Compiled |
-| Comparator acceptance under landrun on Linux | `comparator-accepted` | Verified |
+| Comparator acceptance under landrun on Linux, audited (`landrun-linux` on Landlock ABI ≥ 4, `landrun-fs-systemd` on ABI 2–3; ABI 1 rejected) | `comparator-accepted` | Verified |
 
 Comparator evidence records `isolation` (`landrun-linux` or `non-isolating`), the Comparator and
 lean4export commits and binary hashes, the runner and its hash, and the exact Comparator output;
@@ -159,5 +160,9 @@ general distinction, shared reading, and boundary.
 - Comparator without sandbox isolation on macOS (EV-0012, `comparator-nonisolated`): `admissibleZ_subset`,
   `admissibleZ_pair_iff_even` and `admissibleZ_iff_nu_lt` accepted against independent Challenges;
   LIFT-ADM-2, LIFT-ADM-3 and LIFT-ADM-7 stay Compiled pending the landrun run on Linux.
+- Verified under landrun on Linux (Landlock ABI 4, audited; `compare_bridges_linux.sh`): LIFT-041-2
+  (`h1Le_mono`, EV-0013), LIFT-ADM-2, LIFT-ADM-3 and LIFT-ADM-7 (`admissibleZ_subset`,
+  `admissibleZ_pair_iff_even`, `admissibleZ_iff_nu_lt`, EV-0014); obligations discharged. Logs in
+  `evidence/comparator/`.
 - Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 34 edges in total.
-  Lift states: Compiled 18, Specified 13, Proposed 3; Verified 0.
+  Lift states: Compiled 14, Specified 13, Proposed 3; Verified 4.
