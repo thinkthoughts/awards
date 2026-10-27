@@ -235,8 +235,12 @@ class RegistryTests(unittest.TestCase):
                                if i.startswith("SurveyBridges.")]
                 proof_stmts = [statement(f.read_text(encoding="utf-8"), short) for f in proof_files]
                 self.assertIn(chal_stmt, proof_stmts, f"{name}: Challenge and Solution statements differ")
-                edge = next(e for e in edges.values() if e["statement"].get("lean_name") == name)
-                self.assertIn(short, edge["statement"]["lean"])
+                # the lift whose statement this is, or the lift that cites it as a step (its `uses`)
+                edge = next((e for e in edges.values() if e["statement"].get("lean_name") == name), None) \
+                    or next(e for e in edges.values() if name in [u["name"] for u in e.get("uses", [])]
+                            and any(e["statement"].get("lean_name") == n for n in cfg["theorem_names"]))
+                if edge["statement"].get("lean_name") == name:
+                    self.assertIn(short, edge["statement"]["lean"])
                 for ev_id in edge.get("evidence", []):
                     ev = next(e for e in self.reg["evidence"]["evidence"] if e["id"] == ev_id)
                     for f in ev.get("files", []):
@@ -251,13 +255,20 @@ class RegistryTests(unittest.TestCase):
             "admissibleZ_subset.json": ("AdmissibleSubset", "admissibleZ_subset", "LIFT-ADM-2", "AdmissibleSubset"),
             "admissibleZ_pair_iff_even.json": ("AdmissiblePair", "admissibleZ_pair_iff_even", "LIFT-ADM-3", "AdmissiblePair"),
             "admissibleZ_iff_nu_lt.json": ("AdmissibleNu", "admissibleZ_iff_nu_lt", "LIFT-ADM-7", "ResidueNu"),
+            "admissibleZ_iff_omits_residue.json": ("AdmissibleOmits", "admissibleZ_iff_omits_residue", "LIFT-ADM-4", "AdmissibleZMod"),
+            "admissibleZ_iff_card_lt.json": ("AdmissibleCard", "admissibleZ_iff_card_lt", "LIFT-ADM-5", "AdmissibleZMod"),
+            "residueImage_card_eq_nu_of_modulus.json": ("ResidueNuCard", "residueImage_card_eq_nu_of_modulus", "LIFT-ADM-6", "ResidueNu"),
         }
         self.assertEqual(sorted(p.name for p in (bridges / "Comparator").glob("*.json")), sorted(expected))
         for cfg_name, (mod, thm, eid, proof_mod) in expected.items():
             cfg = json.loads((bridges / "Comparator" / cfg_name).read_text(encoding="utf-8"))
             self.assertEqual(cfg["challenge_module"], f"SurveyChallenge.{mod}")
             self.assertEqual(cfg["solution_module"], f"SurveySolution.{mod}")
-            self.assertEqual(cfg["theorem_names"], [f"Survey.PrimeBridges.{thm}"])
+            self.assertEqual(cfg["theorem_names"][0], f"Survey.PrimeBridges.{thm}")
+            # any further theorem is a step the lift's own record cites
+            uses = [u["name"] for u in self.edge(self.reg, eid)["uses"]]
+            for extra in cfg["theorem_names"][1:]:
+                self.assertIn(extra, uses, cfg_name)
             self.assertEqual(self.edge(self.reg, eid)["statement"]["lean_name"], f"Survey.PrimeBridges.{thm}")
             sol = (bridges / "SurveySolution" / f"{mod}.lean").read_text(encoding="utf-8")
             self.assertEqual(re.findall(r"^import\s+(\S+)", sol, re.M), [f"SurveyBridges.{proof_mod}"])
@@ -297,6 +308,53 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(sha256(ROOT / ev13["comparator"]["log"]), "9bef502360610f10f85d995ac358415946ac98fbd96688e3a8e76327ac73b5e6")
         self.assertIn("isolation-audit: " + json.dumps(ev13["isolation_audit"], sort_keys=True),
                       (ROOT / ev13["comparator"]["log"]).read_text(encoding="utf-8"))
+
+    def test_challenge_definitions_restate_the_bridge_definitions(self):
+        """Comparator compares every constant a Challenge statement uses, values included, so a
+        survey definition restated in a Challenge must be the bridge definition verbatim. The
+        three ZMod lifts stay Compiled until isolated Comparator acceptance."""
+        import re
+        bridges = SURVEY / "lean-bridges"
+        norm = lambda s: " ".join(s.split())
+        defs = {}
+        for f in sorted((bridges / "SurveyBridges").glob("*.lean")):
+            for m in re.finditer(r"^def (\S+) .*?(?=\n\n|\n/-|\Z)", f.read_text(encoding="utf-8"), re.S | re.M):
+                defs[m.group(1)] = norm(m.group(0))
+        restated = 0
+        for f in sorted((bridges / "SurveyChallenge").glob("*.lean")):
+            text = f.read_text(encoding="utf-8")
+            imports = re.findall(r"^import\s+(\S+)", text, re.M)
+            self.assertTrue(imports and all(i.startswith(("BGP212.", "Mathlib.")) for i in imports), f)
+            for m in re.finditer(r"^def (\S+) .*?(?=\n\n|\n/-|\Z)", text, re.S | re.M):
+                self.assertIn(m.group(1), defs, f"{f.name}: {m.group(1)} has no bridge definition")
+                self.assertEqual(norm(m.group(0)), defs[m.group(1)], f"{f.name}: {m.group(1)} differs from the bridge")
+                restated += 1
+            # the definition precedes `open`, as in SurveyBridges.ResidueImage (no `open` there)
+            if "def residueImage" in text:
+                self.assertLess(text.index("def residueImage"), text.index("open BGP212.Gap"))
+        self.assertEqual(restated, 3)
+        # no definition holes anywhere
+        for cfg in (bridges / "Comparator").glob("*.json"):
+            self.assertNotIn("definition_names", json.loads(cfg.read_text(encoding="utf-8")))
+        # isolated acceptance: EV-0015 (LIFT-ADM-4), EV-0016 (LIFT-ADM-5, LIFT-ADM-6), one acceptance per config
+        ev = {v["id"]: v for v in self.reg["evidence"]["evidence"]}
+        for eid, evid, cfgs in (("LIFT-ADM-4", "EV-0015", ["admissibleZ_iff_omits_residue.json"]),
+                                ("LIFT-ADM-5", "EV-0016", ["admissibleZ_iff_card_lt.json", "residueImage_card_eq_nu_of_modulus.json"]),
+                                ("LIFT-ADM-6", "EV-0016", ["admissibleZ_iff_card_lt.json", "residueImage_card_eq_nu_of_modulus.json"])):
+            e, rec = self.edge(self.reg, eid), ev[evid]
+            self.assertEqual((e["state"]["verification"], validate_registry.lift_state(e), e["obligation"]),
+                             ("comparator-accepted", "Verified", "discharged"), eid)
+            self.assertIn(evid, e["evidence"])
+            self.assertEqual(rec["isolation"], "landrun-linux")
+            self.assertEqual(validate_registry.isolation_policy.audit_errors("landrun-linux", rec["isolation_audit"]), [])
+            log = (ROOT / rec["comparator"]["log"]).read_text(encoding="utf-8")
+            self.assertIn("isolation-audit: " + json.dumps(rec["isolation_audit"], sort_keys=True), log)
+            for cfg in cfgs:
+                section = log.split(f"== Comparator/{cfg} ")[1].split("\n== Comparator/")[0]
+                self.assertEqual(section.count("Your solution is okay!"), 1, cfg)
+                self.assertNotIn("does not match", section)
+        self.assertEqual(sha256(ROOT / ev["EV-0015"]["comparator"]["log"]), "83ed3be8e41ef4802ae48f59e785035d4c80c936fb083ea2693ea69493994f3c")
+        self.assertEqual(sha256(ROOT / ev["EV-0016"]["comparator"]["log"]), "a25a7b2f67982f0e12f575039c7e5f9b3bdceb7f5ba76752c5c7236402a2b395")
 
     def test_linux_runner_shares_builds_read_only(self):
         import os, re
@@ -410,8 +468,8 @@ class RegistryTests(unittest.TestCase):
         self.assertIn("H.image (fun (h : ℤ) => (h : ZMod p))", ri)
         for e in ("LIFT-ADM-4", "LIFT-ADM-5"):
             edge = self.edge(self.reg, e)
-            self.assertEqual(validate_registry.lift_state(edge), "Compiled", e)
-            self.assertEqual(edge["obligation"], "open", e)
+            self.assertEqual(validate_registry.lift_state(edge), "Verified", e)      # EV-0015, EV-0016
+            self.assertEqual(edge["obligation"], "discharged", e)
 
     def test_audit_hash_history_is_pinned_by_commit(self):
         ev = {v["id"]: v for v in self.reg["evidence"]["evidence"]}
@@ -430,10 +488,10 @@ class RegistryTests(unittest.TestCase):
             name = e["statement"]["lean_name"].rsplit(".", 1)[-1]
             decl = re.search(rf"theorem {name}\b.*?:=", src, re.S).group(0)[:-2]
             self.assertEqual(norm(decl), norm(e["statement"]["lean"]), eid)
-        # LIFT-ADM-6 is kernel-checked (Compiled); LIFT-ADM-7 is Verified by EV-0014
-        self.assertEqual(validate_registry.lift_state(self.edge(self.reg, "LIFT-ADM-6")), "Compiled")
-        self.assertEqual(self.edge(self.reg, "LIFT-ADM-6")["obligation"], "open")
-        self.assertEqual(validate_registry.lift_state(self.edge(self.reg, "LIFT-ADM-7")), "Verified")
+        # LIFT-ADM-6 is Verified by EV-0016, LIFT-ADM-7 by EV-0014
+        for eid in ("LIFT-ADM-6", "LIFT-ADM-7"):
+            self.assertEqual(validate_registry.lift_state(self.edge(self.reg, eid)), "Verified", eid)
+            self.assertEqual(self.edge(self.reg, eid)["obligation"], "discharged", eid)
         # the prime form keeps the requested signature
         self.assertIn("theorem residueImage_card_eq_nu\n    (p : ℕ) (hp : p.Prime) (H : Finset ℤ) :", src)
         # LIFT-ADM-1 keeps its upstream route and open bridge

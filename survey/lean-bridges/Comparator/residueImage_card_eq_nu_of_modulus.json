@@ -1,0 +1,12 @@
+{
+    "challenge_module": "SurveyChallenge.ResidueNuCard",
+    "solution_module": "SurveySolution.ResidueNuCard",
+    "theorem_names": [
+        "Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

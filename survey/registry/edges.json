@@ -1083,12 +1083,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0008). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0008). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/admissibleZ_iff_omits_residue.json, residueImage restated verbatim and compared in full) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0015); obligation discharged.",
    "evidence": [
-    "EV-0008"
+    "EV-0008",
+    "EV-0015"
    ]
   },
   {
@@ -1141,12 +1142,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0008). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Applications in the same module reuse kernel-checked results: empty set (admissibleZ_subset, admissibleZ_singleton), singletons, duplicate shifts (admissibleZ_pair_self), {0, 2} (admissible_twin), {0, 1} (not_admissibleZ_zero_one), negative shifts {-3, -1} (admissibleZ_pair_iff_even).",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0008). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Applications in the same module reuse kernel-checked results: empty set (admissibleZ_subset, admissibleZ_singleton), singletons, duplicate shifts (admissibleZ_pair_self), {0, 2} (admissible_twin), {0, 1} (not_admissibleZ_zero_one), negative shifts {-3, -1} (admissibleZ_pair_iff_even). Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/admissibleZ_iff_card_lt.json, residueImage restated verbatim and compared in full) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0016); obligation discharged.",
    "evidence": [
-    "EV-0008"
+    "EV-0008",
+    "EV-0016"
    ]
   },
   {
@@ -1215,12 +1217,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0009). A cardinality equality between two residue-counting representations, valid for every natural modulus; the prime form residueImage_card_eq_nu (p) (hp : p.Prime) (H) is kept for the admissibility specification. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0009). A cardinality equality between two residue-counting representations, valid for every natural modulus; the prime form residueImage_card_eq_nu (p) (hp : p.Prime) (H) is kept for the admissibility specification. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/residueImage_card_eq_nu_of_modulus.json, residueImage restated verbatim and compared in full) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0016); obligation discharged.",
    "evidence": [
-    "EV-0009"
+    "EV-0009",
+    "EV-0016"
    ],
    "count": {
     "lhs": "(residueImage p H).card",

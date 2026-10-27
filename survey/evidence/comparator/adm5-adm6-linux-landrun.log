@@ -1,0 +1,174 @@
+Running as unit: run-u6.service
+pair admissibleZ_iff_card_lt.json: SurveyChallenge.AdmissibleCard imports ['BGP212.Gap']; SurveySolution.AdmissibleCard imports ['SurveyBridges.AdmissibleZMod']; theorems ['Survey.PrimeBridges.admissibleZ_iff_card_lt', 'Survey.PrimeBridges.omits_residue_iff_card_lt']
+pair residueImage_card_eq_nu_of_modulus.json: SurveyChallenge.ResidueNuCard imports ['BGP212.Gap', 'BGP212.MultiShift']; SurveySolution.ResidueNuCard imports ['SurveyBridges.ResidueNu']; theorems ['Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus']
+provider lean-bgp212 f779ea70c7d57570c57bca18aeab9ce0ede215a9 (descends from the pin 89b43fa019337645b4c2c66ae917bcb1fe76450f); workspace bgp212 checkout 89b43fa019337645b4c2c66ae917bcb1fe76450f
+dependency mathlib 85e3a25e006c35636f0e53b0e9296caca2685bc0 (https://github.com/leanprover-community/mathlib4, lakefile.lean): shared read-only build /home/dan/lean-bgp212/.lake/packages/mathlib/.lake/build
+dependency plausible d9598f07b1bc701f1e3aae163d2681c1fd978793 (https://github.com/leanprover-community/plausible, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/plausible/.lake/build
+dependency LeanSearchClient ba67e212be1197b84c1f1f6299488a10a3002713 (https://github.com/leanprover-community/LeanSearchClient, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/LeanSearchClient/.lake/build
+dependency importGraph d8823026ac7ef130c253089d95685f9877b95323 (https://github.com/leanprover-community/import-graph, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/importGraph/.lake/build
+dependency proofwidgets a8acbfd87375ff4abe14ce09db5b7664d383bc7f (https://github.com/leanprover-community/ProofWidgets4, lakefile.lean): shared read-only build /home/dan/lean-bgp212/.lake/packages/proofwidgets/.lake/build
+dependency aesop 18889deb9e83ea7420ef51c160d6f88552e744e3 (https://github.com/leanprover-community/aesop, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/aesop/.lake/build
+dependency Qq 507746ab8f4b643ccdacb2ec4cdb5853fa9f8ab3 (https://github.com/leanprover-community/quote4, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/Qq/.lake/build
+dependency batteries d54dddc581e08be364c278052863524bff7a99a9 (https://github.com/leanprover-community/batteries, lakefile.toml): shared read-only build /home/dan/lean-bgp212/.lake/packages/batteries/.lake/build
+dependency Cli ab3a82db9fea14cf0fd7f5a2de650f4b534640af (https://github.com/leanprover/lean4-cli, lakefile.toml): source-only checkout; any build happens in WORK/.lake
+workspace /home/dan/survey-compare/survey-compare.EfhQg5 on /dev/sda1: sources 154 MiB, estimate 666 MiB, available 3374 MiB
+host Linux 6.8.0-138-generic x86_64
+lsm lockdown,capability,landlock,yama,apparmor
+runner /home/dan/landrun-verified/landrun sha256 c0a1e7285fd5f9359e02564b6df1d2508fccfb6b4d8e7c1c0003561bad69cc00: landrun landrun version 0.1.18, vcs.revision ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a, vcs.modified false, go-landlock v0.10.1
+landlock abi 4: reads outside grants denied, writes outside WORK/.lake denied, shared builds write-denied
+mounts: provider, Comparator and survey trees read-only; sockets: AF_UNIX, AF_INET, AF_INET6 denied
+systemd unit: 0db4ec1aa74c4c13a9824c8094492168
+isolation-audit: {"go_landlock": "v0.10.1", "kernel": "6.8.0-138-generic", "landlock_abi": 4, "landlock_probes": {"read_outside_grants": "denied", "write_outside_work_lake": "denied", "write_through_shared_build_symlinks": "denied", "write_work_lake": "allowed"}, "landrun_flags": "--best-effort --ro / --rw /dev -ldd -add-exec --rwx WORK/.lake", "landrun_modified": false, "landrun_network_rules": "landrun TCP rules (Landlock ABI >= 4)", "landrun_revision": "ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a", "readonly_mounts": ["/home/dan/lean-bgp212", "/home/dan/comparator-19e111e", "/home/dan/awards-zmod/survey/lean-bridges"], "sockets_denied": ["AF_UNIX", "AF_INET", "AF_INET6"], "systemd_unit": "0db4ec1aa74c4c13a9824c8094492168"}
+isolation: landrun-linux
+lake launcher /home/dan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lake sha256 6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d: Lake version 5.0.0-src+6a10ac8 (Lean version 4.34.0-rc2)
+== sandboxed dependency build: lake build BGP212.Gap BGP212.MultiShift
+✔ [1/29] Built BGP212.Basic (519ms)
+✔ [1242/1247] Built BGP212.GDTv1Basic (2.2s)
+✔ [1244/1323] Built BGP212.MultiShift (2.3s)
+✔ [1313/1323] Built BGP212.Params (526ms)
+✔ [1317/1324] Built BGP212.Ledger (555ms)
+✔ [1319/1326] Built BGP212.Packing (1.6s)
+✔ [1322/1329] Built BGP212.Theorem711 (1.1s)
+✔ [1326/1334] Built BGP212.WTrick (2.3s)
+✔ [1365/1365] Built BGP212.Gap (2.2s)
+Build completed successfully (1365 jobs).
+survey compare script /home/dan/awards-zmod/survey/scripts/compare_bridges_linux.sh sha256 89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c
+Comparator 19e111e2141cf333c7daff0f64c5f24acc91dd2e (clean); lean4export cacf989bd75f608700820f6afc595f32e7a99a4d (clean); toolchain leanprover/lean4:v4.34.0-rc2
+comparator binary sha256 514de8d2acbd6e0102575cd2c575e336b7c4a40daf3ae66abe97cef5e1e6b02a; lean4export binary sha256 4fa9e14cada304109e85da5048bcd411cf781a03539b3e50953e5c537074bd9e
+Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)
+sha256 bddfd19b6174b80bb4b89266321cacb96c5c24e42d395d699fada2eeb5dd3ef7  SurveyChallenge/AdmissibleCard.lean
+sha256 51de6172b78d220b6feaa1f7b2d3d719a3ac4b829f78e9db7ce2d518dee81618  SurveyChallenge/AdmissibleNu.lean
+sha256 b1d36ea499e9c096d004e9fd2aa29aff6e524567581c7050df64ba203c37ea77  SurveyChallenge/AdmissibleOmits.lean
+sha256 d685ef25efc44f558ade5d9382b671027d95c8b683147466dd1c36c8f01c9e4c  SurveyChallenge/AdmissiblePair.lean
+sha256 c04499bd1b6a796a015a0ba77f47d26f1425dfe225be0d65c0686b1b28f50f18  SurveyChallenge/AdmissibleSubset.lean
+sha256 a94992d6f4e7115309a7f27999e8cc351620dd756c6a2f1c10ad025c371f3176  SurveyChallenge/H1LeMono.lean
+sha256 dcf7237492294549f2369058ee19d2b9de1010673abafc39503738c867e4d77e  SurveyChallenge/ResidueNuCard.lean
+sha256 49f58a9e063ff8cd17cc36dccd0e526e5ccc5e1515ef7ea28e4a340e5d6a16cc  SurveySolution/AdmissibleCard.lean
+sha256 f05c7686198849ea8481b722c35d68d15d5710c0bfda4973640753715a3b3e57  SurveySolution/AdmissibleNu.lean
+sha256 1f61703d883948398300dd318190eff7566e41bf78b905f685285bd9a03a54b9  SurveySolution/AdmissibleOmits.lean
+sha256 c553006d8363e250cc7bbf7d65f5624de14bbe9c9e93092e02b67b3a8ceb9f84  SurveySolution/AdmissiblePair.lean
+sha256 c965f839ac6418b2e89dc667028c5a625312e91f094406821c854ea1020a7c19  SurveySolution/AdmissibleSubset.lean
+sha256 fd7e963e2fce1bd486905b3f51447c9ea1d4f6b5053883c9ef921e7dbede2c0c  SurveySolution/H1LeMono.lean
+sha256 ef2e8784773e7abb011375e960c4fff242295980ed0531f29c1eb4a66c61aa15  SurveySolution/ResidueNuCard.lean
+sha256 00c1090cbf6ffea1d1d0c6cfe27b8981156dd6625d97d7c7ac54782d66a65d83  SurveyBridges/AdmissiblePair.lean
+sha256 f0870786ed0f9572cd93fdac0dc6fc61cb88a18e25f62c318406fbbaa1dba246  SurveyBridges/AdmissibleSubset.lean
+sha256 8a89082d81ee646c62a6118392fa645e67ec40e0c1c321e66ba3f3b59d1ab5c8  SurveyBridges/AdmissibleTwin.lean
+sha256 15add2ed18fcd1b3fa5f9766a122edd6a914280266d5cc95ab39851265bd73aa  SurveyBridges/AdmissibleZMod.lean
+sha256 3be3ce313a06fcbb4438ff43bae0afeb42f7a737c7761f9e5c78f60e1dca4ded  SurveyBridges/H1LeMono.lean
+sha256 c07131de403e5ac055242cf9956459a4c5731e862abe584735cedc0518d9b49e  SurveyBridges/LocalFactor.lean
+sha256 91e79f6b088e32d6c228d3de9e11130fc12dcd2b5c4bd0e5fdc86ec51c48d91a  SurveyBridges/ResidueImage.lean
+sha256 76c20ab6d9404c514c39941610e53bc6195928dc4c033cb570948598086aed53  SurveyBridges/ResidueNu.lean
+sha256 5af1327a1d0786638d894f0298e104f5f69c543f482c70be4400ae4457cc73c6  SurveyBridges/SingleShiftTotient.lean
+sha256 4c269741a5de637d43d26a015aedbb0f2f892db2085095c60c6163f9e0cf72e9  SurveyBridges/TwinPrimeEquiv.lean
+sha256 808cbc0282e497710f843ce9ec75e8a6b26dab5a89c17dce5f50d9512f7f3617  SurveyBridges/TwinPrimeTo186.lean
+== Comparator/admissibleZ_iff_card_lt.json sha256 d0781964ce4bfd1d31b75b16bd1377a6c4d213e26730ee9e7cce11f607b7f382
+Building SurveyChallenge.AdmissibleCard
+⚠ [1367/1367] Built SurveyChallenge.AdmissibleCard (2.2s)
+warning: SurveyChallenge/AdmissibleCard.lean:22:8: declaration uses `sorry`
+warning: SurveyChallenge/AdmissibleCard.lean:27:8: declaration uses `sorry`
+Build completed successfully (1367 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Survey.PrimeBridges.admissibleZ_iff_card_lt, Survey.PrimeBridges.omits_residue_iff_card_lt, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from SurveyChallenge.AdmissibleCard
+Building SurveySolution.AdmissibleCard
+ℹ [1367/1372] Built SurveyBridges.AdmissibleSubset (2.4s)
+info: SurveyBridges/AdmissibleSubset.lean:24:0: 'Survey.PrimeBridges.admissibleZ_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [1368/1372] Built SurveyBridges.AdmissibleTwin (2.1s)
+info: SurveyBridges/AdmissibleTwin.lean:29:0: 'Survey.PrimeBridges.admissible_twin' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [1369/1372] Built SurveyBridges.ResidueImage (2.3s)
+info: SurveyBridges/ResidueImage.lean:37:0: 'Survey.PrimeBridges.mem_residueImage' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/ResidueImage.lean:38:0: 'Survey.PrimeBridges.dvd_sub_iff_intCast_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/ResidueImage.lean:39:0: 'Survey.PrimeBridges.intCast_cast_residue' depends on axioms: [propext, Quot.sound]
+ℹ [1370/1372] Built SurveyBridges.AdmissiblePair (2.6s)
+info: SurveyBridges/AdmissiblePair.lean:102:0: 'Survey.PrimeBridges.admissibleZ_pair_iff_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissiblePair.lean:103:0: 'Survey.PrimeBridges.admissibleZ_pair_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissiblePair.lean:104:0: 'Survey.PrimeBridges.admissibleZ_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissiblePair.lean:105:0: 'Survey.PrimeBridges.admissible_twin_of_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissiblePair.lean:106:0: 'Survey.PrimeBridges.not_admissibleZ_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [1371/1372] Built SurveyBridges.AdmissibleZMod (2.2s)
+warning: SurveyBridges/AdmissibleZMod.lean:48:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+info: SurveyBridges/AdmissibleZMod.lean:108:0: 'Survey.PrimeBridges.admissibleZ_iff_omits_residue' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:109:0: 'Survey.PrimeBridges.omits_residue_iff_card_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:110:0: 'Survey.PrimeBridges.admissibleZ_iff_card_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:111:0: 'Survey.PrimeBridges.card_lt_residueImage_empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:112:0: 'Survey.PrimeBridges.card_lt_residueImage_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:113:0: 'Survey.PrimeBridges.omits_residue_pair_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:114:0: 'Survey.PrimeBridges.card_lt_residueImage_twin' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:115:0: 'Survey.PrimeBridges.not_card_lt_residueImage_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:116:0: 'Survey.PrimeBridges.omits_residue_neg_three_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [1372/1372] Built SurveySolution.AdmissibleCard (1.9s)
+Build completed successfully (1372 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Survey.PrimeBridges.admissibleZ_iff_card_lt, Survey.PrimeBridges.omits_residue_iff_card_lt, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from SurveySolution.AdmissibleCard
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+== Comparator/residueImage_card_eq_nu_of_modulus.json sha256 6ba4b9e8ec398d5f438acdb20f12234cfd3e64d6e8ab1cdf19d8c2b46f355a4c
+Building SurveyChallenge.ResidueNuCard
+⚠ [1367/1367] Built SurveyChallenge.ResidueNuCard (2.2s)
+warning: SurveyChallenge/ResidueNuCard.lean:24:8: declaration uses `sorry`
+Build completed successfully (1367 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from SurveyChallenge.ResidueNuCard
+Building SurveySolution.ResidueNuCard
+ℹ [1367/1373] Replayed SurveyBridges.ResidueImage
+info: SurveyBridges/ResidueImage.lean:37:0: 'Survey.PrimeBridges.mem_residueImage' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/ResidueImage.lean:38:0: 'Survey.PrimeBridges.dvd_sub_iff_intCast_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/ResidueImage.lean:39:0: 'Survey.PrimeBridges.intCast_cast_residue' depends on axioms: [propext, Quot.sound]
+ℹ [1368/1373] Replayed SurveyBridges.AdmissibleTwin
+info: SurveyBridges/AdmissibleTwin.lean:29:0: 'Survey.PrimeBridges.admissible_twin' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [1369/1373] Replayed SurveyBridges.AdmissibleSubset
+info: SurveyBridges/AdmissibleSubset.lean:24:0: 'Survey.PrimeBridges.admissibleZ_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [1370/1373] Replayed SurveyBridges.AdmissiblePair
+info: SurveyBridges/AdmissiblePair.lean:102:0: 'Survey.PrimeBridges.admissibleZ_pair_iff_even' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissiblePair.lean:103:0: 'Survey.PrimeBridges.admissibleZ_pair_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissiblePair.lean:104:0: 'Survey.PrimeBridges.admissibleZ_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissiblePair.lean:105:0: 'Survey.PrimeBridges.admissible_twin_of_pair' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissiblePair.lean:106:0: 'Survey.PrimeBridges.not_admissibleZ_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [1371/1373] Replayed SurveyBridges.AdmissibleZMod
+warning: SurveyBridges/AdmissibleZMod.lean:48:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+info: SurveyBridges/AdmissibleZMod.lean:108:0: 'Survey.PrimeBridges.admissibleZ_iff_omits_residue' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:109:0: 'Survey.PrimeBridges.omits_residue_iff_card_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:110:0: 'Survey.PrimeBridges.admissibleZ_iff_card_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:111:0: 'Survey.PrimeBridges.card_lt_residueImage_empty' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:112:0: 'Survey.PrimeBridges.card_lt_residueImage_singleton' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:113:0: 'Survey.PrimeBridges.omits_residue_pair_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:114:0: 'Survey.PrimeBridges.card_lt_residueImage_twin' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:115:0: 'Survey.PrimeBridges.not_card_lt_residueImage_zero_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/AdmissibleZMod.lean:116:0: 'Survey.PrimeBridges.omits_residue_neg_three_neg_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [1372/1373] Built SurveyBridges.ResidueNu (2.3s)
+warning: SurveyBridges/ResidueNu.lean:74:13: Variable name `hp` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+info: SurveyBridges/ResidueNu.lean:95:0: 'Survey.PrimeBridges.negRep_intCast' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/ResidueNu.lean:96:0: 'Survey.PrimeBridges.negRep_injective' depends on axioms: [propext, Quot.sound]
+info: SurveyBridges/ResidueNu.lean:97:0: 'Survey.PrimeBridges.image_neg_emod_eq_image_negRep' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/ResidueNu.lean:98:0: 'Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/ResidueNu.lean:99:0: 'Survey.PrimeBridges.residueImage_card_eq_nu' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/ResidueNu.lean:100:0: 'Survey.PrimeBridges.admissibleZ_iff_nu_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: SurveyBridges/ResidueNu.lean:101:0: 'Survey.PrimeBridges.nu_twin_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+✔ [1373/1373] Built SurveySolution.ResidueNuCard (1.9s)
+Build completed successfully (1373 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Survey.PrimeBridges.residueImage_card_eq_nu_of_modulus, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from SurveySolution.ResidueNuCard
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+shared builds unchanged; workspace 207M, no hardlinks
+comparator: all configs accepted (isolation: landrun-linux)
+Finished with result: success
+Main processes terminated with: code=exited/status=0
+Service runtime: 1min 30.436s
+CPU time consumed: 1min 17.714s

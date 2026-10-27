@@ -1,0 +1,12 @@
+{
+    "challenge_module": "SurveyChallenge.AdmissibleOmits",
+    "solution_module": "SurveySolution.AdmissibleOmits",
+    "theorem_names": [
+        "Survey.PrimeBridges.admissibleZ_iff_omits_residue"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

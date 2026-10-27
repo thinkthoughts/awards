@@ -1,0 +1,13 @@
+{
+    "challenge_module": "SurveyChallenge.AdmissibleCard",
+    "solution_module": "SurveySolution.AdmissibleCard",
+    "theorem_names": [
+        "Survey.PrimeBridges.admissibleZ_iff_card_lt",
+        "Survey.PrimeBridges.omits_residue_iff_card_lt"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}
