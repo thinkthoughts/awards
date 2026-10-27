@@ -1380,12 +1380,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0010). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0010). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/admissibleZ_iff_local_factor_pos.json, statements over lean-bgp212's own definitions) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0017); obligation discharged.",
    "evidence": [
-    "EV-0010"
+    "EV-0010",
+    "EV-0017"
    ]
   },
   {
@@ -1430,12 +1431,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0010). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. The right-hand side is the second conjunct of upstream BGP212.Challenge.gdtH_local_positivity (Solution/MultiShiftB2.lean), which adds AdmissibleH N m a H for the fixed class a; this edge concerns localCount alone.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0010). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. The right-hand side is the second conjunct of upstream BGP212.Challenge.gdtH_local_positivity (Solution/MultiShiftB2.lean), which adds AdmissibleH N m a H for the fixed class a; this edge concerns localCount alone. Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/localCount_pos_iff.json, statements over lean-bgp212's own definitions) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0017); obligation discharged.",
    "evidence": [
-    "EV-0010"
+    "EV-0010",
+    "EV-0017"
    ]
   },
   {
@@ -1500,12 +1502,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0010). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Application localCount_twin_pos reuses admissible_twin. AdmissibleH N m a H (compatibility of the class a at the primes of d N m) is a separate condition and does not enter.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0010). Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Application localCount_twin_pos reuses admissible_twin. AdmissibleH N m a H (compatibility of the class a at the primes of d N m) is a separate condition and does not enter. Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/localCount_pos_of_admissibleZ.json, statements over lean-bgp212's own definitions) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0018); obligation discharged.",
    "evidence": [
-    "EV-0010"
+    "EV-0010",
+    "EV-0018"
    ]
   },
   {
@@ -1577,13 +1580,14 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP: the singleton product and nu_singleton (EV-0010); the totient side condition discharged by LIFT-GDT-5 (EV-0011), giving localCount N m {a} = φ(R N m) for 0 < N. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Partial reduction toward EDGE-GDT-1 (upstream gdtH_single_shift).",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP: the singleton product and nu_singleton (EV-0010); the totient side condition discharged by LIFT-GDT-5 (EV-0011), giving localCount N m {a} = φ(R N m) for 0 < N. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Partial reduction toward EDGE-GDT-1 (upstream gdtH_single_shift). Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/localCount_singleton.json, statements over lean-bgp212's own definitions) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0019); obligation discharged.",
    "evidence": [
     "EV-0010",
-    "EV-0011"
+    "EV-0011",
+    "EV-0019"
    ]
   },
   {
@@ -1679,12 +1683,13 @@
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "kernel-checked"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
-   "notes": "Kernel-checked on the user's MBP (EV-0011). Discharges the totient side condition of LIFT-GDT-4. Survey-local counterpart of the third conjunct of upstream gdtH_single_shift (EDGE-GDT-1); AdmissibleH, the first conjunct, is a separate statement. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux.",
+   "obligation": "discharged",
+   "notes": "Kernel-checked on the user's MBP (EV-0011). Discharges the totient side condition of LIFT-GDT-4. Survey-local counterpart of the third conjunct of upstream gdtH_single_shift (EDGE-GDT-1); AdmissibleH, the first conjunct, is a separate statement. Compiled; the obligation stays open until Comparator accepts it against an independent Challenge under landrun on Linux. Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/localCount_singleton_eq_totient.json, statements over lean-bgp212's own definitions) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0019); obligation discharged.",
    "evidence": [
-    "EV-0011"
+    "EV-0011",
+    "EV-0019"
    ]
   }
  ]

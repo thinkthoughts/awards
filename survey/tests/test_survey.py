@@ -258,6 +258,11 @@ class RegistryTests(unittest.TestCase):
             "admissibleZ_iff_omits_residue.json": ("AdmissibleOmits", "admissibleZ_iff_omits_residue", "LIFT-ADM-4", "AdmissibleZMod"),
             "admissibleZ_iff_card_lt.json": ("AdmissibleCard", "admissibleZ_iff_card_lt", "LIFT-ADM-5", "AdmissibleZMod"),
             "residueImage_card_eq_nu_of_modulus.json": ("ResidueNuCard", "residueImage_card_eq_nu_of_modulus", "LIFT-ADM-6", "ResidueNu"),
+            "admissibleZ_iff_local_factor_pos.json": ("LocalFactorPos", "admissibleZ_iff_local_factor_pos", "LIFT-ADM-8", "LocalFactor"),
+            "localCount_pos_iff.json": ("LocalCountPos", "localCount_pos_iff", "LIFT-GDT-2", "LocalFactor"),
+            "localCount_pos_of_admissibleZ.json": ("LocalCountAdmissible", "localCount_pos_of_admissibleZ", "LIFT-GDT-3", "LocalFactor"),
+            "localCount_singleton.json": ("LocalCountSingleton", "localCount_singleton", "LIFT-GDT-4", "LocalFactor"),
+            "localCount_singleton_eq_totient.json": ("SingleShiftTotient", "localCount_singleton_eq_totient", "LIFT-GDT-5", "SingleShiftTotient"),
         }
         self.assertEqual(sorted(p.name for p in (bridges / "Comparator").glob("*.json")), sorted(expected))
         for cfg_name, (mod, thm, eid, proof_mod) in expected.items():
@@ -355,6 +360,53 @@ class RegistryTests(unittest.TestCase):
                 self.assertNotIn("does not match", section)
         self.assertEqual(sha256(ROOT / ev["EV-0015"]["comparator"]["log"]), "83ed3be8e41ef4802ae48f59e785035d4c80c936fb083ea2693ea69493994f3c")
         self.assertEqual(sha256(ROOT / ev["EV-0016"]["comparator"]["log"]), "a25a7b2f67982f0e12f575039c7e5f9b3bdceb7f5ba76752c5c7236402a2b395")
+
+    def test_local_factor_pairs_use_upstream_definitions(self):
+        """The five local-factor/GDT pairs: statements mention only lean-bgp212's AdmissibleZ, nu,
+        localCount and GDT.R (plus Mathlib), so the Challenges restate no definition; every
+        theorem the lifts cite in the two bridge modules is covered; the lifts stay Compiled
+        until isolated Comparator acceptance, now recorded (EV-0017 to EV-0019)."""
+        import re
+        bridges = SURVEY / "lean-bridges"
+        pairs = {"LIFT-ADM-8": "admissibleZ_iff_local_factor_pos", "LIFT-GDT-2": "localCount_pos_iff",
+                 "LIFT-GDT-3": "localCount_pos_of_admissibleZ", "LIFT-GDT-4": "localCount_singleton",
+                 "LIFT-GDT-5": "localCount_singleton_eq_totient"}
+        covered = set()
+        for eid, cfg_name in pairs.items():
+            cfg = json.loads((bridges / "Comparator" / f"{cfg_name}.json").read_text(encoding="utf-8"))
+            chal = (bridges / (cfg["challenge_module"].replace(".", "/") + ".lean")).read_text(encoding="utf-8")
+            self.assertEqual(re.findall(r"^import\s+(\S+)", chal, re.M), ["BGP212.Gap", "BGP212.MultiShift"])
+            self.assertIsNone(re.search(r"^(noncomputable )?def ", chal, re.M), cfg_name)
+            # the Challenge's `open` context matches the bridge module's
+            sol_mod = re.findall(r"^import\s+(\S+)", (bridges / (cfg["solution_module"].replace(".", "/") + ".lean")).read_text(encoding="utf-8"), re.M)[0]
+            bridge = (bridges / (sol_mod.replace(".", "/") + ".lean")).read_text(encoding="utf-8")
+            self.assertEqual("open BGP212.Gap" in chal, "open BGP212.Gap" in bridge, cfg_name)
+            covered |= {n.rsplit(".", 1)[-1] for n in cfg["theorem_names"]}
+            e = self.edge(self.reg, eid)
+            self.assertEqual((e["state"]["verification"], validate_registry.lift_state(e), e["obligation"]),
+                             ("comparator-accepted", "Verified", "discharged"), eid)
+            self.assertIn(f"Comparator/{cfg_name}.json", e["notes"])
+            # its isolated acceptance: one per config, audit verbatim in the log
+            ev = {v["id"]: v for v in self.reg["evidence"]["evidence"]}
+            rec = ev[{"LIFT-ADM-8": "EV-0017", "LIFT-GDT-2": "EV-0017", "LIFT-GDT-3": "EV-0018",
+                      "LIFT-GDT-4": "EV-0019", "LIFT-GDT-5": "EV-0019"}[eid]]
+            self.assertIn(rec["id"], e["evidence"])
+            self.assertEqual(validate_registry.isolation_policy.audit_errors("landrun-linux", rec["isolation_audit"]), [])
+            log = (ROOT / rec["comparator"]["log"]).read_text(encoding="utf-8")
+            self.assertIn("isolation-audit: " + json.dumps(rec["isolation_audit"], sort_keys=True), log)
+            section = log.split(f"== Comparator/{cfg_name}.json ")[1].split("\n== Comparator/")[0]
+            self.assertEqual(section.count("Your solution is okay!"), 1, cfg_name)
+            for th in cfg["theorem_names"]:
+                self.assertEqual(rec["axioms"][th], ["Classical.choice", "Quot.sound", "propext"], th)
+        logs = {"EV-0017": "951259a54eb3c5164c238ad8f3398572f2ee986ea06d0414d4e3748f2e4abad1",
+                "EV-0018": "57f7cc25b2fa74382c47ac3e74eca97e6243413d55aaa19e4040e65a0cf51410",
+                "EV-0019": "87a6f987706e01d8289d8d845e86e082e9941591747a54055abd41008b06c921"}
+        ev = {v["id"]: v for v in self.reg["evidence"]["evidence"]}
+        for evid, h in logs.items():
+            self.assertEqual(sha256(ROOT / ev[evid]["comparator"]["log"]), h, evid)
+        for mod in ("LocalFactor", "SingleShiftTotient"):
+            stated = set(re.findall(r"^theorem (\S+)", (bridges / "SurveyBridges" / f"{mod}.lean").read_text(encoding="utf-8"), re.M))
+            self.assertEqual(stated - covered, set(), mod)
 
     def test_linux_runner_shares_builds_read_only(self):
         import os, re
@@ -527,8 +579,8 @@ class RegistryTests(unittest.TestCase):
             name = e["statement"]["lean_name"].rsplit(".", 1)[-1]
             decl = re.search(rf"theorem {name}\b.*?:=", src, re.S).group(0)[:-2]
             self.assertEqual(norm(decl), norm(e["statement"]["lean"]), eid)
-            self.assertEqual(validate_registry.lift_state(e), "Compiled", eid)
-            self.assertEqual(e["obligation"], "open", eid)
+            self.assertEqual(validate_registry.lift_state(e), "Verified", eid)      # EV-0017 to EV-0019
+            self.assertEqual(e["obligation"], "discharged", eid)
         # AdmissibleH (fixed class a) stays out of the AdmissibleZ / localCount statements
         for name in ("localCount_pos_iff", "localCount_pos_of_admissibleZ"):
             decl = re.search(rf"theorem {name}\b.*?:=", src, re.S).group(0)
@@ -546,8 +598,8 @@ class RegistryTests(unittest.TestCase):
         self.assertEqual(" ".join(decl.split()), " ".join(e["statement"]["lean"].split()))
         self.assertIn("hN : 0 < N", [h.get("lean") for h in e["hypotheses"]])
         self.assertIn("theorem localCount_singleton_at_zero", src)
-        self.assertEqual(validate_registry.lift_state(e), "Compiled")
-        self.assertEqual(e["obligation"], "open")
+        self.assertEqual(validate_registry.lift_state(e), "Verified")      # EV-0019
+        self.assertEqual(e["obligation"], "discharged")
         # LIFT-GDT-4's totient side condition is discharged by LIFT-GDT-5 (EV-0011)
         g4 = self.edge(self.reg, "LIFT-GDT-4")
         tot = [h for h in g4["hypotheses"] if h["id"] == "totient"]

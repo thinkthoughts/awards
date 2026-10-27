@@ -1,0 +1,13 @@
+{
+    "challenge_module": "SurveyChallenge.LocalCountAdmissible",
+    "solution_module": "SurveySolution.LocalCountAdmissible",
+    "theorem_names": [
+        "Survey.PrimeBridges.localCount_pos_of_admissibleZ",
+        "Survey.PrimeBridges.localCount_twin_pos"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

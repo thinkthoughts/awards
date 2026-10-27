@@ -1,0 +1,12 @@
+{
+    "challenge_module": "SurveyChallenge.LocalFactorPos",
+    "solution_module": "SurveySolution.LocalFactorPos",
+    "theorem_names": [
+        "Survey.PrimeBridges.admissibleZ_iff_local_factor_pos"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

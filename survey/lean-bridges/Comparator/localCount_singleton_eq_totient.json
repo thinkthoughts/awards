@@ -1,0 +1,17 @@
+{
+    "challenge_module": "SurveyChallenge.SingleShiftTotient",
+    "solution_module": "SurveySolution.SingleShiftTotient",
+    "theorem_names": [
+        "Survey.PrimeBridges.localCount_singleton_eq_totient",
+        "Survey.PrimeBridges.localCount_zero_eq_totient",
+        "Survey.PrimeBridges.totient_R_eq_prod",
+        "Survey.PrimeBridges.R_eq_prod_sdiff",
+        "Survey.PrimeBridges.totient_prod_primes",
+        "Survey.PrimeBridges.localCount_singleton_at_zero"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

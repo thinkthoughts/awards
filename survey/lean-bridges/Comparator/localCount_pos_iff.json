@@ -1,0 +1,12 @@
+{
+    "challenge_module": "SurveyChallenge.LocalCountPos",
+    "solution_module": "SurveySolution.LocalCountPos",
+    "theorem_names": [
+        "Survey.PrimeBridges.localCount_pos_iff"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

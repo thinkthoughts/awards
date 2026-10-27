@@ -1,0 +1,13 @@
+{
+    "challenge_module": "SurveyChallenge.LocalCountSingleton",
+    "solution_module": "SurveySolution.LocalCountSingleton",
+    "theorem_names": [
+        "Survey.PrimeBridges.localCount_singleton",
+        "Survey.PrimeBridges.nu_singleton"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}
