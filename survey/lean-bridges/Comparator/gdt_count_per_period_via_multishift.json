@@ -1,0 +1,13 @@
+{
+    "challenge_module": "SurveyChallenge.GDTSingleShift",
+    "solution_module": "SurveySolution.GDTSingleShift",
+    "theorem_names": [
+        "BGP212.Challenge.gdt_count_per_period_via_multishift",
+        "BGP212.Challenge.gdtH_single_shift"
+    ],
+    "permitted_axioms": [
+        "propext",
+        "Quot.sound",
+        "Classical.choice"
+    ]
+}

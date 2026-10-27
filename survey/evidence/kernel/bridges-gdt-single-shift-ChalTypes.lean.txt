@@ -1,0 +1,5 @@
+import SurveyChallenge.GDTSingleShift
+set_option pp.all true in
+#check @BGP212.Challenge.gdtH_single_shift
+set_option pp.all true in
+#check @BGP212.Challenge.gdt_count_per_period_via_multishift

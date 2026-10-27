@@ -196,7 +196,17 @@ class RegistryTests(unittest.TestCase):
         script = (SURVEY / "scripts" / "check_bridges.sh").read_text(encoding="utf-8")
         audit = (SURVEY / "lean-bridges" / "Audit.lean").read_text(encoding="utf-8")
         listed = re.search(r"^MODULES=\((.*)\)$", script, re.M).group(1).split()
-        self.assertEqual(sorted(listed), [f.stem for f in bridges])
+        # Bridges that declare nothing and only import an upstream `Solution.*` proof module are
+        # kernel-checked by their own procedure (docs/COMPARATOR_RUNS.md), since check_bridges.sh
+        # compiles survey modules against a provider that holds no `Solution` build.
+        upstream_import = {"GDTSingleShift"}
+        self.assertEqual(sorted(listed), [f.stem for f in bridges if f.stem not in upstream_import])
+        for stem in upstream_import:
+            text = (SURVEY / "lean-bridges" / "SurveyBridges" / f"{stem}.lean").read_text(encoding="utf-8")
+            body = re.sub(r"/-.*?-/", "", text, flags=re.S)
+            self.assertTrue(re.findall(r"^import\s+(\S+)", body, re.M))
+            self.assertTrue(all(i.startswith("Solution.") for i in re.findall(r"^import\s+(\S+)", body, re.M)), stem)
+            self.assertIsNone(re.search(r"^\s*(theorem|lemma|def|abbrev|instance|example|axiom|opaque|structure|inductive|class)\b", body, re.M), stem)
         for f in bridges + sorted((SURVEY / "lean").rglob("*.lean")):
             if ".lake" in f.parts:
                 continue
@@ -237,6 +247,12 @@ class RegistryTests(unittest.TestCase):
                 proof_files = [bridges / (i.replace(".", "/") + ".lean") for i in sol_imports
                                if i.startswith("SurveyBridges.")]
                 proof_stmts = [statement(f.read_text(encoding="utf-8"), short) for f in proof_files]
+                if not any(proof_stmts):
+                    # the bridge re-exports an upstream proof module: compare with the registry's
+                    # verbatim quotation of the upstream statement (statement.lean or a hypothesis' lean)
+                    quoted = [e["statement"].get("lean", "") for e in edges.values()] + \
+                        [h.get("lean", "") for e in edges.values() for h in e["hypotheses"]]
+                    proof_stmts = [statement(q + " :=", short) for q in quoted if f"theorem {short} " in q]
                 self.assertIn(chal_stmt, proof_stmts, f"{name}: Challenge and Solution statements differ")
                 # the lift whose statement this is, or the lift that cites it as a step (its `uses`)
                 edge = next((e for e in edges.values() if e["statement"].get("lean_name") == name), None) \
@@ -247,7 +263,7 @@ class RegistryTests(unittest.TestCase):
                 for ev_id in edge.get("evidence", []):
                     ev = next(e for e in self.reg["evidence"]["evidence"] if e["id"] == ev_id)
                     for f in ev.get("files", []):
-                        if any(str(pf).endswith(f["path"].split("survey/", 1)[1]) for pf in proof_files):
+                        if f["path"].startswith("survey/") and any(str(pf).endswith(f["path"].split("survey/", 1)[1]) for pf in proof_files):
                             self.assertEqual(sha256(ROOT / f["path"]), f["sha256"])
 
     def test_comparator_pairs_cover_the_admissibility_lifts(self):
@@ -270,18 +286,20 @@ class RegistryTests(unittest.TestCase):
             "admissible_twin_of_pair.json": ("AdmissibleTwinPair", "admissible_twin_of_pair", "LIFT-009-6", "AdmissiblePair"),
             "twin_primes_iff_h1Le_two.json": ("TwinPrimeEquiv", "twin_primes_iff_h1Le_two", "LIFT-009-3", "TwinPrimeEquiv"),
             "twin_primes_implies_h1Le_186.json": ("TwinPrimeTo186", "twin_primes_implies_h1Le_186", "LIFT-041-3", "TwinPrimeTo186"),
+            "gdt_count_per_period_via_multishift.json": ("GDTSingleShift", "BGP212.Challenge.gdt_count_per_period_via_multishift", "EDGE-GDT-1", "GDTSingleShift"),
         }
+        full = lambda thm: thm if "." in thm else f"Survey.PrimeBridges.{thm}"
         self.assertEqual(sorted(p.name for p in (bridges / "Comparator").glob("*.json")), sorted(expected))
         for cfg_name, (mod, thm, eid, proof_mod) in expected.items():
             cfg = json.loads((bridges / "Comparator" / cfg_name).read_text(encoding="utf-8"))
             self.assertEqual(cfg["challenge_module"], f"SurveyChallenge.{mod}")
             self.assertEqual(cfg["solution_module"], f"SurveySolution.{mod}")
-            self.assertEqual(cfg["theorem_names"][0], f"Survey.PrimeBridges.{thm}")
+            self.assertEqual(cfg["theorem_names"][0], full(thm))
             # any further theorem is a step the lift's own record cites
             uses = [u["name"] for u in self.edge(self.reg, eid)["uses"]]
             for extra in cfg["theorem_names"][1:]:
                 self.assertIn(extra, uses, cfg_name)
-            self.assertEqual(self.edge(self.reg, eid)["statement"]["lean_name"], f"Survey.PrimeBridges.{thm}")
+            self.assertEqual(self.edge(self.reg, eid)["statement"]["lean_name"], full(thm))
             sol = (bridges / "SurveySolution" / f"{mod}.lean").read_text(encoding="utf-8")
             self.assertEqual(re.findall(r"^import\s+(\S+)", sol, re.M), [f"SurveyBridges.{proof_mod}"])
             # the Solution header pins the kernel-checked source by its current sha256
@@ -493,6 +511,94 @@ class RegistryTests(unittest.TestCase):
             name = re.match(r"theorem (\S+)", h["lean"]).group(1)
             self.assertIn(f"Survey.PrimeBridges.{name}", [u["name"] for u in e["uses"]])
             self.assertIn(f"Survey.PrimeBridges.{name}", json.loads((bridges / "Comparator/twin_primes_iff_h1Le_two.json").read_text(encoding="utf-8"))["theorem_names"])
+
+    def test_gdt_single_shift_pair_targets_upstream_names(self):
+        """EDGE-GDT-1: the pair names lean-bgp212's own theorems in BGP212.Challenge, the Challenge
+        quotes the registry statements verbatim over upstream definitions only (no holes), and the
+        Solution reaches the upstream proofs through SurveyBridges.GDTSingleShift, which imports
+        Solution.MultiShift unchanged. Verified by isolated acceptance (EV-0023); the kernel check
+        (EV-0024) is recorded as such, without isolation."""
+        import re
+        bridges = SURVEY / "lean-bridges"
+        norm = lambda t: " ".join(t.split())
+        stmt = lambda t, n: norm(re.search(rf"theorem {n}\b(.*?):=", t + ":=", re.S).group(1))
+        e = self.edge(self.reg, "EDGE-GDT-1")
+        cfg = json.loads((bridges / "Comparator/gdt_count_per_period_via_multishift.json").read_text(encoding="utf-8"))
+        self.assertEqual(cfg["theorem_names"], ["BGP212.Challenge.gdt_count_per_period_via_multishift",
+                                                "BGP212.Challenge.gdtH_single_shift"])
+        self.assertEqual(cfg["theorem_names"][0], e["statement"]["lean_name"])
+        self.assertIn(cfg["theorem_names"][1], [u["name"] for u in e["uses"]])
+        self.assertEqual(sorted(cfg["permitted_axioms"]), ["Classical.choice", "Quot.sound", "propext"])
+        self.assertNotIn("definition_names", cfg)
+        chal = (bridges / "SurveyChallenge/GDTSingleShift.lean").read_text(encoding="utf-8")
+        body = re.sub(r"/-.*?-/", "", chal, flags=re.S)
+        self.assertEqual(re.findall(r"^import\s+(\S+)", body, re.M), ["BGP212.MultiShift"])
+        self.assertIn("namespace BGP212.Challenge\n", body)
+        self.assertIn("open GDT BGP212.MultiShift\n", body)
+        self.assertIsNone(re.search(r"^(noncomputable )?def ", body, re.M))
+        self.assertEqual(stmt(body, "gdt_count_per_period_via_multishift"), stmt(e["statement"]["lean"], "gdt_count_per_period_via_multishift"))
+        h0 = next(h for h in e["hypotheses"] if h["id"] == "H0")
+        self.assertEqual(stmt(body, "gdtH_single_shift"), stmt(h0["lean"], "gdtH_single_shift"))
+        bridge_path = bridges / "SurveyBridges/GDTSingleShift.lean"
+        bridge = re.sub(r"/-.*?-/", "", bridge_path.read_text(encoding="utf-8"), flags=re.S)
+        self.assertEqual(re.findall(r"^import\s+(\S+)", bridge, re.M), ["Solution.MultiShift"])
+        for n in cfg["theorem_names"]:
+            self.assertIn(f"#print axioms {n}", bridge)
+            self.assertIn(f"#print axioms {n}", (bridges / "Audit.lean").read_text(encoding="utf-8"))
+        sol = (bridges / "SurveySolution/GDTSingleShift.lean").read_text(encoding="utf-8")
+        self.assertEqual(re.findall(r"^import\s+(\S+)", sol, re.M), ["SurveyBridges.GDTSingleShift"])
+        self.assertIn(sha256(bridge_path), sol)
+        upstream_sol = "7f345fe6b4ffe8e21993e658a9233f40efde0ed140e2e5338aea016c6b4f86bd"
+        self.assertIn(upstream_sol, sol)
+        self.assertIn(upstream_sol, bridge_path.read_text(encoding="utf-8"))
+        # pinned to 89b43fa, status unchanged pending isolated acceptance
+        self.assertTrue(all(u["source"] == "lean-bgp212-89b43fa" for u in e["uses"]))
+        for h in (upstream_sol, "fd0262a0ac9733fe865fa29567f555e8dc3a63ff37877b47d41ab251d3bd6721",
+                  "a9198ae1e746bbfcfb36b1d5c2e16faf9eb244323b9d824a7d825921958ea084", "89b43fa"):
+            self.assertIn(h, e["source"])
+        self.assertEqual((e["state"]["verification"], validate_registry.lift_state(e), e["obligation"]),
+                         ("comparator-accepted", "Verified", "discharged"))
+        self.assertEqual(e["evidence"], ["EV-UP-B1", "EV-0024", "EV-0023"])
+        self.assertIn("Comparator/gdt_count_per_period_via_multishift.json", e["notes"])
+        ev = {v["id"]: v for v in self.reg["evidence"]["evidence"]}
+        rec = ev["EV-0023"]
+        self.assertEqual((rec["kind"], rec["isolation"]), ("comparator", "landrun-linux"))
+        self.assertEqual(validate_registry.isolation_policy.audit_errors("landrun-linux", rec["isolation_audit"]), [])
+        self.assertIn("/home/dan/awards-gdt/survey/lean-bridges", rec["isolation_audit"]["readonly_mounts"])
+        log = (ROOT / rec["comparator"]["log"]).read_text(encoding="utf-8")
+        self.assertEqual(sha256(ROOT / rec["comparator"]["log"]), "e3bb2b8fff4154d69213f0abcb7dd69b0fe8ae571ef5f3950f791c12a059e439")
+        self.assertIn("isolation-audit: " + json.dumps(rec["isolation_audit"], sort_keys=True), log)
+        section = log.split("== Comparator/gdt_count_per_period_via_multishift.json ")[1]
+        self.assertTrue(section.startswith("sha256 " + sha256(bridges / "Comparator/gdt_count_per_period_via_multishift.json") + "\n"))
+        self.assertEqual(section.count("Your solution is okay!"), 1)
+        for bad in ("does not match", "Illegal axiom"):
+            self.assertNotIn(bad, section)
+        exports = re.findall(r"^Exporting #\[(.*)\] from (\S+)$", section, re.M)
+        self.assertEqual([m for _, m in exports], [cfg["challenge_module"], cfg["solution_module"]])
+        self.assertEqual(exports[0][0], exports[1][0])
+        self.assertEqual([i for i in exports[0][0].split(", ") if i.startswith("BGP212.")], cfg["theorem_names"])
+        self.assertEqual(rec["comparator"]["theorems"], cfg["theorem_names"])
+        for th in cfg["theorem_names"]:
+            self.assertEqual(rec["axioms"][th], ["propext", "Classical.choice", "Quot.sound"])
+            self.assertIn(f"'{th}' depends on axioms: [propext, Classical.choice, Quot.sound]", section)
+        self.assertIn("Built Solution.MultiShift", section)  # the upstream proof, compiled in the sandbox
+        prereq = (ROOT / "survey/evidence/comparator/gdt-vps-prereq.log").read_text(encoding="utf-8")
+        self.assertTrue(prereq.strip().endswith("all prerequisites present: every module in the closure has its compiled files in the shared builds"))
+        # the kernel check: recorded with its real environment, never as isolated evidence
+        k = ev["EV-0024"]
+        self.assertEqual(k["kind"], "kernel-check")
+        self.assertNotIn("isolation", k)
+        self.assertIn("Claude cloud session container", k["machine"])
+        self.assertIn("MacBook Pro build", k["machine"])
+        klog = ROOT / "survey/evidence/kernel/bridges-gdt-single-shift.log"
+        self.assertEqual(sha256(klog), "f115bed3262b744e7707cc840f2a6c15207e9a01ffc2ab1265e712347621898b")
+        for f in k["files"]:
+            self.assertEqual(sha256(ROOT / f["path"]), f["sha256"], f["path"])
+        self.assertIn(f"== SurveyBridges.GDTSingleShift sha256 {sha256(bridge_path)}", klog.read_text(encoding="utf-8"))
+        # LIFT-0001 stays Compiled; its future role is recorded
+        l1 = self.edge(self.reg, "LIFT-0001")
+        self.assertEqual((validate_registry.lift_state(l1), l1["obligation"]), ("Compiled", "open"))
+        self.assertIn("core-only Comparator control", l1["notes"])
 
     def test_linux_runner_shares_builds_read_only(self):
         import os, re

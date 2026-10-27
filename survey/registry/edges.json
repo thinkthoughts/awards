@@ -44,7 +44,7 @@
    "evidence": [
     "EV-0001"
    ],
-   "notes": "Kernel-checked with no axioms (EV-0001); the lift reaches Verified once Comparator accepts it against an independent Challenge."
+   "notes": "Kernel-checked with no axioms (EV-0001); the lift reaches Verified once Comparator accepts it against an independent Challenge. Retained as Compiled for now. Potential future use: a core-only Comparator control (trusted base the kernel plus the prelude, no Mathlib), with negative controls such as a changed statement and an added axiom; it needs Challenge/Solution libraries in survey/lean and a core-only runner path, which the current runner (survey/lean-bridges only) does not provide."
   },
   {
    "id": "EDGE-GDT-1",
@@ -53,41 +53,95 @@
    "relation": "special-case",
    "strength": "direct-application",
    "statement": {
-    "math": "At H = {0} the multi-shift theorem re-derives GDT v1.0.0's count per period, statement for statement."
+    "math": "At H = {0} the multi-shift theorem re-derives GDT v1.0.0's count per period, statement for statement.",
+    "lean_name": "BGP212.Challenge.gdt_count_per_period_via_multishift",
+    "lean": "theorem gdt_count_per_period_via_multishift {N m : ℕ} (hN : 0 < N) (hm : 0 < m) {a : ℤ} (h : Admissible N m a) (b : ℕ) : ((Finset.Ico b (b + Tmin N m)).filter (accepted N m a)).card = Nat.totient (R N m)",
+    "proof_term": "by obtain ⟨hadm, hacc, hcount⟩ := gdtH_single_shift (m := m) hN a; rw [← hcount, ← gdtH_count_per_period hN hm (hadm.mpr h) b]; … (lean-bgp212 89b43fa, Solution/MultiShift.lean)"
    },
    "uses": [
     {
-     "source": "lean-bgp212",
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Challenge.gdt_count_per_period_via_multishift",
+     "kind": "theorem",
+     "file": "Solution/MultiShift.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
      "name": "BGP212.Challenge.gdtH_single_shift",
      "kind": "theorem",
      "file": "Solution/MultiShift.lean"
     },
     {
-     "source": "lean-bgp212",
-     "name": "BGP212.Challenge.gdt_count_per_period_via_multishift",
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.Challenge.gdtH_count_per_period",
      "kind": "theorem",
      "file": "Solution/MultiShift.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.MultiShift.AdmissibleH",
+     "kind": "def",
+     "file": "BGP212/MultiShift.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.MultiShift.acceptedH",
+     "kind": "def",
+     "file": "BGP212/MultiShift.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "BGP212.MultiShift.localCount",
+     "kind": "def",
+     "file": "BGP212/MultiShift.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "GDT.Admissible",
+     "kind": "def",
+     "file": "BGP212/GDTv1Basic.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "GDT.accepted",
+     "kind": "def",
+     "file": "BGP212/GDTv1Basic.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "GDT.Tmin",
+     "kind": "def",
+     "file": "BGP212/GDTv1Basic.lean"
+    },
+    {
+     "source": "lean-bgp212-89b43fa",
+     "name": "GDT.R",
+     "kind": "def",
+     "file": "BGP212/GDTv1Basic.lean"
     }
    ],
    "hypotheses": [
     {
      "id": "H0",
-     "statement": "H = {0}",
+     "statement": "H = {0}: admissibility, acceptance and the count of the multi-shift theorem reduce to GDT v1.0.0's (BGP212.Challenge.gdtH_single_shift, lean-bgp212 89b43fa)",
      "role": "side-condition",
-     "status": "discharged"
+     "status": "discharged",
+     "lean": "theorem gdtH_single_shift {N m : ℕ} (hN : 0 < N) (a : ℤ) : (AdmissibleH N m a {0} ↔ Admissible N m a) ∧ (∀ n : ℕ, acceptedH N m a {0} n ↔ accepted N m a n) ∧ localCount N m {0} = Nat.totient (R N m)"
     }
    ],
-   "source": "lean-bgp212 B1 (Gate B): specs/results/B1_multishift.yaml",
+   "source": "lean-bgp212 89b43fa (files identical at 14ec5e0): Solution/MultiShift.lean (sha256 7f345fe6b4ffe8e21993e658a9233f40efde0ed140e2e5338aea016c6b4f86bd), Challenge/MultiShift.lean (fd0262a0ac9733fe865fa29567f555e8dc3a63ff37877b47d41ab251d3bd6721), BGP212/MultiShift.lean (a9198ae1e746bbfcfb36b1d5c2e16faf9eb244323b9d824a7d825921958ea084); upstream record B1 (Gate B): specs/results/B1_multishift.yaml; statements written with open GDT BGP212.MultiShift",
    "state": {
     "mathematical": "established",
     "formalization": "compiled",
-    "verification": "upstream-reported"
+    "verification": "comparator-accepted"
    },
-   "obligation": "open",
+   "obligation": "discharged",
    "evidence": [
-    "EV-UP-B1"
+    "EV-UP-B1",
+    "EV-0024",
+    "EV-0023"
    ],
-   "notes": "Admissible generalization trails leading specification: GDT (one shift) leads; the multi-shift form is admitted through this reduction. Re-run under Comparator here (stage 5) to discharge."
+   "notes": "Admissible generalization trails leading specification: GDT (one shift) leads; the multi-shift form is admitted through this reduction. Re-run under Comparator here (stage 5) to discharge. Statement pinned to lean-bgp212 89b43fa (previously cited at 14ec5e0; the cited files are identical). Upstream's own Comparator record (EV-UP-B1) used Comparator c78dd72 with a pass-through sandbox and twelve definition holes, outside the survey's policy. Comparator pair prepared (survey/lean-bridges/Comparator/gdt_count_per_period_via_multishift.json, both upstream theorems under their BGP212.Challenge names, upstream definitions compared in full, no definition holes; Solution through SurveyBridges.GDTSingleShift, which imports Solution.MultiShift unchanged). Kernel check of that module in Claude's session, pending recording: both theorems depend on propext, Classical.choice, Quot.sound. It stays upstream-reported (Compiled) with the obligation open until Comparator accepts it under landrun on Linux. Kernel check recorded as EV-0024 (Claude's session, not isolated). Verified: Comparator accepted it against the independent Challenge (survey/lean-bridges/Comparator/gdt_count_per_period_via_multishift.json, both upstream theorems under their BGP212.Challenge names, upstream definitions compared in full, no definition holes) under landrun on Linux (landrun-linux, Landlock ABI 4, audited; EV-0023); obligation discharged."
   },
   {
    "id": "LIFT-ADM-1",

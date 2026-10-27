@@ -1,0 +1,6 @@
+Mathlib.Data.Nat.GCD.BigOperators: built
+Mathlib.Tactic.FieldSimp: built
+Mathlib.Tactic.Positivity: built
+Mathlib.Tactic.Linarith: built
+closure of Solution.MultiShift at 89b43fa: 1382 package modules {'Aesop': 132, 'Batteries': 75, 'ImportGraph': 10, 'LeanSearchClient': 4, 'Mathlib': 1124, 'Plausible': 13, 'ProofWidgets': 10, 'Qq': 14}
+all prerequisites present: every module in the closure has its compiled files in the shared builds

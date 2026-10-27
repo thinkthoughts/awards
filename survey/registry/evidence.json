@@ -2369,6 +2369,215 @@
     "axiom_check": "Comparator checkAxioms over every theorem target, transitively: only propext, Quot.sound, Classical.choice (no 'Illegal axiom detected')"
    },
    "notes": "Isolated Comparator acceptance under landrun on Linux (landrun-linux, Landlock ABI 4); the isolation_audit line is copied verbatim from the log and meets survey/scripts/isolation_policy.py. Statement over lean-bgp212's own H1Le; InfinitelyManyTwinPrimes restated verbatim in the Challenge (open BGP212.Gap Filter in) and compared by Comparator, body included. The cited steps were accepted in their own configs: twin_primes_iff_h1Le_two (EV-0021) and h1Le_mono (EV-0013). No definition holes. Every Challenge, Solution, bridge and config hash printed in the log (43 sources) matches the repository; dependency revisions match the survey manifest. Run from the separate checkout ~/awards-twin (its survey/lean-bridges mounted read-only); ~/awards-localfactor and ~/awards-zmod were left as they were."
+  },
+  {
+   "id": "EV-0023",
+   "layer": "L4",
+   "subjects": [
+    "EDGE-GDT-1"
+   ],
+   "kind": "comparator",
+   "isolation": "landrun-linux",
+   "isolation_audit": {
+    "go_landlock": "v0.10.1",
+    "kernel": "6.8.0-138-generic",
+    "landlock_abi": 4,
+    "landlock_probes": {
+     "read_outside_grants": "denied",
+     "write_outside_work_lake": "denied",
+     "write_through_shared_build_symlinks": "denied",
+     "write_work_lake": "allowed"
+    },
+    "landrun_flags": "--best-effort --ro / --rw /dev -ldd -add-exec --rwx WORK/.lake",
+    "landrun_modified": false,
+    "landrun_network_rules": "landrun TCP rules (Landlock ABI >= 4)",
+    "landrun_revision": "ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a",
+    "readonly_mounts": [
+     "/home/dan/lean-bgp212",
+     "/home/dan/comparator-19e111e",
+     "/home/dan/awards-gdt/survey/lean-bridges"
+    ],
+    "sockets_denied": [
+     "AF_UNIX",
+     "AF_INET",
+     "AF_INET6"
+    ],
+    "systemd_unit": "336431deeac24b9f95d89ebc88d82110"
+   },
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/GDTSingleShift.lean",
+     "sha256": "3eea5b1df11bd0b6c37b3fa4f8918894ecf53c8b5985a4b237cfd2c4766d3aea"
+    },
+    {
+     "path": "survey/lean-bridges/SurveySolution/GDTSingleShift.lean",
+     "sha256": "0caaefb8aa4f8df92f73803a042e0d5f7733b97e150859b9144a07303a769c14"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyBridges/GDTSingleShift.lean",
+     "sha256": "20b03b9e17b0dd932de36db73e385bba2bf4b1d4464f6d66437fb1d3f8a0dc75"
+    },
+    {
+     "path": "survey/lean-bridges/Comparator/gdt_count_per_period_via_multishift.json",
+     "sha256": "0fcfcd31ee2487969491844e482f0a8e627fa926c81ba53f8b95d8f5e76e1dd2"
+    },
+    {
+     "path": "survey/scripts/compare_bridges_linux.sh",
+     "sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c"
+    },
+    {
+     "path": "survey/scripts/isolation_policy.py",
+     "sha256": "f76b705fba4d624a7231b76ab34b592ca51106350e327f37047bcdf1e23670b8"
+    },
+    {
+     "path": "survey/evidence/comparator/gdt-single-shift-linux-landrun.log",
+     "sha256": "e3bb2b8fff4154d69213f0abcb7dd69b0fe8ae571ef5f3950f791c12a059e439"
+    },
+    {
+     "path": "survey/evidence/comparator/gdt-vps-prereq.py",
+     "sha256": "580150db0062afb0bb156eb4674538c8ea527b2cce28e32d3eaed20fb9ab7d74"
+    },
+    {
+     "path": "survey/evidence/comparator/gdt-vps-prereq.log",
+     "sha256": "2f3c598527de3cae5f784268f2010c0ffa6c5d8bce6cd1bc16c3581a9edfd33c"
+    }
+   ],
+   "declarations": [
+    "BGP212.Challenge.gdt_count_per_period_via_multishift",
+    "BGP212.Challenge.gdtH_single_shift"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "python3 -I ~/gdt-vps-prereq.py ~/lean-bgp212 | tee ~/comparator-runs/gdt-vps-prereq.log; then systemd-run --user --pipe --same-dir --wait --collect -p PrivateUsers=yes -p ReadOnlyPaths=$HOME/lean-bgp212 -p ReadOnlyPaths=$HOME/comparator-19e111e -p ReadOnlyPaths=$HOME/awards-gdt -p 'RestrictAddressFamilies=~AF_UNIX AF_INET AF_INET6' -E PATH=$PATH -E HOME=$HOME -E COMPARATOR_LANDRUN=$HOME/landrun-verified/landrun -E COMPARE_WORKDIR_BASE=$HOME/survey-compare -- survey/scripts/compare_bridges_linux.sh ~/lean-bgp212 ~/comparator-19e111e survey/lean-bridges/Comparator/gdt_count_per_period_via_multishift.json 2>&1 | tee ~/comparator-runs/gdt-single-shift-linux-landrun.log (in ~/awards-gdt: 7979008c5ba754495d521bc21f8ce04e5cfbf965 plus survey-comparator-gdt-single-shift.patch 0761903f…)",
+   "tool": "Lean Comparator 19e111e2141cf333c7daff0f64c5f24acc91dd2e with lean4export cacf989bd75f608700820f6afc595f32e7a99a4d; Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release); landrun ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a (go-landlock v0.10.1)",
+   "result": "For gdt_count_per_period_via_multishift.json: independence check passed; the Challenge (lean-bgp212's statements verbatim under open GDT BGP212.MultiShift, over upstream AdmissibleH, acceptedH, localCount and GDT v1.0.0's Admissible, accepted, Tmin, R; no survey definition, no definition holes) built with its two expected `sorry` warnings; Challenge and Solution each exported exactly BGP212.Challenge.gdt_count_per_period_via_multishift and BGP212.Challenge.gdtH_single_shift, with identical export lists; the sandbox compiled lean-bgp212's BGP212.GDTv1 and Solution.MultiShift from the pinned sources, then SurveyBridges.GDTSingleShift, which printed 'BGP212.Challenge.gdtH_single_shift' and 'BGP212.Challenge.gdt_count_per_period_via_multishift' depends on axioms: [propext, Classical.choice, Quot.sound]; then 'Running Lean default kernel on solution. / Lean default kernel accepts the solution / Your solution is okay!' (one acceptance). Isolation established before Comparator ran: Landlock ABI 4, the three denial probes denied and the WORK/.lake write allowed, provider/Comparator/survey trees read-only mounts, AF_UNIX/AF_INET/AF_INET6 denied, inside systemd unit 336431deeac24b9f95d89ebc88d82110. Post-run: 'shared builds unchanged; workspace 203M, no hardlinks'; final 'comparator: all configs accepted (isolation: landrun-linux)'; systemd 'Main processes terminated with: code=exited/status=0'. Full output: survey/evidence/comparator/gdt-single-shift-linux-landrun.log.",
+   "axioms": {
+    "BGP212.Challenge.gdt_count_per_period_via_multishift": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "BGP212.Challenge.gdtH_single_shift": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-26",
+   "machine": "User's Linux VPS (Linux 6.8.0-138-generic x86_64, ext4 /dev/sda1); run by the user under run-u13.service; Claude audited the complete 108-line log line by line, and the 6-line prerequisite log",
+   "comparator": {
+    "comparator_commit": "19e111e2141cf333c7daff0f64c5f24acc91dd2e",
+    "comparator_tree": "clean",
+    "comparator_binary_sha256": "514de8d2acbd6e0102575cd2c575e336b7c4a40daf3ae66abe97cef5e1e6b02a",
+    "lean4export_commit": "cacf989bd75f608700820f6afc595f32e7a99a4d",
+    "lean4export_tree": "clean",
+    "lean4export_binary_sha256": "4fa9e14cada304109e85da5048bcd411cf781a03539b3e50953e5c537074bd9e",
+    "toolchain": "leanprover/lean4:v4.34.0-rc2",
+    "lean_commit": "6a10ac8c22beadecabdbb0919c2b50214762f91d",
+    "lake_launcher": "/home/dan/.elan/toolchains/leanprover--lean4---v4.34.0-rc2/bin/lake",
+    "lake_launcher_sha256": "6f53827dab18010d6c690d14c8401cacabc1db958edb3552a877ed4cf1dd995d",
+    "lake_version": "Lake version 5.0.0-src+6a10ac8 (Lean version 4.34.0-rc2)",
+    "lean_bgp212": "89b43fa019337645b4c2c66ae917bcb1fe76450f (workspace checkout from provider f779ea70c7d57570c57bca18aeab9ce0ede215a9, which descends from it; BGP212 modules compiled in the sandbox)",
+    "dependencies": "mathlib, plausible, LeanSearchClient, importGraph, proofwidgets, aesop, Qq, batteries at the survey manifest revisions, provider builds shared read-only; Cli source-only",
+    "host": "Linux 6.8.0-138-generic x86_64",
+    "runner": "/home/dan/landrun-verified/landrun",
+    "runner_sha256": "c0a1e7285fd5f9359e02564b6df1d2508fccfb6b4d8e7c1c0003561bad69cc00",
+    "runner_description": "landrun 0.1.18, vcs.revision ec104f6edc1e14d7fec6d31146f1ec6f9c192c5a, vcs.modified false, go-landlock v0.10.1",
+    "systemd_unit": "run-u13.service (invocation 336431deeac24b9f95d89ebc88d82110)",
+    "configs": {
+     "survey/lean-bridges/Comparator/gdt_count_per_period_via_multishift.json": "0fcfcd31ee2487969491844e482f0a8e627fa926c81ba53f8b95d8f5e76e1dd2"
+    },
+    "compare_script_sha256": "89d89c24795a73997b21b793318a15a2dc51fe7c7eeb3601a5e28761c06b117c",
+    "compare_script_path": "/home/dan/awards-gdt/survey/scripts/compare_bridges_linux.sh",
+    "log": "survey/evidence/comparator/gdt-single-shift-linux-landrun.log",
+    "log_sha256": "e3bb2b8fff4154d69213f0abcb7dd69b0fe8ae571ef5f3950f791c12a059e439",
+    "exit_status": "0 (systemd: Main processes terminated with: code=exited/status=0, in the log)",
+    "theorems": [
+     "BGP212.Challenge.gdt_count_per_period_via_multishift",
+     "BGP212.Challenge.gdtH_single_shift"
+    ],
+    "axiom_check": "Comparator checkAxioms over both theorem targets, transitively: only propext, Quot.sound, Classical.choice (no 'Illegal axiom detected'); the Solution build printed the exact axiom line of each target",
+    "prerequisite_check": "survey/evidence/comparator/gdt-vps-prereq.log (sha256 2f3c598527de3cae5f784268f2010c0ffa6c5d8bce6cd1bc16c3581a9edfd33c), from gdt-vps-prereq.py (sha256 580150db0062afb0bb156eb4674538c8ea527b2cce28e32d3eaed20fb9ab7d74) run on the VPS against ~/lean-bgp212: the four Mathlib modules Solution.MultiShift imports directly and all 1,382 package modules of its closure built in the shared builds"
+   },
+   "notes": "Isolated Comparator acceptance under landrun on Linux (landrun-linux, Landlock ABI 4); the isolation_audit line is copied verbatim from the log and meets survey/scripts/isolation_policy.py. The targets are lean-bgp212's own theorems under their upstream names, so Comparator judged exactly the proofs EDGE-GDT-1 cites; every definition the statements use is upstream and was compared in full (lean-bgp212's own Comparator/multishift.json, behind EV-UP-B1, declares twelve definition holes; this pair declares none). Every Challenge, Solution, bridge and config hash printed in the log (46 sources) matches the repository; dependency revisions match the survey manifest. Run from the separate checkout ~/awards-gdt (its survey/lean-bridges mounted read-only). The kernel check of the same modules before the run is EV-0024."
+  },
+  {
+   "id": "EV-0024",
+   "layer": "L4",
+   "subjects": [
+    "EDGE-GDT-1"
+   ],
+   "kind": "kernel-check",
+   "files": [
+    {
+     "path": "survey/lean-bridges/SurveyBridges/GDTSingleShift.lean",
+     "sha256": "20b03b9e17b0dd932de36db73e385bba2bf4b1d4464f6d66437fb1d3f8a0dc75"
+    },
+    {
+     "path": "survey/lean-bridges/SurveyChallenge/GDTSingleShift.lean",
+     "sha256": "3eea5b1df11bd0b6c37b3fa4f8918894ecf53c8b5985a4b237cfd2c4766d3aea"
+    },
+    {
+     "path": "survey/evidence/kernel/bridges-gdt-single-shift.log",
+     "sha256": "f115bed3262b744e7707cc840f2a6c15207e9a01ffc2ab1265e712347621898b"
+    },
+    {
+     "path": "survey/evidence/kernel/bridges-gdt-single-shift-run.sh",
+     "sha256": "a863c4633ad3a22ec9c192aa4aba5250c6806e3db187d3ccb5223289b5ce5733"
+    },
+    {
+     "path": "survey/evidence/kernel/bridges-gdt-single-shift-AuditGDT.lean.txt",
+     "sha256": "f909b9186a1149a60cc4df725fdfddd2b9d4e758884a7e5c2f446f7abebbb258"
+    },
+    {
+     "path": "survey/evidence/kernel/bridges-gdt-single-shift-ChalTypes.lean.txt",
+     "sha256": "a09e36be08aaf4481a8eabcde57e758009c54281c4a6e79a5e225c00ab2b4ce3"
+    }
+   ],
+   "declarations": [
+    "BGP212.Challenge.gdt_count_per_period_via_multishift",
+    "BGP212.Challenge.gdtH_single_shift",
+    "BGP212.Challenge.gdtH_count_per_period"
+   ],
+   "dependencies": [
+    "lean-bgp212-89b43fa"
+   ],
+   "command": "survey/evidence/kernel/bridges-gdt-single-shift-run.sh: lean -R ROOT -o OUT, without Lake, on BGP212.GDTv1Basic, BGP212.MultiShift, BGP212.GDTv1 and Solution.MultiShift (git archive of lean-bgp212 89b43fa019337645b4c2c66ae917bcb1fe76450f), then SurveyBridges.GDTSingleShift, the audit file (…-AuditGDT.lean.txt, run as AuditGDT.lean), SurveyChallenge.GDTSingleShift and the Challenge type dump (…-ChalTypes.lean.txt, run as ChalTypes.lean)",
+   "tool": "Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)",
+   "result": "All five modules compiled, each source at its printed sha256 (Solution/MultiShift.lean 7f345fe6…86bd, BGP212/MultiShift.lean a9198ae1…a084, SurveyBridges/GDTSingleShift.lean 20b03b9e…dc75). Audit: gdtH_single_shift, gdt_count_per_period_via_multishift and gdtH_count_per_period each depend on axioms: [propext, Classical.choice, Quot.sound]; upstream's Gate B example (type_of% gdt_count_per_period_via_multishift = type_of% BGP212.GDTv1.gdt_count_per_period := rfl) elaborated; the Challenge built with its two `sorry` warnings; the pp.all types of both theorems are identical in the Solution and the Challenge environments. No errors. Full output: survey/evidence/kernel/bridges-gdt-single-shift.log.",
+   "axioms": {
+    "BGP212.Challenge.gdt_count_per_period_via_multishift": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "BGP212.Challenge.gdtH_single_shift": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "BGP212.Challenge.gdtH_count_per_period": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "sorry_free": true,
+   "date": "2026-10-26",
+   "machine": "Claude cloud session container (x86_64 Linux), run by Claude; no sandbox isolation. Mathlib and its dependencies: compiled module files (.olean, .olean.server, .olean.private, .ir) of the Solution.MultiShift import closure, copied from the user's MacBook Pro build (~/lean-bgp212/.lake/packages, every package at its manifest revision with a clean tree; 8,360 files, archive sha256 cb4cd44a6601a083128582628442c634279b2f08c18a4c6b36c247b4a8720b79, list in ~/comparator-runs/gdt-closure-files.txt); Lean checks each file's header against the toolchain commit",
+   "notes": "Kernel check by elaboration plus axiom audit, not Linux-isolated evidence: it confirms the bridge compiles and the statements match before the isolated run (EV-0023), which alone moves EDGE-GDT-1 to Verified. The BGP212 and Solution modules were compiled from the pinned sources; Mathlib's compiled files were taken as built, as in every survey kernel check through lake env. check_bridges.sh does not cover this module (see survey/docs/COMPARATOR_RUNS.md)."
   }
  ]
 }

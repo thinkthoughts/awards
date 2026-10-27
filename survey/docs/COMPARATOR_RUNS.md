@@ -283,3 +283,31 @@ failure points at one layer:
 3. **Twin primes ⇒ `H1Le 186`** (`twin_primes_implies_h1Le_186.json`, LIFT-041-3): the composition,
    whose steps are group 2 and `h1le_mono.json` (LIFT-041-2, EV-0013). A failure here with group 2
    accepted isolates the composition.
+
+## EDGE-GDT-1: the GDT ↔ multi-shift specialization
+
+`gdt_count_per_period_via_multishift.json` names lean-bgp212's own theorems,
+`BGP212.Challenge.gdt_count_per_period_via_multishift` and `BGP212.Challenge.gdtH_single_shift`.
+The Challenge (`SurveyChallenge.GDTSingleShift`) imports only `BGP212.MultiShift` and quotes the
+upstream statements verbatim under upstream's `open GDT BGP212.MultiShift`; `AdmissibleH`,
+`acceptedH`, `localCount` and GDT v1.0.0's `Admissible`, `accepted`, `Tmin`, `R` are compared in full,
+with no definition holes (lean-bgp212's own `Comparator/multishift.json` declares twelve; the survey
+uses none). The Solution imports `SurveyBridges.GDTSingleShift`, which declares nothing and imports
+lean-bgp212's `Solution.MultiShift` (sha256 `7f345fe6…86bd`) unchanged.
+
+**Kernel check.** `check_bridges.sh` compiles survey modules against a provider checkout through
+`lake env`, and a provider holds no `Solution` build, so this module has its own procedure: compile
+`BGP212.GDTv1Basic`, `BGP212.MultiShift`, `BGP212.GDTv1` and `Solution.MultiShift` from the pinned
+sources with `lean -R … -o …`, then `SurveyBridges.GDTSingleShift`, an axiom audit, the Challenge, and a
+`pp.all` comparison of the two theorem types in Challenge and Solution. It needs the compiled Mathlib
+closure of `Solution.MultiShift` (1,382 package modules: Mathlib 1,124, Aesop 132, Batteries 75, Qq 14,
+Plausible 13, ProofWidgets 10, ImportGraph 10, LeanSearchClient 4; imports inside comments excluded)
+at the manifest revisions.
+`check_bridges.sh` lists every other bridge module; until `GDTSingleShift` is added to its `MODULES`
+(with `Solution.MultiShift` built in the provider first), it stops at "unlisted bridge module".
+
+**Linux prerequisites.** Comparator builds `Solution.MultiShift` and its BGP212 imports inside the
+sandbox (WORK/.lake), but the sandbox cannot create Mathlib modules, so the provider's shared build must
+hold the whole closure, in particular `Mathlib.Data.Nat.GCD.BigOperators`, `Mathlib.Tactic.FieldSimp`,
+`Mathlib.Tactic.Positivity` and `Mathlib.Tactic.Linarith`, which `Solution.MultiShift` imports directly.
+Check before the run, then run it as its own group (one config, two theorems).

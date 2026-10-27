@@ -13,6 +13,7 @@ import SurveyBridges.AdmissibleZMod
 import SurveyBridges.ResidueNu
 import SurveyBridges.LocalFactor
 import SurveyBridges.SingleShiftTotient
+import SurveyBridges.GDTSingleShift
 
 #check @Survey.PrimeBridges.h1Le_mono
 #print axioms Survey.PrimeBridges.h1Le_mono
@@ -106,3 +107,7 @@ import SurveyBridges.SingleShiftTotient
 #print axioms Survey.PrimeBridges.localCount_zero_eq_totient
 #check @Survey.PrimeBridges.localCount_singleton_at_zero
 #print axioms Survey.PrimeBridges.localCount_singleton_at_zero
+#check @BGP212.Challenge.gdtH_single_shift
+#print axioms BGP212.Challenge.gdtH_single_shift
+#check @BGP212.Challenge.gdt_count_per_period_via_multishift
+#print axioms BGP212.Challenge.gdt_count_per_period_via_multishift

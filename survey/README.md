@@ -51,8 +51,10 @@ survey/scripts/compare_bridges_linux.sh ~/lean-bgp212 ~/comparator-19e111e   # L
 `admissibleZ_iff_omits_residue`, `admissibleZ_iff_card_lt`, `residueImage_card_eq_nu_of_modulus`,
 `admissibleZ_iff_local_factor_pos`, `localCount_pos_iff`, `localCount_pos_of_admissibleZ`, `localCount_singleton`,
 `localCount_singleton_eq_totient`, `admissible_twin`, `admissible_twin_of_pair`, `twin_primes_iff_h1Le_two`,
-`twin_primes_implies_h1Le_186`; Challenges that mention `residueImage` or `InfinitelyManyTwinPrimes`
-restate it verbatim, and Comparator compares it in full): the Challenge
+`twin_primes_implies_h1Le_186`, `gdt_count_per_period_via_multishift`; Challenges that mention `residueImage` or
+`InfinitelyManyTwinPrimes` restate it verbatim, and Comparator compares it in full; the last config names
+lean-bgp212's own `BGP212.Challenge` theorems, reached through `SurveyBridges.GDTSingleShift`, which imports
+lean-bgp212's `Solution.MultiShift` unchanged): the Challenge
 (`lean-bridges/SurveyChallenge/`, statement only, importing only lean-bgp212) against the Solution
 (`lean-bridges/SurveySolution/`, importing the kernel-checked bridge module unchanged). It needs a
 Comparator checkout built for Lean 4.34.0-rc2 (commit `19e111e`, lean4export `cacf989`), assembles a
@@ -172,7 +174,14 @@ general distinction, shared reading, and boundary.
   `residueImage_card_eq_nu_of_modulus`, EV-0016), LIFT-ADM-8 and LIFT-GDT-2 (EV-0017), LIFT-GDT-3 (EV-0018),
   LIFT-GDT-4 and LIFT-GDT-5 (EV-0019), LIFT-009-5 and LIFT-009-6 (`admissible_twin`, `admissible_twin_of_pair`, EV-0020),
   LIFT-009-3 (`twin_primes_iff_h1Le_two` with its directions and side conditions, EV-0021), LIFT-041-3
-  (`twin_primes_implies_h1Le_186`, EV-0022); obligations discharged. Logs in
+  (`twin_primes_implies_h1Le_186`, EV-0022); obligations discharged.
+- GDT ↔ multi-shift specialization (EDGE-GDT-1), pinned to lean-bgp212 `89b43fa`: Verified under landrun on
+  Linux (Landlock ABI 4, audited; EV-0023) against the pair `gdt_count_per_period_via_multishift.json`, which names
+  lean-bgp212's own `BGP212.Challenge.gdt_count_per_period_via_multishift` (GDT v1.0.0's count per period,
+  re-derived) and `BGP212.Challenge.gdtH_single_shift` (the `H = {0}` reduction), over upstream definitions only,
+  with no definition holes; obligation discharged. Kernel check of the bridge in Claude's session (EV-0024, not
+  isolated): axioms propext, Classical.choice, Quot.sound.
+- LIFT-0001 (`1 + 1 = 2`) stays Compiled as the core-only verification control (a future core-only Comparator lane). Logs in
   `evidence/comparator/`.
 - Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 34 edges in total.
-  Lift states: Compiled 2, Specified 13, Proposed 3; Verified 16.
+  Lift states: Compiled 1, Specified 13, Proposed 3; Verified 17.

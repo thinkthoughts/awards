@@ -1,0 +1,90 @@
+Lean (version 4.34.0-rc2, x86_64-unknown-linux-gnu, commit 6a10ac8c22beadecabdbb0919c2b50214762f91d, Release)
+== BGP212.GDTv1Basic sha256 fd208e2151f1c205163a21d7b773b61afa409e8e974a943ac9521e5364ab8a4d
+== BGP212.MultiShift sha256 a9198ae1e746bbfcfb36b1d5c2e16faf9eb244323b9d824a7d825921958ea084
+== BGP212.GDTv1 sha256 ae758d09dc3b7a78040794b63fb917950e2c23598b36444941351d0e6767ede5
+== Solution.MultiShift sha256 7f345fe6b4ffe8e21993e658a9233f40efde0ed140e2e5338aea016c6b4f86bd
+== SurveyBridges.GDTSingleShift sha256 20b03b9e17b0dd932de36db73e385bba2bf4b1d4464f6d66437fb1d3f8a0dc75
+'BGP212.Challenge.gdtH_single_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BGP212.Challenge.gdt_count_per_period_via_multishift' depends on axioms: [propext, Classical.choice, Quot.sound]
+== audit
+@BGP212.Challenge.gdtH_single_shift : ∀ {N m : ℕ},
+  0 < N →
+    ∀ (a : ℤ),
+      (BGP212.MultiShift.AdmissibleH N m a {0} ↔ GDT.Admissible N m a) ∧
+        (∀ (n : ℕ), BGP212.MultiShift.acceptedH N m a {0} n ↔ GDT.accepted N m a n) ∧
+          BGP212.MultiShift.localCount N m {0} = (GDT.R N m).totient
+@BGP212.Challenge.gdt_count_per_period_via_multishift : ∀ {N m : ℕ},
+  0 < N →
+    0 < m →
+      ∀ {a : ℤ},
+        GDT.Admissible N m a →
+          ∀ (b : ℕ), (Finset.filter (GDT.accepted N m a) (Finset.Ico b (b + GDT.Tmin N m))).card = (GDT.R N m).totient
+'BGP212.Challenge.gdtH_single_shift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BGP212.Challenge.gdt_count_per_period_via_multishift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BGP212.Challenge.gdtH_count_per_period' depends on axioms: [propext, Classical.choice, Quot.sound]
+@BGP212.Challenge.gdtH_single_shift : ∀ {N m : Nat}
+  (hN : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) N) (a : Int),
+  And
+    (Iff
+      (BGP212.MultiShift.AdmissibleH N m a
+        (@Singleton.singleton.{0, 0} Int (Finset.{0} Int) (@Finset.instSingleton.{0} Int)
+          (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))))
+      (GDT.Admissible N m a))
+    (And
+      (∀ (n : Nat),
+        Iff
+          (BGP212.MultiShift.acceptedH N m a
+            (@Singleton.singleton.{0, 0} Int (Finset.{0} Int) (@Finset.instSingleton.{0} Int)
+              (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+            n)
+          (GDT.accepted N m a n))
+      (@Eq.{1} Nat
+        (BGP212.MultiShift.localCount N m
+          (@Singleton.singleton.{0, 0} Int (Finset.{0} Int) (@Finset.instSingleton.{0} Int)
+            (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))))
+        (Nat.totient (GDT.R N m))))
+@BGP212.Challenge.gdt_count_per_period_via_multishift : ∀ {N m : Nat}
+  (hN : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) N)
+  (hm : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) m) {a : Int}
+  (h : GDT.Admissible N m a) (b : Nat),
+  @Eq.{1} Nat
+    (@Finset.card.{0} Nat
+      (@Finset.filter.{0} Nat (GDT.accepted N m a) (GDT.acceptedDecidable N m a)
+        (@Finset.Ico.{0} Nat Nat.instPreorder Nat.instLocallyFiniteOrder b
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) b (GDT.Tmin N m)))))
+    (Nat.totient (GDT.R N m))
+== SurveyChallenge.GDTSingleShift sha256 3eea5b1df11bd0b6c37b3fa4f8918894ecf53c8b5985a4b237cfd2c4766d3aea
+/home/claude/kcheck/survey/SurveyChallenge/GDTSingleShift.lean:22:8: warning: declaration uses `sorry`
+/home/claude/kcheck/survey/SurveyChallenge/GDTSingleShift.lean:30:8: warning: declaration uses `sorry`
+== challenge types
+@BGP212.Challenge.gdtH_single_shift : ∀ {N m : Nat}
+  (hN : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) N) (a : Int),
+  And
+    (Iff
+      (BGP212.MultiShift.AdmissibleH N m a
+        (@Singleton.singleton.{0, 0} Int (Finset.{0} Int) (@Finset.instSingleton.{0} Int)
+          (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))))
+      (GDT.Admissible N m a))
+    (And
+      (∀ (n : Nat),
+        Iff
+          (BGP212.MultiShift.acceptedH N m a
+            (@Singleton.singleton.{0, 0} Int (Finset.{0} Int) (@Finset.instSingleton.{0} Int)
+              (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0))))
+            n)
+          (GDT.accepted N m a n))
+      (@Eq.{1} Nat
+        (BGP212.MultiShift.localCount N m
+          (@Singleton.singleton.{0, 0} Int (Finset.{0} Int) (@Finset.instSingleton.{0} Int)
+            (@OfNat.ofNat.{0} Int (nat_lit 0) (@instOfNat (nat_lit 0)))))
+        (Nat.totient (GDT.R N m))))
+@BGP212.Challenge.gdt_count_per_period_via_multishift : ∀ {N m : Nat}
+  (hN : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) N)
+  (hm : @LT.lt.{0} Nat instLTNat (@OfNat.ofNat.{0} Nat (nat_lit 0) (instOfNatNat (nat_lit 0))) m) {a : Int}
+  (h : GDT.Admissible N m a) (b : Nat),
+  @Eq.{1} Nat
+    (@Finset.card.{0} Nat
+      (@Finset.filter.{0} Nat (GDT.accepted N m a) (GDT.acceptedDecidable N m a)
+        (@Finset.Ico.{0} Nat Nat.instPreorder Nat.instLocallyFiniteOrder b
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) b (GDT.Tmin N m)))))
+    (Nat.totient (GDT.R N m))

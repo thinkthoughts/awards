@@ -1,0 +1,13 @@
+import SurveyBridges.GDTSingleShift
+#check @BGP212.Challenge.gdtH_single_shift
+#check @BGP212.Challenge.gdt_count_per_period_via_multishift
+#print axioms BGP212.Challenge.gdtH_single_shift
+#print axioms BGP212.Challenge.gdt_count_per_period_via_multishift
+#print axioms BGP212.Challenge.gdtH_count_per_period
+-- Gate B, as upstream states it: the re-derived statement is GDT v1.0.0's statement exactly
+example : (type_of% @BGP212.Challenge.gdt_count_per_period_via_multishift) =
+    (type_of% @BGP212.GDTv1.gdt_count_per_period) := rfl
+set_option pp.all true in
+#check @BGP212.Challenge.gdtH_single_shift
+set_option pp.all true in
+#check @BGP212.Challenge.gdt_count_per_period_via_multishift
