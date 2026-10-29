@@ -1,0 +1,22 @@
+{
+  "schema": "survey/rpi-crosswalk@1",
+  "description": "Permanent RPI assignments for preexisting RP readings; legacy IDs are retained in registry/readings.json. New reading RPIs are allocated above this baseline.",
+  "assignments": [
+    {
+      "rpi": "RPI-000001",
+      "reading_id": "RP-0001"
+    },
+    {
+      "rpi": "RPI-000002",
+      "reading_id": "RP-JSP-000009"
+    },
+    {
+      "rpi": "RPI-000003",
+      "reading_id": "RP-JSP-000029"
+    },
+    {
+      "rpi": "RPI-000004",
+      "reading_id": "RP-JSP-000041"
+    }
+  ]
+}

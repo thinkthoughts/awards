@@ -181,6 +181,42 @@ def validate(reg: dict, records: dict) -> list[str]:
                 errors.append(f"{sid}: unknown object {obj}")
         check_state(sid, s, bool(s["statement"].get("lean") or s.get("lean")))
 
+    # Stable RPI identity: legacy readings use the frozen crosswalk; new ones embed rpi.
+    crosswalk_path = SURVEY / "data" / "rpi-crosswalk.json"
+    crosswalk = json.loads(crosswalk_path.read_text(encoding="utf-8"))["assignments"]
+    allocated = {}
+    seen_legacy = set()
+    for entry in crosswalk:
+        rid, rpi = entry["reading_id"], entry["rpi"]
+        if rid in seen_legacy:
+            errors.append(f"RPI crosswalk: duplicate reading {rid}")
+        seen_legacy.add(rid)
+        if rid not in readings:
+            errors.append(f"RPI crosswalk: unknown reading {rid}")
+        if rpi in allocated:
+            errors.append(f"RPI crosswalk: duplicate {rpi}")
+        allocated[rpi] = rid
+        if rid in readings and readings[rid].get("rpi", rpi) != rpi:
+            errors.append(f"{rid}: embedded rpi conflicts with crosswalk")
+    for rid, reading in readings.items():
+        if rid not in seen_legacy:
+            rpi = reading.get("rpi")
+            if not rpi:
+                errors.append(f"{rid}: new reading requires rpi")
+            elif rpi in allocated:
+                errors.append(f"{rid}: duplicate rpi {rpi}")
+            else:
+                allocated[rpi] = rid
+            if "origin" not in reading or "source_review" not in reading:
+                errors.append(f"{rid}: new reading needs origin and source_review")
+        origin = reading.get("origin")
+        if origin and origin.get("kind") != reading["kind"]:
+            errors.append(f"{rid}: origin kind differs from reading kind")
+        if origin and origin.get("source_id") and origin["source_id"] not in sources:
+            errors.append(f"{rid}: origin source_id unknown")
+        if reading["kind"] in {"arxiv", "news", "repository", "other"} and not origin:
+            errors.append(f"{rid}: external reading needs origin")
+
     for rid, r in readings.items():
         check_lean_refs(rid, r.get("lean", []))
         if r["spec"] not in specs:
@@ -201,7 +237,7 @@ def validate(reg: dict, records: dict) -> list[str]:
                 if "text" in cat and cat["text"] != rec["description"]:
                     errors.append(f"{rid}: catalog text differs from records.json description")
         elif "jsp" in r or "catalog" in r:
-            errors.append(f"{rid}: foundational readings carry no jsp or catalog block")
+            errors.append(f"{rid}: non-JSP readings carry no jsp or catalog block")
         check_state(rid, r, bool(r["statement"].get("lean")))
 
     for eid, e in edges.items():

@@ -46,7 +46,11 @@
      "kind": {
       "enum": [
        "foundational",
-       "jsp"
+       "jsp",
+       "arxiv",
+       "news",
+       "repository",
+       "other"
       ]
      },
      "jsp": {
@@ -183,6 +187,64 @@
      "notes": {
       "type": "string",
       "minLength": 1
+     },
+     "rpi": {
+      "type": "string",
+      "pattern": "^RPI-[0-9]{6}$"
+     },
+     "origin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+       "kind",
+       "url",
+       "external_id",
+       "title"
+      ],
+      "properties": {
+       "kind": {
+        "enum": [
+         "arxiv",
+         "news",
+         "repository",
+         "jsp",
+         "foundational",
+         "other"
+        ]
+       },
+       "url": {
+        "type": "string",
+        "minLength": 1
+       },
+       "external_id": {
+        "type": "string",
+        "minLength": 1
+       },
+       "title": {
+        "type": "string",
+        "minLength": 1
+       },
+       "source_id": {
+        "type": "string",
+        "minLength": 1
+       },
+       "retrieved_at": {
+        "type": "string",
+        "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+       },
+       "revision": {
+        "type": "string",
+        "minLength": 1
+       }
+      }
+     },
+     "source_review": {
+      "enum": [
+       "discovered",
+       "reviewed",
+       "disputed",
+       "superseded"
+      ]
      }
     }
    }

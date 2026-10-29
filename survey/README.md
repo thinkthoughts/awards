@@ -161,3 +161,9 @@ general distinction, shared reading, and boundary.
   LIFT-ADM-2, LIFT-ADM-3 and LIFT-ADM-7 stay Compiled pending the landrun run on Linux.
 - Pilot readings RP-JSP-000009, RP-JSP-000029, RP-JSP-000041, with 34 edges in total.
   Lift states: Compiled 18, Specified 13, Proposed 3; Verified 0.
+
+## RPI onboarding foundation
+
+[RPI-1: Reading Point Identifiers](docs/RPI.md) extends L2 reading points to
+source-backed readings from arXiv, news and repositories without renumbering JSP
+or legacy RP identifiers. Onboarding validates against existing specifications.
