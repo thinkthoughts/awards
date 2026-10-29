@@ -33,3 +33,9 @@ This command is an illustrative *syntax* example, not a recommendation to associ
 ## RPI-2: DAM pilot
 
 RPI-000005 (CP6c.1, conditional mean-zero cross-talk), RPI-000006 (CP6c.2, exact conditional expected gap), and RPI-000007 (CP6c.3, open finite second-moment target) cite `thinkthoughts/lean-dense-associative-memory` at commit `f37611f`. The first two use `upstream-reported` evidence from the DAM release report, **not** independent survey kernel or Comparator checks; the third remains unverified. The same repository URL has distinct claim-specific external identifiers. No DAM proof files were copied or rebuilt.
+
+## RPI-3: Typed proof dependencies and research targets
+
+The `proof-dependency` relation records an explicit Lean theorem use, not a logical implication between propositions. It requires `direct-application` strength and at least one theorem in `uses`, and remains an open survey verification obligation until independently verified. `EDGE-DAM-001` records the actual `sum_cond_crossTalk_eq_zero` call in `condMean_flipEnergyGap_eq_signal`; the underlying DAM theorems were not rebuilt in the survey.
+
+The `research-target` relation records proposed progression, with `research-progression` strength and mandatory `candidate` / `prose` / `unverified` state and `open` obligation. It cannot carry Lean proof uses or evidence. `EDGE-DAM-002` links CP6c.2 to the open CP6c.3 second-moment objective without implying a proof. These relations are not members of `LIFT_RELATIONS` and do not transfer mathematical conclusions.
