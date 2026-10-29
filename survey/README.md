@@ -43,6 +43,7 @@ python3 -m unittest discover -s survey/tests -v
 survey/scripts/check_lean.sh <path-to-lean-4.34.0-rc2>          # kernel check + axiom audit
 survey/scripts/check_bridges.sh ~/lean-bgp212                    # bridge modules, against a built checkout
 survey/scripts/compare_bridges.sh ~/lean-bgp212 ~/comparator-v4.34.0-rc2   # Comparator on the pairs
+survey/scripts/compare_bridges_linux.sh ~/lean-bgp212 ~/comparator-19e111e   # Linux, landrun, shared read-only builds
 ```
 
 `compare_bridges.sh` runs Lean Comparator on each config in `lean-bridges/Comparator/`
@@ -89,7 +90,7 @@ An edge's lift state summarizes these: Proposed (prose), Specified, Compiled, an
 | --- | --- | --- |
 | Kernel acceptance and axiom audit | `kernel-checked` | Compiled |
 | Comparator acceptance without sandbox isolation (e.g. macOS, `landrun-noisolate.sh`) | `comparator-nonisolated` | Compiled |
-| Comparator acceptance under landrun on Linux | `comparator-accepted` | Verified |
+| Comparator acceptance under landrun on Linux, audited (`landrun-linux` on Landlock ABI ≥ 4, `landrun-fs-systemd` on ABI 2–3; ABI 1 rejected) | `comparator-accepted` | Verified |
 
 Comparator evidence records `isolation` (`landrun-linux` or `non-isolating`), the Comparator and
 lean4export commits and binary hashes, the runner and its hash, and the exact Comparator output;

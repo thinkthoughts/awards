@@ -17,6 +17,7 @@ Survey-local references give their file relative to survey/.
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import re
 import subprocess
@@ -32,8 +33,18 @@ LAYERS = ["sources", "objects", "specs", "readings", "edges", "evidence"]
 #   kernel-checked          kernel acceptance and axiom audit                    -> Compiled
 #   comparator-nonisolated  Comparator acceptance without sandbox isolation      -> Compiled
 #   comparator-accepted     Comparator acceptance under Linux landrun isolation  -> Verified
+#                           (landrun-linux: Landlock ABI >= 4; landrun-fs-systemd: ABI 2-3; both
+#                           with systemd read-only mounts and UNIX/IP socket denial, audited;
+#                           ABI 1 is rejected: survey/scripts/isolation_policy.py)
 LOCAL_VERIFIED = {"kernel-checked", "comparator-nonisolated", "comparator-accepted"}   # checks run for the survey
 VERIFIED = {"comparator-accepted"}
+_policy_spec = importlib.util.spec_from_file_location("isolation_policy", Path(__file__).with_name("isolation_policy.py"))
+isolation_policy = importlib.util.module_from_spec(_policy_spec)
+_policy_spec.loader.exec_module(isolation_policy)
+ISOLATED = isolation_policy.LINUX_ISOLATIONS   # Comparator isolation configurations that verify
+
+
+
 LIFT_RELATIONS = {"reading-of", "equivalent", "implies", "special-case", "closure", "cardinality-equality", "supplies-hypothesis"}
 
 
@@ -57,10 +68,15 @@ def check_schema(value, schema: dict, path: str, root: dict, errors: list[str]) 
     types = schema.get("type")
     if types is not None:
         allowed = types if isinstance(types, list) else [types]
-        pytypes = {"object": dict, "array": list, "string": str, "boolean": bool, "null": type(None)}
-        if not any(isinstance(value, pytypes[t]) for t in allowed):
+        pytypes = {"object": dict, "array": list, "string": str, "boolean": bool, "null": type(None), "integer": int}
+        if not any(isinstance(value, pytypes[t]) and not (t == "integer" and isinstance(value, bool))
+                   for t in allowed):
             errors.append(f"{path}: expected {types}")
             return
+    if isinstance(value, int) and not isinstance(value, bool) and value < schema.get("minimum", value):
+        errors.append(f"{path}: {value} is below {schema['minimum']}")
+    if isinstance(value, list) and len(value) < schema.get("minItems", 0):
+        errors.append(f"{path}: fewer than {schema['minItems']} items")
     if isinstance(value, str):
         if len(value) < schema.get("minLength", 0):
             errors.append(f"{path}: empty string")
@@ -166,7 +182,7 @@ def validate(reg: dict, records: dict) -> list[str]:
                   "comparator-accepted": {"comparator"}, "upstream-reported": {"upstream-record"}}.get(st["verification"])
         if wanted and not kinds & wanted:
             errors.append(f"{owner}: verification {st['verification']} needs evidence of kind {sorted(wanted)}")
-        if st["verification"] == "comparator-accepted" and "landrun-linux" not in isolations:
+        if st["verification"] == "comparator-accepted" and not isolations & ISOLATED:
             errors.append(f"{owner}: comparator-accepted (Verified) needs Comparator evidence run under "
                           f"Linux landrun isolation; a non-isolated run is comparator-nonisolated")
 
@@ -265,8 +281,13 @@ def validate(reg: dict, records: dict) -> list[str]:
         for dep in ev.get("dependencies", []):
             if dep not in sources:
                 errors.append(f"{vid}: dependency {dep} is absent from sources.json")
-        if ev["kind"] == "comparator" and ev.get("isolation") not in {"landrun-linux", "non-isolating"}:
-            errors.append(f"{vid}: Comparator evidence states its isolation (landrun-linux or non-isolating)")
+        if ev["kind"] == "comparator" and ev.get("isolation") not in ISOLATED | {"non-isolating"}:
+            errors.append(f"{vid}: Comparator evidence states its isolation "
+                          f"(landrun-linux, landrun-fs-systemd or non-isolating)")
+        if ev.get("isolation") in ISOLATED:
+            errors += [f"{vid}: {m}" for m in isolation_policy.audit_errors(ev["isolation"], ev.get("isolation_audit"))]
+        if "isolation_audit" in ev and ev.get("isolation") not in ISOLATED:
+            errors.append(f"{vid}: isolation_audit belongs to a Linux landrun run")
         if ev["kind"] != "comparator" and "isolation" in ev:
             errors.append(f"{vid}: isolation applies to Comparator evidence only")
         if ev["kind"] == "upstream-record":
