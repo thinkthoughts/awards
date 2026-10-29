@@ -1679,6 +1679,72 @@
    "evidence": [
     "EV-0011"
    ]
+  },
+  {
+    "id": "EDGE-DAM-001",
+    "from": "RP-RPI-000005",
+    "to": "RP-RPI-000006",
+    "relation": "proof-dependency",
+    "strength": "direct-application",
+    "statement": {
+      "math": "The CP6c.2 expected-gap proof invokes the conditional cross-talk cancellation lemma associated with CP6c.1, along with the signal/noise decomposition. This is a Lean proof dependency, not a logical implication between the propositions.",
+      "lean_name": "LeanDAM.condMean_flipEnergyGap_eq_signal"
+    },
+    "uses": [
+      {
+        "source": "lean-dense-associative-memory",
+        "name": "LeanDAM.sum_cond_crossTalk_eq_zero",
+        "kind": "theorem",
+        "file": "LeanDAM/ExpectedGap.lean"
+      },
+      {
+        "source": "lean-dense-associative-memory",
+        "name": "LeanDAM.flipEnergyGap_signal_noise_decomposition",
+        "kind": "theorem",
+        "file": "LeanDAM/Capacity.lean"
+      },
+      {
+        "source": "lean-dense-associative-memory",
+        "name": "LeanDAM.sum_targetFiber_const",
+        "kind": "theorem",
+        "file": "LeanDAM/ExpectedGap.lean"
+      },
+      {
+        "source": "lean-dense-associative-memory",
+        "name": "LeanDAM.targetFiber_card_ne_zero",
+        "kind": "theorem",
+        "file": "LeanDAM/ExpectedGap.lean"
+      }
+    ],
+    "hypotheses": [],
+    "source": "lean-dense-associative-memory pinned at f37611f; ExpectedGap.lean, proof of condMean_flipEnergyGap_eq_signal (direct term hnoise := sum_cond_crossTalk_eq_zero (polyF n) μ i t).",
+    "state": {
+      "mathematical": "established",
+      "formalization": "specified",
+      "verification": "unverified"
+    },
+    "obligation": "open",
+    "notes": "Source proof call observed in user-supplied Lean excerpt; declaration references are not survey independently recompiled. The CP6c.1 and CP6c.2 reading records separately carry upstream-reported verification. No claim that one mathematical statement logically entails the other."
+  },
+  {
+    "id": "EDGE-DAM-002",
+    "from": "RP-RPI-000006",
+    "to": "RP-RPI-000007",
+    "relation": "research-target",
+    "strength": "research-progression",
+    "statement": {
+      "math": "The open CP6c.3 exact finite second-moment objective follows CP6c.2 in the research roadmap, without a proved implication or an implemented proof of CP6c.3."
+    },
+    "uses": [],
+    "hypotheses": [],
+    "source": "lean-dense-associative-memory CP6c.3 research roadmap, pinned at f37611f.",
+    "state": {
+      "mathematical": "candidate",
+      "formalization": "prose",
+      "verification": "unverified"
+    },
+    "obligation": "open",
+    "notes": "Planning edge only: no Lean proof dependency and no formal result transferred from CP6c.2 to CP6c.3."
   }
  ]
 }

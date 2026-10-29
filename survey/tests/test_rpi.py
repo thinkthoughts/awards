@@ -14,6 +14,37 @@ import onboard_reading
 import validate_registry
 
 class RPITests(unittest.TestCase):
+    def test_dam_typed_edges_and_preserved_graph(self):
+        reg=validate_registry.load_registry()
+        ed={e['id']:e for e in reg['edges']['edges']}
+        self.assertEqual(len(ed),36)
+        self.assertEqual(ed['EDGE-DAM-001']['relation'],'proof-dependency')
+        self.assertIn('LeanDAM.sum_cond_crossTalk_eq_zero',[u['name'] for u in ed['EDGE-DAM-001']['uses']])
+        self.assertEqual(ed['EDGE-DAM-002']['relation'],'research-target')
+        self.assertEqual(validate_registry.validate(reg,validate_registry.load_records()),[])
+
+    def test_research_target_cannot_claim_proof(self):
+        reg=copy.deepcopy(validate_registry.load_registry())
+        target=next(e for e in reg['edges']['edges'] if e['id']=='EDGE-DAM-002')
+        target['state']['verification']='comparator-accepted'
+        target['obligation']='discharged'
+        errors=validate_registry.validate(reg,validate_registry.load_records())
+        self.assertTrue(any('research-target must remain' in e for e in errors),errors)
+
+    def test_research_target_must_not_cite_theorems(self):
+        reg=copy.deepcopy(validate_registry.load_registry())
+        target=next(e for e in reg['edges']['edges'] if e['id']=='EDGE-DAM-002')
+        target['uses']=[{'source':'lean-dense-associative-memory','name':'LeanDAM.not_a_proof','kind':'theorem','file':'LeanDAM/ExpectedGap.lean'}]
+        errors=validate_registry.validate(reg,validate_registry.load_records())
+        self.assertTrue(any('research-target cannot cite' in e for e in errors),errors)
+
+    def test_proof_dependency_must_cite_theorem(self):
+        reg=copy.deepcopy(validate_registry.load_registry())
+        dep=next(e for e in reg['edges']['edges'] if e['id']=='EDGE-DAM-001')
+        dep['uses']=[]
+        errors=validate_registry.validate(reg,validate_registry.load_records())
+        self.assertTrue(any('proof-dependency must cite' in e for e in errors),errors)
+
     def test_multiple_claims_same_repository_url(self):
         with tempfile.TemporaryDirectory() as tmp:
             regdir = Path(tmp) / 'registry'

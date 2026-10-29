@@ -61,7 +61,9 @@
        "supplies-hypothesis",
        "analogy",
        "membership",
-       "scope-boundary"
+       "scope-boundary",
+       "proof-dependency",
+       "research-target"
       ]
      },
      "strength": {
@@ -71,7 +73,8 @@
        "structural-analogy",
        "general-distinction",
        "shared-reading",
-       "boundary"
+       "boundary",
+       "research-progression"
       ]
      },
      "statement": {

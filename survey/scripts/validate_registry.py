@@ -263,6 +263,25 @@ def validate(reg: dict, records: dict) -> list[str]:
         check_lean_refs(eid, e.get("uses", []))
         roles = [h["role"] for h in e["hypotheses"]]
         strength, relation = e["strength"], e["relation"]
+        if relation == "proof-dependency":
+            if strength != "direct-application":
+                errors.append(f"{eid}: proof-dependency requires direct-application strength")
+            if not e.get("uses") or not any(u["kind"] == "theorem" for u in e["uses"]):
+                errors.append(f"{eid}: proof-dependency must cite an explicit Lean theorem in uses")
+            if e["state"]["mathematical"] != "established":
+                errors.append(f"{eid}: proof-dependency must be an established source-level relationship")
+        if relation == "research-target":
+            if strength != "research-progression":
+                errors.append(f"{eid}: research-target requires research-progression strength")
+            if (e["state"]["mathematical"] != "candidate"
+                    or e["state"]["formalization"] != "prose"
+                    or e["state"]["verification"] != "unverified"
+                    or e["obligation"] != "open"):
+                errors.append(f"{eid}: research-target must remain candidate/prose/unverified/open")
+            if e.get("uses") or e.get("evidence"):
+                errors.append(f"{eid}: research-target cannot cite Lean proof use or verification evidence")
+        if strength == "research-progression" and relation != "research-target":
+            errors.append(f"{eid}: research-progression strength is reserved for research-target")
         if strength == "conditional-implication" and "assumption" not in roles:
             errors.append(f"{eid}: a conditional implication names at least one assumption")
         if strength == "direct-application" and "assumption" in roles:
