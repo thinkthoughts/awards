@@ -62,6 +62,13 @@
    "url": "https://github.com/thinkthoughts/mathematical-basis",
    "commit": "e571a609caa7508f2c12b543975cb8de8bf6cd90",
    "notes": "papers/SCOPE.md: general distinction, structural analogy, direct theorem application; reading points."
+  },
+  {
+   "id": "lean-dense-associative-memory",
+   "repository": "thinkthoughts/lean-dense-associative-memory",
+   "url": "https://github.com/thinkthoughts/lean-dense-associative-memory",
+   "commit": "f37611f494cfe5a977cbccba5e752e45a888895f",
+   "notes": "RPI-2 intake from pinned clean checkout. REPORT.md records CP6c.1–CP6c.2 checks at earlier commits 6d77ae7 and 3d120ab; the documentation-only revision is not itself a fresh kernel run."
   }
  ]
 }

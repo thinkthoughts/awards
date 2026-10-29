@@ -962,6 +962,46 @@
     "exit_status": "user-reported success (echoed outside the log)"
    },
    "notes": "Non-isolated Comparator acceptance: the runner provided no sandbox, so this records comparator-nonisolated; the three lifts stay Compiled with their obligations open until a Comparator run under landrun on Linux (survey/docs/COMPARATOR_RUNS.md). compare_script_sha256 is the committed script of this run (the log prints its independence-check output, not the script hash). Solution sources are the kernel-checked modules of EV-0007 (AdmissibleSubset, AdmissiblePair) and EV-0009 (ResidueNu), unchanged."
+  },
+  {
+   "id": "EV-DAM-CP6C1",
+   "layer": "L4",
+   "subjects": [
+    "SPEC-dam-mean-zero-crosstalk",
+    "RP-RPI-000005"
+   ],
+   "kind": "upstream-record",
+   "source": "lean-dense-associative-memory",
+   "declarations": [
+    "LeanDAM.condMean_crossTalk_eq_zero"
+   ],
+   "result": "DAM REPORT.md reports kernel verification of CP6c.1 conditional mean-zero cross-talk at 6d77ae7; not independently reproduced by the awards survey.",
+   "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "notes": "Source revision f37611f documents earlier proof commit 6d77ae7; consult REPORT.md, LeanDAM/CrossTalk.lean, and verification/ before upgrading evidence status."
+  },
+  {
+   "id": "EV-DAM-CP6C2",
+   "layer": "L4",
+   "subjects": [
+    "SPEC-dam-expected-gap",
+    "RP-RPI-000006"
+   ],
+   "kind": "upstream-record",
+   "source": "lean-dense-associative-memory",
+   "declarations": [
+    "LeanDAM.condMean_flipEnergyGap_eq_signal"
+   ],
+   "result": "DAM REPORT.md reports kernel verification of CP6c.2 exact conditional expected gap at 3d120ab; not independently reproduced by the awards survey.",
+   "permitted_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "notes": "Source revision f37611f documents earlier proof commit 3d120ab; consult REPORT.md, LeanDAM/ExpectedGap.lean, and verification/ before upgrading evidence status."
   }
  ]
 }

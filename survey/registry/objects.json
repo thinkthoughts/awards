@@ -236,6 +236,46 @@
     "verification": "unverified"
    },
    "notes": "Upstream definition at lean-bgp212 89b43fa; the upstream record EV-UP-B1 lists BGP212.MultiShift.localCount among its declarations. Survey-local results about it: LIFT-GDT-2 to LIFT-GDT-4."
+  },
+  {
+   "id": "OBJ-dam-cross-talk",
+   "layer": "L0",
+   "name": "Finite cross-talk under a target-coordinate fiber",
+   "definition": "Finite-pattern cross-talk observable, with a fixed memory index and target pattern; conditional mean is the uniform average over the corresponding nonempty finite fiber.",
+   "lean": [
+    {
+     "source": "lean-dense-associative-memory",
+     "name": "crossTalk",
+     "kind": "def",
+     "file": "LeanDAM/CrossTalk.lean"
+    }
+   ],
+   "state": {
+    "mathematical": "defined",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "notes": "Source-pinned definition reference; no independent survey build performed."
+  },
+  {
+   "id": "OBJ-dam-one-flip-gap",
+   "layer": "L0",
+   "name": "One-flip energy gap and deterministic signal",
+   "definition": "Polynomial-separation one-coordinate flip-energy gap and oneFlipSignal N n = N^n − (N−2)^n, with a uniform finite target-fiber average.",
+   "lean": [
+    {
+     "source": "lean-dense-associative-memory",
+     "name": "flipEnergyGap",
+     "kind": "def",
+     "file": "LeanDAM/Capacity.lean"
+    }
+   ],
+   "state": {
+    "mathematical": "defined",
+    "formalization": "specified",
+    "verification": "unverified"
+   },
+   "notes": "Source-pinned definition reference; no independent survey build performed."
   }
  ]
 }
