@@ -180,6 +180,129 @@
     "formalization": "specified",
     "verification": "unverified"
    }
+  },
+  {
+   "id": "RP-RPI-000005",
+   "rpi": "RPI-000005",
+   "layer": "L2",
+   "kind": "repository",
+   "origin": {
+    "kind": "repository",
+    "url": "https://github.com/thinkthoughts/lean-dense-associative-memory",
+    "external_id": "thinkthoughts/lean-dense-associative-memory#mean-zero-crosstalk",
+    "title": "Conditional mean-zero cross-talk",
+    "source_id": "lean-dense-associative-memory",
+    "revision": "f37611f494cfe5a977cbccba5e752e45a888895f"
+   },
+   "source_review": "reviewed",
+   "spec": "SPEC-dam-mean-zero-crosstalk",
+   "parameters": {},
+   "statement": {
+    "math": "For any real separation function F, the uniform target-fiber conditional mean of crossTalk F equals zero, on the finite Boolean pattern product space.",
+    "lean_name": "LeanDAM.condMean_crossTalk_eq_zero"
+   },
+   "leading_constraints": [
+    "Finite neuron and memory types with decidable equality; patterns range over a finite Boolean product; fixed target coordinate fiber.",
+    "The statement holds for arbitrary F : ℝ → ℝ."
+   ],
+   "excluded_generalizations": [
+    "Does not imply zero variance, Gaussian error estimates, or retrieval capacity."
+   ],
+   "state": {
+    "mathematical": "proved",
+    "formalization": "prose",
+    "verification": "upstream-reported"
+   },
+   "notes": "CP6c.1 and CP6c.2 are reported as kernel verified by the DAM repository, not independently survey verified. CP6c.3 is open.",
+   "lean": [
+    {
+     "source": "lean-dense-associative-memory",
+     "name": "LeanDAM.condMean_crossTalk_eq_zero",
+     "kind": "theorem",
+     "file": "LeanDAM/CrossTalk.lean"
+    }
+   ],
+   "evidence": [
+    "EV-DAM-CP6C1"
+   ]
+  },
+  {
+   "id": "RP-RPI-000006",
+   "rpi": "RPI-000006",
+   "layer": "L2",
+   "kind": "repository",
+   "origin": {
+    "kind": "repository",
+    "url": "https://github.com/thinkthoughts/lean-dense-associative-memory",
+    "external_id": "thinkthoughts/lean-dense-associative-memory#expected-gap",
+    "title": "Exact conditional expected one-flip gap",
+    "source_id": "lean-dense-associative-memory",
+    "revision": "f37611f494cfe5a977cbccba5e752e45a888895f"
+   },
+   "source_review": "reviewed",
+   "spec": "SPEC-dam-expected-gap",
+   "parameters": {},
+   "statement": {
+    "math": "The conditional target-fiber average of the one-flip energy gap for polyF n equals the exact signal N^n − (N−2)^n, for every n.",
+    "lean_name": "LeanDAM.condMean_flipEnergyGap_eq_signal"
+   },
+   "leading_constraints": [
+    "Polynomial separation polyF n, finite Boolean pattern model, uniform target fiber.",
+    "Exact finite identity; no asymptotic size regime."
+   ],
+   "excluded_generalizations": [
+    "Does not establish the large-N approximation, error probability, variance, or capacity scaling."
+   ],
+   "state": {
+    "mathematical": "proved",
+    "formalization": "prose",
+    "verification": "upstream-reported"
+   },
+   "notes": "CP6c.1 and CP6c.2 are reported as kernel verified by the DAM repository, not independently survey verified. CP6c.3 is open.",
+   "lean": [
+    {
+     "source": "lean-dense-associative-memory",
+     "name": "LeanDAM.condMean_flipEnergyGap_eq_signal",
+     "kind": "theorem",
+     "file": "LeanDAM/ExpectedGap.lean"
+    }
+   ],
+   "evidence": [
+    "EV-DAM-CP6C2"
+   ]
+  },
+  {
+   "id": "RP-RPI-000007",
+   "rpi": "RPI-000007",
+   "layer": "L2",
+   "kind": "repository",
+   "origin": {
+    "kind": "repository",
+    "url": "https://github.com/thinkthoughts/lean-dense-associative-memory",
+    "external_id": "thinkthoughts/lean-dense-associative-memory#second-moment",
+    "title": "Finite second moment of the one-flip noise",
+    "source_id": "lean-dense-associative-memory",
+    "revision": "f37611f494cfe5a977cbccba5e752e45a888895f"
+   },
+   "source_review": "reviewed",
+   "spec": "SPEC-dam-second-moment",
+   "parameters": {},
+   "statement": {
+    "math": "Determine and prove the exact finite conditional second moment (and resulting variance) of the noise/cross-talk term under the DAM finite uniform pattern model."
+   },
+   "leading_constraints": [
+    "Target-fiber conditional averaging over a finite Boolean product model.",
+    "Define the exact second-moment expression and account for repeated-index correlations."
+   ],
+   "excluded_generalizations": [
+    "No claimed Lean proof, Gaussian approximation, or capacity theorem."
+   ],
+   "state": {
+    "mathematical": "open",
+    "formalization": "prose",
+    "verification": "unverified"
+   },
+   "notes": "CP6c.1 and CP6c.2 are reported as kernel verified by the DAM repository, not independently survey verified. CP6c.3 is open."
   }
  ]
 }

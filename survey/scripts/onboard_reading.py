@@ -6,7 +6,7 @@ Example (run from repository root):
    --external-id example/repo --title 'Example reading' --spec SPEC-nat-add-one \
    --statement 'An explicitly described mathematical reading' --dry-run
 
-An existing L1 specification is required. Onboarding does not imply a Lean proof.
+An existing L1 specification is required. Distinct claim-specific external IDs can share one URL. Onboarding does not imply a Lean proof.
 """
 import argparse
 import json
@@ -31,7 +31,7 @@ def create(kind, url, external_id, title, spec, statement, dry_run=False, regist
     readings=reg['readings']['readings']
     for r in readings:
         origin=r.get('origin',{})
-        if origin.get('kind')==kind and (origin.get('external_id')==external_id or origin.get('url')==url):
+        if origin.get('kind')==kind and origin.get('external_id')==external_id:
             raise ValueError(f'duplicate source reading: {r["id"]}')
     crosswalk=json.loads(CROSSWALK.read_text(encoding='utf-8'))['assignments']
     occupied={x['rpi'] for x in crosswalk}|{r.get('rpi') for r in readings}

@@ -14,12 +14,28 @@ import onboard_reading
 import validate_registry
 
 class RPITests(unittest.TestCase):
+    def test_multiple_claims_same_repository_url(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            regdir = Path(tmp) / 'registry'
+            regdir.mkdir()
+            for layer in validate_registry.LAYERS:
+                (regdir / f"{layer}.json").write_bytes((validate_registry.REGISTRY / f"{layer}.json").read_bytes())
+            url = 'https://github.com/example/shared-research'
+            a = onboard_reading.create('repository', url, 'example/shared-research#claim-a', 'First claim',
+                       'SPEC-nat-add-one', 'First reading', registry_dir=regdir)
+            b = onboard_reading.create('repository', url, 'example/shared-research#claim-b', 'Second claim',
+                       'SPEC-nat-add-one', 'Second reading', registry_dir=regdir)
+            self.assertNotEqual(a['rpi'], b['rpi'])
+            with self.assertRaisesRegex(ValueError, 'duplicate source reading'):
+                onboard_reading.create('repository', url, 'example/shared-research#claim-a', 'Duplicate',
+                       'SPEC-nat-add-one', 'Duplicate reading', registry_dir=regdir)
+
     def test_baseline_registry_unchanged_and_valid(self):
         self.assertEqual(validate_registry.validate(validate_registry.load_registry(),validate_registry.load_records()),[])
     def test_unique_crosswalk(self):
         reg=validate_registry.load_registry()
         assignments=json.loads(onboard_reading.CROSSWALK.read_text())['assignments']
-        self.assertEqual(set(x['reading_id'] for x in assignments),{r['id'] for r in reg['readings']['readings']})
+        self.assertEqual(set(x['reading_id'] for x in assignments),{r['id'] for r in reg['readings']['readings'] if not r.get('rpi')})
         self.assertEqual(len({x['rpi'] for x in assignments}),len(assignments))
     def make(self,directory,dry_run=False):
         return onboard_reading.create('repository','https://github.com/test/example','test/example','Sample','SPEC-nat-add-one','A candidate reading, not a proof',dry_run=dry_run,registry_dir=directory)

@@ -478,6 +478,107 @@
    "evidence": [
     "EV-0008"
    ]
+  },
+  {
+   "id": "SPEC-dam-mean-zero-crosstalk",
+   "layer": "L1",
+   "name": "Conditional mean-zero cross-talk",
+   "parameters": [],
+   "statement": {
+    "math": "For any real separation function F, the uniform target-fiber conditional mean of crossTalk F equals zero, on the finite Boolean pattern product space.",
+    "lean_name": "LeanDAM.condMean_crossTalk_eq_zero"
+   },
+   "objects": [
+    "OBJ-dam-cross-talk"
+   ],
+   "leading_constraints": [
+    "Finite neuron and memory types with decidable equality; patterns range over a finite Boolean product; fixed target coordinate fiber.",
+    "The statement holds for arbitrary F : ℝ → ℝ."
+   ],
+   "excluded_generalizations": [
+    "Does not imply zero variance, Gaussian error estimates, or retrieval capacity."
+   ],
+   "state": {
+    "mathematical": "proved",
+    "formalization": "specified",
+    "verification": "upstream-reported"
+   },
+   "notes": "RPI-2 reading from pinned DAM documentation; scope must be checked against exact Lean source for independent verification.",
+   "lean": [
+    {
+     "source": "lean-dense-associative-memory",
+     "name": "LeanDAM.condMean_crossTalk_eq_zero",
+     "kind": "theorem",
+     "file": "LeanDAM/CrossTalk.lean"
+    }
+   ],
+   "evidence": [
+    "EV-DAM-CP6C1"
+   ]
+  },
+  {
+   "id": "SPEC-dam-expected-gap",
+   "layer": "L1",
+   "name": "Exact conditional expected one-flip gap",
+   "parameters": [],
+   "statement": {
+    "math": "The conditional target-fiber average of the one-flip energy gap for polyF n equals the exact signal N^n − (N−2)^n, for every n.",
+    "lean_name": "LeanDAM.condMean_flipEnergyGap_eq_signal"
+   },
+   "objects": [
+    "OBJ-dam-cross-talk",
+    "OBJ-dam-one-flip-gap"
+   ],
+   "leading_constraints": [
+    "Polynomial separation polyF n, finite Boolean pattern model, uniform target fiber.",
+    "Exact finite identity; no asymptotic size regime."
+   ],
+   "excluded_generalizations": [
+    "Does not establish the large-N approximation, error probability, variance, or capacity scaling."
+   ],
+   "state": {
+    "mathematical": "proved",
+    "formalization": "specified",
+    "verification": "upstream-reported"
+   },
+   "notes": "RPI-2 reading from pinned DAM documentation; scope must be checked against exact Lean source for independent verification.",
+   "lean": [
+    {
+     "source": "lean-dense-associative-memory",
+     "name": "LeanDAM.condMean_flipEnergyGap_eq_signal",
+     "kind": "theorem",
+     "file": "LeanDAM/ExpectedGap.lean"
+    }
+   ],
+   "evidence": [
+    "EV-DAM-CP6C2"
+   ]
+  },
+  {
+   "id": "SPEC-dam-second-moment",
+   "layer": "L1",
+   "name": "Finite second moment of the one-flip noise",
+   "parameters": [],
+   "statement": {
+    "math": "Determine and prove the exact finite conditional second moment (and resulting variance) of the noise/cross-talk term under the DAM finite uniform pattern model."
+   },
+   "objects": [
+    "OBJ-dam-cross-talk",
+    "OBJ-dam-one-flip-gap"
+   ],
+   "leading_constraints": [
+    "Target-fiber conditional averaging over a finite Boolean product model.",
+    "Define the exact second-moment expression and account for repeated-index correlations."
+   ],
+   "excluded_generalizations": [
+    "No claimed Lean proof, Gaussian approximation, or capacity theorem."
+   ],
+   "state": {
+    "mathematical": "open",
+    "formalization": "prose",
+    "verification": "unverified"
+   },
+   "notes": "RPI-2 reading from pinned DAM documentation; scope must be checked against exact Lean source for independent verification."
   }
  ]
 }
